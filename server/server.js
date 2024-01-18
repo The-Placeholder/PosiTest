@@ -1,19 +1,26 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import {Pool} from 'pg';
+import pg from 'pg';
 
 dotenv.config();
 
+const { Pool } = pg;
 const app = express();
 const port = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(express.json());
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
+
+//  ------------------------------------------------------------ MIDDLEWARE
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static('./public'))
+
+//  ------------------------------------------------------------ DB API ROUTES
+
 
 /* Example route to query the database */
 app.get('/instructor/:id', async (req, res) => {
