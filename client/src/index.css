@@ -1,6 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --G-Blue: #0B0F4A;
+  --G-Orange: #F06D49;
+  --G-LightO: #FFA264;
+  --G-GreyBlue: #E0EAF9;
+  --G-White: #FFFFFF;
+}
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  transition: .5s all ease;
+}
+
+body{
+  color:black;
+  background-color: white;
+  height: 100vh;
+  width:100%;
+  /* padding: 0 5rem; */
 }
 
 #loggingIn {
