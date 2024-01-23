@@ -1,4 +1,4 @@
-import logo from '../../public/galvanize-logo-orange.png';
+import logo from '/galvanize-logo-orange.png';
 
 const NavBar = () => {
   return (
