@@ -9,18 +9,20 @@ export default function App() {
   return (
     <>
       <NavBar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Login />} />
-          </Route>
-          <Route
-            path="/ExaminerLanding"
-            ExaminerLanding
-            element={<ExaminerLanding />}
-          />
-        </Routes>
-      </BrowserRouter>
+      <div id="body-ctn">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Login />} />
+            </Route>
+            <Route
+              path="/ExaminerLanding"
+              ExaminerLanding
+              element={<ExaminerLanding />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </>
   );
 }

@@ -19,12 +19,18 @@
 }
 
 body {
-  color: black;
-  background-color: var(--G-GreyBlue);
-  height: 100vh;
-  width: 100%;
+  /* background-color: var(--G-White); */
+  background-color: rgb(228, 228, 228);
   overflow: hidden;
-  /* padding: 0 5rem; */
+}
+
+#body-ctn {
+  margin: 0 auto;
+  /* margin-top: 4rem; */
+  height: 95vh;
+  width: 95%;
+  position: relative;
+  overflow-y: hidden;
 }
 
 #loggingIn {
@@ -32,9 +38,29 @@ body {
   height: 25px;
 }
 
-.ctn {
-  border: 1px solid black;
+.bg-g-blue {
+  background-color: var(--G-Blue);
 }
+
+.bg-g-greyblue {
+  background-color: var(--G-GreyBlue);
+}
+
+.bg-g-orange {
+  background-color: var(--G-LightO);
+}
+
+.g-orange {
+  color: var(--G-Orange);
+}
+
+.g-lightorange {
+  color: var(--G-LightO);
+}
+
+/* .ctn {
+  border: 1px solid black;
+} */
 
 #contents-ctn {
   background-color: var(--G-White);

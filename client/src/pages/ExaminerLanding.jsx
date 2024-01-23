@@ -23,19 +23,27 @@ const ExaminerLanding = () => {
     <>
       <div
         id="contents-ctn"
-        className="ctn flex flex-row flex-nowrap gap-8 justify-evenly mx-auto my-5 w-[95%] h-full"
+        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 p-5 h-full rounded-2xl "
       >
-        <div id="lobby-ctn" className="w-7/12 m-4 flex pb-10 h-full">
+        <div
+          id="lobby-ctn"
+          className="w-7/12 flex flex-wrap h-full overflow-y-auto"
+        >
+          <h1 className="w-full text-center text-5xl font-bold text-black mt-3 self-center">
+            Student Lobbies
+          </h1>
           <div
             id="usercard-ctn"
-            className="w-full flex flex-row flex-wrap gap-5 h-screen justify-evenly overflow-scroll py-4 mb-4"
+            className="ctn flex flex-wrap gap-5 justify-evenly p-9 mb-16"
           >
             {users.map((user) => (
-              <div className="card w-5/12 ctn shadow-xl">
-                <div className="card-body items-center text-center">
-                  <h2 className="card-title">{user.username}</h2>
+              <div className="card w-5/12 h-36 shadow-xl flex justify-center content-center bg-g-greyblue ">
+                <div className="card-body items-center text-center text-black">
+                  <h2 className="card-title text-3xl">{user.username}</h2>
                   <div className="card-actions">
-                    <button className="btn btn-primary">Select</button>
+                    <button className="btn btn-primary opacity-75">
+                      Select
+                    </button>
                   </div>
                 </div>
               </div>
@@ -45,8 +53,8 @@ const ExaminerLanding = () => {
           {/* End of usercard-ctn */}
         </div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-full">
-          chats
+        <div id="chatroom-ctn" className="ctn w-4/12 h-screen">
+          <h1>chat component</h1>
         </div>
       </div>
       {/* End of content-ctn */}
