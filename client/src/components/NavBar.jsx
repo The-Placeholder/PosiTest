@@ -3,15 +3,16 @@ import logo from '/galvanize-logo-orange.png';
 const NavBar = () => {
   return (
     <>
-      <div className="navbar bg-g-blue top-0 z-50 h-24">
-        <div className="flex-1 flex relative">
+      <div className="navbar bg-g-blue top-0 z-50 h-24 flex flex-row justify-between">
+        <div className="flex relative">
           <a
             href="#"
-            className="w-36 content-center justify-center absolute top-[-15px] mx-2"
+            className="w-44 content-center justify-center absolute top-[-15px] mx-2"
           >
             <img src={logo} alt="galvanize logo" className="object-fit" />
           </a>
         </div>
+        <div className="text-white text-4xl">Testing-suite</div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div
