@@ -23,23 +23,26 @@ const ExaminerLanding = () => {
     <>
       <div
         id="contents-ctn"
-        className="ctn flex flex-row flex-nowrap gap-8 justify-evenly mx-2 h-screen"
+        className="ctn flex flex-row flex-nowrap gap-8 justify-evenly mx-auto my-5 w-[95%] h-full"
       >
-        <div
-          id="lobby-ctn"
-          className="ctn w-7/12 flex flex-row flex-wrap gap-5 justify-evenly content-center h-full overflow-scroll pt-20"
-        >
-          {users.map((user) => (
-            <div className="card w-5/12 ctn shadow-xl">
-              <div className="card-body items-center text-center">
-                <h2 className="card-title">{user.username}</h2>
-                <div className="card-actions">
-                  <button className="btn btn-primary">Select</button>
+        <div id="lobby-ctn" className="w-7/12 m-4 flex pb-10 h-full">
+          <div
+            id="usercard-ctn"
+            className="w-full flex flex-row flex-wrap gap-5 h-screen justify-evenly overflow-scroll py-4 mb-4"
+          >
+            {users.map((user) => (
+              <div className="card w-5/12 ctn shadow-xl">
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">{user.username}</h2>
+                  <div className="card-actions">
+                    <button className="btn btn-primary">Select</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-          {/* End of card-ctn */}
+            ))}
+            {/* End of card-ctn */}
+          </div>
+          {/* End of usercard-ctn */}
         </div>
         {/* End of lobby-ctn */}
         <div id="chatroom-ctn" className="ctn w-4/12 h-full">

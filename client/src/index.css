@@ -8,6 +8,7 @@
   --G-LightO: #ffa264;
   --G-GreyBlue: #e0eaf9;
   --G-White: #ffffff;
+  --G-Green: #85d3c4;
 }
 
 * {
@@ -19,9 +20,10 @@
 
 body {
   color: black;
-  background-color: white;
+  background-color: var(--G-GreyBlue);
   height: 100vh;
   width: 100%;
+  overflow: hidden;
   /* padding: 0 5rem; */
 }
 
@@ -32,4 +34,8 @@ body {
 
 .ctn {
   border: 1px solid black;
+}
+
+#contents-ctn {
+  background-color: var(--G-White);
 }
