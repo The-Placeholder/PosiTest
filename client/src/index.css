@@ -8,6 +8,7 @@
   --G-LightO: #ffa264;
   --G-GreyBlue: #e0eaf9;
   --G-White: #ffffff;
+  --G-BG-Gray: background-color: rgb(228, 228, 228);
   --G-Green: #85d3c4;
 }
 
@@ -58,9 +59,13 @@ body {
   color: var(--G-LightO);
 }
 
-/* .ctn {
+.g-bg-grey {
+  background-color: var(--G-BG-Gray);
+}
+
+.ctn {
   border: 1px solid black;
-} */
+}
 
 #contents-ctn {
   background-color: var(--G-White);
