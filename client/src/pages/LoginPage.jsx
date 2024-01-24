@@ -1,7 +1,7 @@
 const LoginPage = () => {
   return (
     <>
-      <div className="ctn fixed top-0 left-0 w-full h-full g-bg-gray z-20">
+      <div className="ctn fixed top-0 left-0 w-full h-full g-bg-gray z-30">
         <div
           id="contents-ctn"
           className="ctn mt-36 w-[80%] flex flex-col mx-auto rounded-2xl"
