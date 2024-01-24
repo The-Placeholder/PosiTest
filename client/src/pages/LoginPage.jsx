@@ -5,10 +5,10 @@ const LoginPage = ({ setnavTitle }) => {
 
   return (
     <>
-      <div className="ctn fixed top-0 left-0 w-full h-full g-bg-gray z-30">
+      <div className="ctn fixed top-0 left-0 w-full h-full bg-g-gray z-20">
         <div
           id="contents-ctn"
-          className="ctn mt-36 w-[80%] flex flex-col mx-auto rounded-2xl gap-12"
+          className="ctn mt-36 w-[40%] flex flex-col mx-auto rounded-2xl gap-12"
         >
           <div id="login-title" className="flex flex-col items-center py-10">
             <h1 className="text-5xl text-black font-bold">

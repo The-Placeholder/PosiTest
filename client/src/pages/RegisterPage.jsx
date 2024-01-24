@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 const RegisterPage = () => {
   return (
     <>
-      <div className="ctn fixed top-0 left-0 w-full h-full g-bg-gray z-20">
+      <div className="ctn fixed top-0 left-0 w-full h-full bg-g-gray z-20">
         <div
           id="contents-ctn"
-          className="ctn mt-36 w-[80%] flex flex-col mx-auto rounded-2xl"
+          className="ctn mt-36 w-[40%] flex flex-col mx-auto rounded-2xl"
         >
           <div
             id="registration-title"
             className="flex flex-col items-center py-10"
           >
-            <h1 className="text-2xl text-black">Registration Information</h1>
+            <h1 className="text-5xl text-black">Registration Information</h1>
           </div>
           <div id="registration-inputs" className="flex flex-col items-center ">
             <div className="flex gap-1">
@@ -48,7 +48,9 @@ const RegisterPage = () => {
             className="flex align-middle justify-center m-5 pb-3"
           >
             <Link to="/LoginPage">
-              <button className="btn btn-primary opacity-75">Submit</button>
+              <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
+                Submit
+              </button>
             </Link>
           </div>
         </div>
