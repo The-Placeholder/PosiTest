@@ -6,7 +6,7 @@ const LoginPage = () => {
         className="ctn mt-36 w-[80%] flex flex-col mx-auto rounded-2xl"
       >
         <div id="login-title" className="flex flex-col items-center py-10">
-          <h1 className="text-2xl text-">Galvanize Test Suite</h1>
+          <h1 className="text-2xl text-black">Galvanize Test Suite</h1>
         </div>
         <div id="login-inputs" className="flex flex-col items-center ">
           <input
