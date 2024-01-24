@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import NavBar from './components/NavBar';
 import ExaminerLanding from './pages/ExaminerLanding';
 import HeroLanding from './pages/HeroLanding';
+import TestingSuite from './pages/TestingSuite';
 
 export default function App() {
   const [navHide, setnavHide] = useState(false);
@@ -44,6 +45,11 @@ export default function App() {
               path="/ExaminerLanding"
               ExaminerLanding
               element={<ExaminerLanding setnavTitle={setnavTitle} />}
+            />
+            <Route
+              path="/TestingSuite"
+              TestingSuite
+              element={<TestingSuite setnavTitle={setnavTitle} />}
             />
           </Routes>
         </div>
