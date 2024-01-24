@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Login from './pages/Login';
+import LoginPage from './pages/LoginPage';
 import NavBar from './components/NavBar';
 import ExaminerLanding from './pages/ExaminerLanding';
 
@@ -15,6 +16,7 @@ export default function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Login />} />
             </Route>
+            <Route path="/LoginPage" LoginPage element={<LoginPage />} />
             <Route
               path="/ExaminerLanding"
               ExaminerLanding
