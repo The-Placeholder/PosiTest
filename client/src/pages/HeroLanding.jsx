@@ -2,6 +2,7 @@ import longlogo from '/galvanize-logo-orange.png';
 
 const HeroLanding = ({ setnavHide, newUserHandler }) => {
   setnavHide(true);
+  // newUserHandler(true);
 
   return (
     <>

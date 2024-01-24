@@ -13,8 +13,8 @@ import HeroLanding from './pages/HeroLanding';
 export default function App() {
   const [navHide, setnavHide] = useState(false);
   const [newUser, setnewUser] = useState(true);
-  const newUserHandler = () => {
-    setnewUser(false);
+  const newUserHandler = (bool) => {
+    setnewUser(bool);
   };
 
   return (
