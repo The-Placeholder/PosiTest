@@ -1,9 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --G-Blue: #0b0f4a;
+  --G-Orange: #f06d49;
+  --G-LightO: #ffa264;
+  --G-GreyBlue: #e0eaf9;
+  --G-White: #ffffff;
+  --G-BG-Gray: rgb(228, 228, 228);
+  --G-Green: #85d3c4;
+}
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  transition: 0.5s all ease;
+}
+
+body {
+  /* background-color: var(--G-White); */
+  background-color: rgb(228, 228, 228);
+  height: 100vh;
+  overflow: hidden;
+}
+
+#body-ctn {
+  margin: 0 auto;
+  /* margin-top: 4rem; */
+  height: 95vh;
+  width: 95%;
+  position: relative;
+  overflow-y: hidden;
 }
 
 #loggingIn {
   width: 50px;
   height: 25px;
+}
+
+.bg-g-blue {
+  background-color: var(--G-Blue);
+}
+
+.bg-g-greyblue {
+  background-color: var(--G-GreyBlue);
+}
+
+.bg-g-orange {
+  background-color: var(--G-LightO);
+}
+
+.g-orange {
+  color: var(--G-Orange);
+}
+
+.g-lightorange {
+  color: var(--G-LightO);
+}
+
+.g-bg-gray {
+  background-color: var(--G-BG-Gray);
+}
+
+.ctn {
+  border: 1px solid black;
+}
+
+#contents-ctn {
+  background-color: var(--G-White);
 }
