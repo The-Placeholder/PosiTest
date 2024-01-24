@@ -8,43 +8,40 @@ import NavBar from './components/NavBar';
 import ExaminerLanding from './pages/ExaminerLanding';
 import HeroLanding from './pages/HeroLanding';
 
-/* TODO 
-  - check if new user, new user show hero?
-*/
 export default function App() {
   const [navHide, setnavHide] = useState(false);
+  const [navTitle, setnavTitle] = useState('');
+  const [role, setRole] = useState(null);
   const [newUser, setnewUser] = useState(true);
-  const newUserHandler = () => {
-    setnewUser(false);
-  };
 
   return (
     <>
-      {navHide ? '' : <NavBar />}
-      <div id="body-ctn">
-        <BrowserRouter>
+      {navHide ? '' : <NavBar navTitle={navTitle} />}
+      <BrowserRouter>
+        <div id="body-ctn">
           <Routes>
             <Route
               path="/hero"
               element={
-                <HeroLanding
-                  setnavHide={setnavHide}
-                  newUserHandler={newUserHandler}
-                />
+                <HeroLanding setnavHide={setnavHide} setnewUser={setnewUser} />
               }
             />
             <Route path="/" element={<Layout />}>
               <Route index element={<Login />} />
             </Route>
-            <Route path="/LoginPage" LoginPage element={<LoginPage />} />
+            <Route
+              path="/LoginPage"
+              LoginPage
+              element={<LoginPage setnavTitle={setnavTitle} />}
+            />
             <Route
               path="/ExaminerLanding"
               ExaminerLanding
-              element={<ExaminerLanding />}
+              element={<ExaminerLanding setnavTitle={setnavTitle} />}
             />
           </Routes>
-        </BrowserRouter>
-      </div>
+        </div>
+      </BrowserRouter>
     </>
   );
 }
