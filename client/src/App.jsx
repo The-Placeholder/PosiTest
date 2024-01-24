@@ -13,11 +13,12 @@ import HeroLanding from './pages/HeroLanding';
 */
 export default function App() {
   const [navHide, setnavHide] = useState(false);
-  // const [role, setRole] = useState(null);
-  // const [newUser, setnewUser] = useState(true);
-  // const newUserHandler = (bool) => {
-  //   setnewUser(bool);
-  // };
+  const [role, setRole] = useState(null);
+  const [newUser, setnewUser] = useState(true);
+  const newUserHandler = (e, bool) => {
+    console.log('newuser button clicked, set to:', bool);
+    // setnewUser(bool);
+  };
 
   // User not logged in
 
@@ -30,7 +31,12 @@ export default function App() {
           <Routes>
             <Route
               path="/hero"
-              element={<HeroLanding setnavHide={setnavHide} />}
+              element={
+                <HeroLanding
+                  setnavHide={setnavHide}
+                  newUserHandler={newUserHandler}
+                />
+              }
             />
             <Route path="/" element={<Layout />}>
               <Route index element={<Login />} />
