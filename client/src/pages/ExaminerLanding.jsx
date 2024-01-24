@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ExaminerLanding = () => {
+const ExaminerLanding = ({ setnavTitle }) => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   console.log(users);
   useEffect(() => {
@@ -18,6 +20,8 @@ const ExaminerLanding = () => {
     };
     fetchData();
   }, []);
+
+  setnavTitle('Examiner Lobby');
 
   return (
     <>
@@ -41,7 +45,10 @@ const ExaminerLanding = () => {
                 <div className="card-body items-center text-center text-black">
                   <h2 className="card-title text-3xl">{user.username}</h2>
                   <div className="card-actions">
-                    <button className="btn btn-primary opacity-75">
+                    <button
+                      className="btn btn-primary opacity-75"
+                      onClick={() => navigate(`/`)}
+                    >
                       Select
                     </button>
                   </div>
