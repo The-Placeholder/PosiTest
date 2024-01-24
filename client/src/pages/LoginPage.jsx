@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LoginPage = ({ setnavTitle }) => {
   setnavTitle('Login');
-  const navigate = useNavigate();
 
   return (
     <>
@@ -35,17 +34,17 @@ const LoginPage = ({ setnavTitle }) => {
             </div>
           </div>
           <div id="login-btns" className="flex justify-between m-5 pb-3 ">
-            <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
-              Register
-            </button>
-            <button
-              className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white"
-              onClick={() => {
-                navigate('/ExaminerLanding');
-              }}
-            >
-              Login
-            </button>
+            <Link to="/RegisterPage">
+              <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
+                Register
+              </button>
+            </Link>
+
+            <Link to="/ExaminerLanding">
+              <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
+                Login
+              </button>
+            </Link>
           </div>
         </div>
       </div>
