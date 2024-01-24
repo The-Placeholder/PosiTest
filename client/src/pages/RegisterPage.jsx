@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const RegisterPage = () => {
   return (
     <>
@@ -45,7 +47,9 @@ const RegisterPage = () => {
             id="login-btns"
             className="flex align-middle justify-center m-5 pb-3"
           >
-            <button className="btn btn-primary opacity-75">Submit</button>
+            <Link to="/LoginPage">
+              <button className="btn btn-primary opacity-75">Submit</button>
+            </Link>
           </div>
         </div>
       </div>
