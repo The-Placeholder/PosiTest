@@ -27,8 +27,8 @@ const LoginPage = () => {
           </div>
         </div>
         <div id="login-btns" className="flex justify-between m-5 pb-3">
-          <button className="btn btn-primary opacity-75">Accent</button>
-          <button className="btn btn-primary opacity-75">Accent</button>
+          <button className="btn btn-primary opacity-75">Register</button>
+          <button className="btn btn-primary opacity-75">Login</button>
         </div>
       </div>
     </>
