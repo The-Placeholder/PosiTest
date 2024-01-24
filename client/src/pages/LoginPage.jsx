@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 const LoginPage = ({ setnavTitle }) => {
   setnavTitle('Login');
+  const navigate = useNavigate();
 
   return (
     <>
@@ -35,7 +38,12 @@ const LoginPage = ({ setnavTitle }) => {
             <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
               Register
             </button>
-            <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
+            <button
+              className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white"
+              onClick={() => {
+                navigate('/ExaminerLanding');
+              }}
+            >
               Login
             </button>
           </div>
