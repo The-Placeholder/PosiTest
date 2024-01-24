@@ -12,11 +12,15 @@ import HeroLanding from './pages/HeroLanding';
 */
 export default function App() {
   const [navHide, setnavHide] = useState(false);
+  // const [role, setRole] = useState(null);
   // const [newUser, setnewUser] = useState(true);
   // const newUserHandler = (bool) => {
   //   setnewUser(bool);
   // };
 
+  // User not logged in
+
+  // User logged in
   return (
     <>
       {navHide ? '' : <NavBar />}
