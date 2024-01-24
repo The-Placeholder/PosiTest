@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Login from './pages/Login';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import NavBar from './components/NavBar';
 import ExaminerLanding from './pages/ExaminerLanding';
 import HeroLanding from './pages/HeroLanding';
@@ -37,6 +38,11 @@ export default function App() {
               <Route index element={<Login />} />
             </Route>
             <Route path="/LoginPage" LoginPage element={<LoginPage />} />
+            <Route
+              path="/RegisterPage"
+              RegisterPage
+              element={<RegisterPage />}
+            />
             <Route
               path="/ExaminerLanding"
               ExaminerLanding
