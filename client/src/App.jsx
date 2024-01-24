@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Login from './pages/Login';
+import LoginPage from './pages/LoginPage';
 import NavBar from './components/NavBar';
 import ExaminerLanding from './pages/ExaminerLanding';
 import HeroLanding from './pages/HeroLanding';
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Login />} />
             </Route>
+            <Route path="/LoginPage" LoginPage element={<LoginPage />} />
             <Route
               path="/ExaminerLanding"
               ExaminerLanding
