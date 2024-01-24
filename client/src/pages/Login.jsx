@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Daisytest from '../components/daisytest';
 
 const Login = () => {
   return (
@@ -11,6 +12,8 @@ const Login = () => {
       <Link to="/testerPage">
         <button id="loggingIn">Login</button>
       </Link>
+
+      <Daisytest/>
     </>
   );
 };
