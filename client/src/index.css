@@ -22,6 +22,7 @@
 body {
   /* background-color: var(--G-White); */
   background-color: rgb(228, 228, 228);
+  height: 100vh;
   overflow: hidden;
 }
 
