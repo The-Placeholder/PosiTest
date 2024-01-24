@@ -19,6 +19,10 @@
   transition: 0.5s all ease;
 }
 
+/* .ctn {
+  border: 1px solid black;
+} */
+
 body {
   /* background-color: var(--G-White); */
   background-color: rgb(228, 228, 228);
@@ -40,33 +44,47 @@ body {
   height: 25px;
 }
 
+/* ---------------------------galvanize bg colors */
+
 .bg-g-blue {
   background-color: var(--G-Blue);
 }
-
+.bg-g-gray {
+  background-color: var(--G-BG-Gray);
+}
+.bg-g-green {
+  background-color: var(--G-Green);
+}
 .bg-g-greyblue {
   background-color: var(--G-GreyBlue);
 }
-
 .bg-g-orange {
   background-color: var(--G-LightO);
 }
 
+/* ----------------------------------------text colors */
+.g-blue {
+  color: var(--G-Blue);
+}
+.g-green {
+  color: var(--G-Green);
+}
+.g-greyblue {
+  color: var(--G-GreyBlue);
+}
 .g-orange {
   color: var(--G-Orange);
 }
-
 .g-lightorange {
   color: var(--G-LightO);
 }
 
-.g-bg-gray {
-  background-color: var(--G-BG-Gray);
+.g-btn {
+  /* border-radius: .75rem */
 }
 
-/* .ctn {
-  border: 1px solid black;
-} */
+.g-btn:hover {
+}
 
 #contents-ctn {
   background-color: var(--G-White);

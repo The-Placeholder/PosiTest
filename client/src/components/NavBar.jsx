@@ -1,6 +1,6 @@
 import logo from '/galvanize-logo-orange.png';
 
-const NavBar = () => {
+const NavBar = ({ navTitle }) => {
   return (
     <>
       <div className="navbar bg-g-blue top-0 z-50 h-24 flex flex-row justify-between">
@@ -12,7 +12,7 @@ const NavBar = () => {
             <img src={logo} alt="galvanize logo" className="object-fit" />
           </a>
         </div>
-        <div className="text-white text-4xl">Testing-suite</div>
+        <div className="text-white text-4xl font-bold">{navTitle}</div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div

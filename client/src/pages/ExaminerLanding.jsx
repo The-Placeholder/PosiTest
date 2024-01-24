@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const ExaminerLanding = () => {
+const ExaminerLanding = ({ setnavTitle }) => {
   const [users, setUsers] = useState([]);
   console.log(users);
   useEffect(() => {
@@ -18,6 +18,8 @@ const ExaminerLanding = () => {
     };
     fetchData();
   }, []);
+
+  setnavTitle('Examiner Lobby');
 
   return (
     <>
