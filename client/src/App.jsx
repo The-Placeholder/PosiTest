@@ -12,10 +12,10 @@ import HeroLanding from './pages/HeroLanding';
 */
 export default function App() {
   const [navHide, setnavHide] = useState(false);
-  const [newUser, setnewUser] = useState(true);
-  const newUserHandler = (bool) => {
-    setnewUser(bool);
-  };
+  // const [newUser, setnewUser] = useState(true);
+  // const newUserHandler = (bool) => {
+  //   setnewUser(bool);
+  // };
 
   return (
     <>
@@ -25,12 +25,7 @@ export default function App() {
           <Routes>
             <Route
               path="/hero"
-              element={
-                <HeroLanding
-                  setnavHide={setnavHide}
-                  newUserHandler={newUserHandler}
-                />
-              }
+              element={<HeroLanding setnavHide={setnavHide} />}
             />
             <Route path="/" element={<Layout />}>
               <Route index element={<Login />} />
