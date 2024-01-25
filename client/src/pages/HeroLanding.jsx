@@ -43,22 +43,22 @@ const HeroLanding = ({ setnavHide, setnewUser }) => {
                   <span className="g-orange">
                     <AiFillCaretRight />
                   </span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor
+                  You will complete your assessment with an OLU instructor via
+                  live coding exercise here!
                 </li>
                 <li className="mb-3 flex items-center gap-x-3 p-2">
                   <span className="g-orange">
                     <AiFillCaretRight />
                   </span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor
+                  Please use the credentials provided by your OLU Enrollment
+                  Manager to begin.
                 </li>
                 <li className="mb-3 flex items-center gap-x-3 p-2">
                   <span className="g-orange">
                     <AiFillCaretRight />
                   </span>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor
+                  If you have any issues, please reach out to Mr. David Garcia
+                  for help.
                 </li>
               </ul>
             </div>
