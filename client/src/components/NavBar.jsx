@@ -6,6 +6,8 @@ import { UserContext } from '../../context/UserContext';
 const NavBar = () => {
   const { userData } = useContext(UserContext);
 
+  console.log('navbar', userData);
+
   if (!userData) {
     return <div>Loading user data</div>;
   }
@@ -22,7 +24,7 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className="text-white text-4xl font-bold">
-          Lobby - {userData[0]?.role}
+          Lobby - {userData?.role}
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
@@ -38,7 +40,7 @@ const NavBar = () => {
                 />
               </div>
               <span className="g-orange text-lg absolute top-10">
-                {userData[0]?.role}
+                {userData?.role}
               </span>
             </div>
             <ul
@@ -48,8 +50,11 @@ const NavBar = () => {
               <li>
                 <a className="justify-between">Profile</a>
               </li>
+
               <li>
-                <a>Logout</a>
+                <NavLink to="/login">
+                  <a>Logout</a>
+                </NavLink>
               </li>
             </ul>
           </div>
