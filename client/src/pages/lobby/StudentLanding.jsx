@@ -8,8 +8,7 @@ const StudentLanding = () => {
 
   return (
     <>
-      <h1>Student Landing</h1>
-      {!!userData && <h2>{userData[0].username} successfully logged in</h2>}
+      <div id="contents-ctn" className=""></div>
     </>
   );
 };
