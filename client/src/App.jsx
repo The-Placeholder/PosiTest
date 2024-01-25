@@ -58,8 +58,8 @@ export default function App() {
   const [newUser, setnewUser] = useState(true);
 
   return (
-    // <UserContextProvider>
-    <RouterProvider router={router} />
-    // </UserContextProvider>
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
   );
 }

@@ -7,12 +7,14 @@ export function UserContextProvider({ children }) {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    const getUser = async () => {
+      let data = await axios.get('/users');
+      setUserData(data);
+      console.log('userdata:', data);
+    };
     if (!userData) {
-      axios.get('/users').then(({ data }) => {
-        setUserData(data);
-      });
+      getUser();
     }
-    console.log(userData);
   }, []);
 
   <UserContext.Provider value={{ userData, setUserData }}>
