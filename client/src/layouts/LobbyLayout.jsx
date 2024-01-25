@@ -1,9 +1,11 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
-export default function RootLayout() {
+export default function LobbyLayout() {
   return (
-    <div id="rootlayout">
+    <div id="lobbylayout">
       <ScrollRestoration />
+      <NavBar />
       <main>
         <Outlet />
       </main>

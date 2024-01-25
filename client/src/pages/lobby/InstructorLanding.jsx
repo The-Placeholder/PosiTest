@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const InstructorLanding = ({ setnavTitle }) => {
+const InstructorLanding = () => {
   const [users, setUsers] = useState([]);
   // console.log(users);
   useEffect(() => {
@@ -19,8 +19,6 @@ const InstructorLanding = ({ setnavTitle }) => {
     };
     fetchData();
   }, []);
-
-  setnavTitle('Examiner Lobby');
 
   return (
     <>
