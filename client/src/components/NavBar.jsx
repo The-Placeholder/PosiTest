@@ -1,21 +1,17 @@
 import logo from '/galvanize-logo-orange.png';
-import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const NavBar = ({ navTitle }) => {
-  const navigate = useNavigate();
-
   return (
     <>
       <div className="navbar bg-g-blue top-0 z-50 h-24 flex flex-row justify-between">
         <div className="flex relative">
-          <div
-            className="w-44 content-center justify-center absolute top-[-15px] mx-2 cursor-pointer"
-            onClick={() => {
-              navigate('/instructor');
-            }}
+          <NavLink
+            path="/"
+            className="w-44 content-center justify-center absolute top-[-15px] mx-2"
           >
             <img src={logo} alt="galvanize logo" className="object-fit" />
-          </div>
+          </NavLink>
         </div>
         <div className="text-white text-4xl font-bold">{navTitle}</div>
         <div className="flex-none">
@@ -40,13 +36,7 @@ const NavBar = ({ navTitle }) => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
+                <a className="justify-between">Profile</a>
               </li>
               <li>
                 <a>Logout</a>

@@ -1,15 +1,38 @@
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouteProvider,
+  RouterProvider,
+} from 'react-router-dom';
+
 import ReactDOM from 'react-dom/client';
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './pages/Layout';
+
+// pages
 import Login from './pages/Login';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import NavBar from './components/NavBar';
-import InstructorLanding from './pages/InstructorLanding';
+import ExaminerLanding from './pages/ExaminerLanding';
 import HeroLanding from './pages/HeroLanding';
 import TestingSuite from './pages/TestingSuite';
-import StudentLanding from './pages/StudentLanding';
+
+// layouts
+import Layout from './pages/Layout';
+import RootLayout from './layouts/RootLayout';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}></Route>,
+    // <Route path='/lobby' element={}>
+
+    // </Route>
+    // <Route path='/suite' element={}>
+
+    // </Route>
+  ),
+);
 
 export default function App() {
   const [navHide, setnavHide] = useState(false);
@@ -17,41 +40,40 @@ export default function App() {
   const [role, setRole] = useState(null);
   const [newUser, setnewUser] = useState(true);
 
+  return <RouterProvider router={router} />;
+
   return (
     <>
+      {navHide ? '' : <NavBar navTitle={navTitle} />}
       <BrowserRouter>
-        {navHide ? '' : <NavBar navTitle={navTitle} />}
-
         <div id="body-ctn">
           <Routes>
             <Route
               path="/hero"
               element={
-                <HeroLanding
-                  HeroLanding
-                  setnavHide={setnavHide}
-                  setnewUser={setnewUser}
-                />
+                <HeroLanding setnavHide={setnavHide} setnewUser={setnewUser} />
               }
             />
             <Route path="/" element={<Layout />}>
               <Route index element={<Login />} />
             </Route>
-            <Route path="/login" LoginPage element={<LoginPage />} />
-            <Route path="/register" RegisterPage element={<RegisterPage />} />
-            <Route path="user"></Route>
             <Route
-              path="/instructor"
-              InstructorLanding
-              element={<InstructorLanding setnavTitle={setnavTitle} />}
+              path="/LoginPage"
+              LoginPage
+              element={<LoginPage setnavTitle={setnavTitle} />}
             />
             <Route
-              path="/student"
-              StudentLanding
-              element={<StudentLanding setnavTitle={setnavTitle} />}
+              path="/RegisterPage"
+              RegisterPage
+              element={<RegisterPage />}
             />
             <Route
-              path="/suite"
+              path="/ExaminerLanding"
+              ExaminerLanding
+              element={<ExaminerLanding setnavTitle={setnavTitle} />}
+            />
+            <Route
+              path="/TestingSuite"
               TestingSuite
               element={<TestingSuite setnavTitle={setnavTitle} />}
             />
