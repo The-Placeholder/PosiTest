@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const ExaminerLanding = ({ setnavTitle }) => {
-  const navigate = useNavigate();
+const InstructorLanding = ({ setnavTitle }) => {
   const [users, setUsers] = useState([]);
-  console.log(users);
+  // console.log(users);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,17 +39,19 @@ const ExaminerLanding = ({ setnavTitle }) => {
             id="usercard-ctn"
             className="ctn flex flex-wrap gap-5 justify-evenly p-9 mb-16"
           >
-            {users.map((user) => (
-              <div className="card w-5/12 h-36 shadow-xl flex justify-center content-center bg-g-greyblue ">
+            {users.map((user, index) => (
+              <div
+                key={user + index}
+                className="card w-5/12 h-36 shadow-xl flex justify-center content-center bg-g-greyblue "
+              >
                 <div className="card-body items-center text-center text-black">
                   <h2 className="card-title text-3xl">{user.username}</h2>
                   <div className="card-actions">
-                    <button
-                      className="btn btn-primary opacity-75"
-                      onClick={() => navigate(`/`)}
-                    >
-                      Select
-                    </button>
+                    <Link to="/suite">
+                      <button className="btn btn-primary opacity-75">
+                        Select
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -69,4 +70,4 @@ const ExaminerLanding = ({ setnavTitle }) => {
   );
 };
 
-export default ExaminerLanding;
+export default InstructorLanding;

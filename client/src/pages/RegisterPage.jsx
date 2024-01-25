@@ -47,7 +47,7 @@ const RegisterPage = () => {
             id="login-btns"
             className="flex align-middle justify-center m-5 pb-3"
           >
-            <Link to="/LoginPage">
+            <Link to="/login">
               <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
                 Submit
               </button>

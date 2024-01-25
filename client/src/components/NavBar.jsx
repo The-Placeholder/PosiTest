@@ -1,16 +1,21 @@
 import logo from '/galvanize-logo-orange.png';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = ({ navTitle }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="navbar bg-g-blue top-0 z-50 h-24 flex flex-row justify-between">
         <div className="flex relative">
-          <a
-            href="#"
-            className="w-44 content-center justify-center absolute top-[-15px] mx-2"
+          <div
+            className="w-44 content-center justify-center absolute top-[-15px] mx-2 cursor-pointer"
+            onClick={() => {
+              navigate('/instructor');
+            }}
           >
             <img src={logo} alt="galvanize logo" className="object-fit" />
-          </a>
+          </div>
         </div>
         <div className="text-white text-4xl font-bold">{navTitle}</div>
         <div className="flex-none">

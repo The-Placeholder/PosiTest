@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const LoginPage = ({ setnavTitle }) => {
-  setnavTitle('Login');
-
+const LoginPage = () => {
   return (
     <>
       <div className="ctn fixed top-0 left-0 w-full h-full bg-g-gray z-20">
@@ -34,13 +32,13 @@ const LoginPage = ({ setnavTitle }) => {
             </div>
           </div>
           <div id="login-btns" className="flex justify-between m-5 pb-3 ">
-            <Link to="/RegisterPage">
+            <Link to="/register">
               <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
                 Register
               </button>
             </Link>
 
-            <Link to="/ExaminerLanding">
+            <Link to="/user">
               <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
                 Login
               </button>
