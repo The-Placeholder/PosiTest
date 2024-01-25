@@ -54,23 +54,6 @@ const InstructorLanding = () => {
                 </div>
               </div>
             ))}
-            {users.map((user, index) => (
-              <div
-                key={user + index}
-                className="card w-5/12 h-36 shadow-xl flex justify-center content-center bg-g-greyblue "
-              >
-                <div className="card-body items-center text-center text-black">
-                  <h2 className="card-title text-3xl">{user.username}</h2>
-                  <div className="card-actions">
-                    <Link to="/suite">
-                      <button className="btn btn-primary opacity-75">
-                        Select
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
             {/* End of card-ctn */}
           </div>
           {/* End of usercard-ctn */}

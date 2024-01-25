@@ -8,7 +8,9 @@ const StudentLanding = () => {
 
   return (
     <>
-      <div id="contents-ctn" className=""></div>
+      <div id="contents-ctn" className="">
+        student landing
+      </div>
     </>
   );
 };

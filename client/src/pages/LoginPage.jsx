@@ -1,6 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { UserContext } from '../../context/UserContext';
 
 const LoginPage = () => {
+  const [userCreds, setuserCreds] = useState({
+    username: null,
+    password: null,
+  });
+
+  const { setuserId } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const loginUser = () => {
+    console.log(Number(userCreds.username));
+    setuserId(Number(userCreds.username));
+    navigate('/lobby');
+  };
+
   return (
     <>
       <div
@@ -13,11 +29,17 @@ const LoginPage = () => {
         <div id="login-inputs" className="flex flex-col items-center ">
           <input
             type="text"
+            onChange={(e) => {
+              setuserCreds({ ...userCreds, username: e.target.value });
+            }}
             placeholder="Username"
             className="input input-bordered w-full max-w-xs mb-2 bg-g-greyblue"
           />
           <input
             type="text"
+            onChange={(e) => {
+              setuserCreds({ ...userCreds, password: e.target.value });
+            }}
             placeholder="Password"
             className="input input-bordered w-full max-w-xs mb-2 bg-g-greyblue"
           />
@@ -35,11 +57,14 @@ const LoginPage = () => {
             </button>
           </Link>
 
-          <Link to="/lobby">
-            <button className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white">
-              Login
-            </button>
-          </Link>
+          <button
+            className="btn btn-primary opacity-75 w-28 h-14 text-lg text-white"
+            onClick={() => {
+              loginUser();
+            }}
+          >
+            Login
+          </button>
         </div>
       </div>
     </>
