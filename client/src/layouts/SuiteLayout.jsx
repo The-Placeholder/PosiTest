@@ -1,13 +1,17 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom';
-import VerticalNav from '../components/VerticalNav';
+import NavBar from '../components/NavBar';
+// import VerticalNav from '../components/VerticalNav';
 
 export default function SuiteLayout() {
   return (
     <div id="suitelayout">
       <ScrollRestoration />
-      <VerticalNav />
+      {/* <VerticalNav /> */}
+      <NavBar />
       <main>
-        <Outlet />
+        <div className="h-full w-screen pb-12">
+          <Outlet />
+        </div>
       </main>
     </div>
   );

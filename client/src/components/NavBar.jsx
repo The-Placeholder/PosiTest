@@ -1,7 +1,15 @@
 import logo from '/galvanize-logo-orange.png';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 
-const NavBar = ({ navTitle }) => {
+const NavBar = () => {
+  const { userData } = useContext(UserContext);
+
+  if (!userData) {
+    return <div>Loading user data</div>;
+  }
+
   return (
     <>
       <div className="navbar bg-g-blue top-0 z-50 h-24 flex flex-row justify-between">
@@ -13,7 +21,9 @@ const NavBar = ({ navTitle }) => {
             <img src={logo} alt="galvanize logo" className="object-fit" />
           </NavLink>
         </div>
-        <div className="text-white text-4xl font-bold">{navTitle}</div>
+        <div className="text-white text-4xl font-bold">
+          Lobby - {userData[0]?.role}
+        </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div
@@ -28,7 +38,7 @@ const NavBar = ({ navTitle }) => {
                 />
               </div>
               <span className="g-orange text-lg absolute top-10">
-                Instructor
+                {userData[0]?.role}
               </span>
             </div>
             <ul

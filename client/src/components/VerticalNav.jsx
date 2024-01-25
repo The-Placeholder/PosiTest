@@ -1,18 +1,17 @@
-import logo from '/galvanize-logo-orange.png';
+import logo from '/logo-mark-white.png';
 
-const VerticalNav = ({ setnavHide }) => {
+const VerticalNav = () => {
   return (
     <>
       <div className="navbar fixed bg-g-blue top-0 left-0 z-50 w-32 h-full flex flex-col justify-between">
         <div className="flex relative">
-          <a
-            href="#"
-            className="w-44 content-center justify-center absolute top-[-15px] mx-2"
-          >
+          <div className="w-12 content-center justify-center top-[-15px] mx-2">
             <img src={logo} alt="galvanize logo" className="object-fit" />
-          </a>
+          </div>
         </div>
-        <div className="text-white text-4xl font-bold">Test</div>
+        <div className="text-white text-2xl font-bold text-wrap text-center">
+          Vertical Nav
+        </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div

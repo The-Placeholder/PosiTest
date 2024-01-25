@@ -8,16 +8,18 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     const getUser = async () => {
-      let data = await axios.get('/users');
+      let { data } = await axios.get('/users');
       setUserData(data);
-      console.log('userdata:', data);
+      // console.log('from axios', data);
     };
     if (!userData) {
       getUser();
     }
   }, []);
 
-  <UserContext.Provider value={{ userData, setUserData }}>
-    {children}
-  </UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ userData, setUserData }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
