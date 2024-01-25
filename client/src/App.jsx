@@ -8,6 +8,7 @@ import {
 import ReactDOM from 'react-dom/client';
 import { useState } from 'react';
 import axios from 'axios';
+import { UserContextProvider } from '../context/UserContext';
 
 // pages
 import Login from './pages/Login';
@@ -47,7 +48,7 @@ const router = createBrowserRouter(
   ),
 );
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://localhost:3000/api';
 axios.defaults.withCredentials = true;
 
 export default function App() {
@@ -56,49 +57,9 @@ export default function App() {
   const [role, setRole] = useState(null);
   const [newUser, setnewUser] = useState(true);
 
-  return <RouterProvider router={router} />;
-
-  // return (
-  //   <>
-  //     {navHide ? '' : <NavBar navTitle={navTitle} />}
-  //     <BrowserRouter>
-  //       <div id="body-ctn">
-  //         <Routes>
-  //           <Route
-  //             path="/hero"
-  //             element={
-  //               <HeroLanding setnavHide={setnavHide} setnewUser={setnewUser} />
-  //             }
-  //           />
-  //           <Route path="/" element={<Layout />}>
-  //             <Route index element={<Login />} />
-  //           </Route>
-  //           <Route
-  //             path="/LoginPage"
-  //             LoginPage
-  //             element={<LoginPage setnavTitle={setnavTitle} />}
-  //           />
-  //           <Route
-  //             path="/RegisterPage"
-  //             RegisterPage
-  //             element={<RegisterPage />}
-  //           />
-  //           <Route
-  //             path="/ExaminerLanding"
-  //             ExaminerLanding
-  //             element={<ExaminerLanding setnavTitle={setnavTitle} />}
-  //           />
-  //           <Route
-  //             path="/TestingSuite"
-  //             TestingSuite
-  //             element={<TestingSuite setnavTitle={setnavTitle} />}
-  //           />
-  //         </Routes>
-  //       </div>
-  //     </BrowserRouter>
-  //   </>
-  // );
+  return (
+    // <UserContextProvider>
+    <RouterProvider router={router} />
+    // </UserContextProvider>
+  );
 }
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);

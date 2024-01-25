@@ -8,7 +8,14 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (!userData) {
-      axios.get('');
+      axios.get('/users').then(({ data }) => {
+        setUserData(data);
+      });
     }
-  });
+    console.log(userData);
+  }, []);
+
+  <UserContext.Provider value={{ userData, setUserData }}>
+    {children}
+  </UserContext.Provider>;
 }
