@@ -2,27 +2,36 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { createClient } from '@supabase/supabase-js';
+import { Server as SocketIOServer } from 'socket.io';
+import http from 'http';
 
+// Load environment variables
 dotenv.config();
 
+// Initialize Express app and HTTP server
 const app = express();
-const router = express.Router();
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+  },
+});
 const port = process.env.PORT || 3000;
+const router = express.Router();
+
+// Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-//  ------------------------------------------------------------ MIDDLEWARE
-
-// app.use(cors());
-
+// Middleware
 app.use(
   cors({
     origin: 'http://localhost:5173',
     credentials: true,
   })
 );
-
 app.use(express.json());
 app.use(express.static('./public'));
 
@@ -188,6 +197,23 @@ router.delete('/users/:id', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log('Server Running on Port:', port);
+// Socket.io Logic for real-time document editing
+let currentContent = '';
+io.on('connection', (socket) => {
+  console.log(`⚡: ${socket.id} user just connected`);
+  socket.emit('doc-change', currentContent);
+  socket.on('doc-change', (newCode) => {
+    if (currentContent !== newCode) {
+      currentContent = newCode;
+      socket.broadcast.emit('doc-change', currentContent);
+    }
+  });
+  socket.on('disconnect', () => {
+    console.log('🔥: A user disconnected');
+  });
+});
+
+// Server Listening
+server.listen(port, () => {
+  console.log(`Server Running on Port: ${port}`);
 });
