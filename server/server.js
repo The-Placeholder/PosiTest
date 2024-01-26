@@ -86,7 +86,7 @@ app.get('/api/questions/:id', async (req, res) => {
     const questionId = req.params.id;
 
     const { data, error } = await supabase
-      .from('question')
+      .from('problem')
       .select('*')
       .eq('id', questionId)
       .single();
