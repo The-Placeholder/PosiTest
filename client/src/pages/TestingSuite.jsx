@@ -75,9 +75,9 @@ const TestingSuite = () => {
 
   return (
     <>
-      <div className="ctn flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24 overflow-auto">
+      <div className="ctn flex flex-row flex-wrap w-full h-screen justify-center py-6 pb-40 overflow-auto">
         <div className="ctn h-full w-3/12">
-          <ProblemExplanation />
+          <ProblemExplanation executeCode={executeCode} code={code} />
         </div>
         <div className="flex h-full flex-col w-8/12 gap-8 bg-g-editor">
           <div className="w-full flex flex-wrap justify-end h-2/3 p-3 ">
@@ -85,23 +85,10 @@ const TestingSuite = () => {
               defaultLanguage="javascript"
               theme="vs-dark"
               value={code}
-              height="50vh"
+              height="93%"
               width="100%"
               onChange={handleEditorChange}
             />
-            <div id="input-ctn" className="flex flex-row mr-8 mt-2 gap-8">
-              <button
-                onClick={() => {
-                  executeCode(code);
-                }}
-                className="g-btn p-5 bg-green-500/50 text-white rounded-lg font-medium"
-              >
-                Execute Code
-              </button>
-              <button className="g-btn p-5 bg-g-orange text-white rounded-lg font-medium">
-                Submit Code
-              </button>
-            </div>
           </div>
           <div className="w-full h-1/3">
             {' '}

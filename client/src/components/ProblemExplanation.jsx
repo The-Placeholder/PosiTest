@@ -1,11 +1,38 @@
 import { QuestionContext } from '../../context/QuestionContext';
+import { IoPlay } from 'react-icons/io5';
 import { useContext } from 'react';
+import Timer from './Timer';
 
-const ProblemExplanation = () => {
+const ProblemExplanation = ({ executeCode, code }) => {
   const { questionData } = useContext(QuestionContext);
 
   return (
-    <div className="flex flex-row flex-wrap content-start w-full h-full p-8 gap-5 bg-slate-700 overflow-x-auto ">
+    <div className="flex flex-row flex-wrap content-start w-full h-full p-8 gap-5 bg-slate-700 overflow-x-auto relative ">
+      <div id="test-info" className="max-h-12 gap-5 flex flex-row w-full">
+        <div
+          id="timer-ctn"
+          className="w-6/12 m-auto p-3 bg-g-orange opacity-40 text-white rounded-md"
+        >
+          <Timer />
+        </div>
+        <div
+          id="input-ctn"
+          className="flex flex-row mr-8 my-auto gap-2 w-5/12 max-h-12"
+        >
+          <button className="g-btn btn btn-primary p-3 bg-g-orange text-white rounded-lg font-medium">
+            Submit
+          </button>
+          <button
+            onClick={() => {
+              executeCode(code);
+            }}
+            className="g-btn btn btn-primary p-3 bg-green-500/50 text-white rounded-lg"
+          >
+            Run Code
+          </button>
+        </div>
+      </div>
+
       <h1 className="text-4xl text-white">
         <span className="g-orange font-bold">
           {`Question: `} {questionData.title}
