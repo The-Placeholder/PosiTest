@@ -80,6 +80,33 @@ app.get('/api/users/:id', async (req, res) => {
   }
 });
 
+// GET 1 ROUTE for Question
+app.get('/api/questions/:id', async (req, res) => {
+  try {
+    const questionId = req.params.id;
+
+    const { data, error } = await supabase
+      .from('question')
+      .select('*')
+      .eq('id', questionId)
+      .single();
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error fetching question');
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Question not found' });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching question');
+  }
+});
+
 app.use('/api', router);
 // POST ROUTE
 router.post('/register', async (req, res) => {
