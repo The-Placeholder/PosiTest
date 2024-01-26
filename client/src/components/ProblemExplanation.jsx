@@ -1,5 +1,4 @@
 import { QuestionContext } from '../../context/QuestionContext';
-import { IoPlay } from 'react-icons/io5';
 import { useContext } from 'react';
 import Timer from './Timer';
 
