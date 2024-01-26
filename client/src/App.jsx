@@ -9,6 +9,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { UserContextProvider } from '../context/UserContext';
 import { Toaster } from 'react-hot-toast';
+import { useLobby } from '../context/lobbyContext';
 
 // pages
 import LoginPage from './pages/LoginPage';
