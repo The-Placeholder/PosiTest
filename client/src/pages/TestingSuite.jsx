@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
-import socket from '../../utils/socket.js';
+// import socket from '../../utils/socket.js';
 
 const TestingSuite = ({ setnavTitle }) => {
   setnavTitle('Testing Suite');
@@ -76,41 +76,41 @@ const TestingSuite = ({ setnavTitle }) => {
   if (!socket) {
     return <p>Loading Socket</p>;
   }
-const TestingSuite = () => {
-  return (
-    <>
-      <div className="ctn fixed flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24 gap-4">
-        <div className="ctn h-full w-3/12">
-          <h1>Code Problem Explanation</h1>
-        </div>
-        <div className="flex flex-col w-8/12 gap-4">
-          <div id="editor-ctn" className="ctn w-full h-2/3">
-            <Editor
-              defaultLanguage="javascript"
-              theme="vs-dark"
-              value={code}
-              height="100%"
-              width="100%"
-              onChange={handleEditorChange}
-            />
-            <button
-              onClick={() => {
-                executeCode(code);
-              }}
-            >
-              Execute Code
-            </button>
+  const TestingSuite = () => {
+    return (
+      <>
+        <div className="ctn fixed flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24 gap-4">
+          <div className="ctn h-full w-3/12">
+            <h1>Code Problem Explanation</h1>
           </div>
-          {/* end of editor-ctn */}
+          <div className="flex flex-col w-8/12 gap-4">
+            <div id="editor-ctn" className="ctn w-full h-2/3">
+              <Editor
+                defaultLanguage="javascript"
+                theme="vs-dark"
+                value={code}
+                height="100%"
+                width="100%"
+                onChange={handleEditorChange}
+              />
+              <button
+                onClick={() => {
+                  executeCode(code);
+                }}
+              >
+                Execute Code
+              </button>
+            </div>
+            {/* end of editor-ctn */}
 
-          <div className="ctn w-full h-1/3">
-            <textarea value={output} readOnly />
+            <div className="ctn w-full h-1/3">
+              <textarea value={output} readOnly />
+            </div>
+            {/* end of output */}
           </div>
-          {/* end of output */}
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  };
 };
-
 export default TestingSuite;
