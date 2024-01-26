@@ -16,7 +16,7 @@ const pool = new Pool({
 });
 
 const server = http.createServer(app)
-const io = new Server(server)
+const io = new Server(server,{cors:{origin:'*'}})
 
 //  ------------------------------------------------------------ MIDDLEWARE
 
@@ -54,46 +54,36 @@ const globalrecords = [
 ]
 
 // TEST USERS DATA... 0INDEX for GLBOAL CHAT
-const chatRooms = [
-  {users:new Set(),chat:globalrecords}
-]
+const chatRooms = [globalrecords]
 
 io.on('connection',(socket)=>{
-  console.log('connected')
+  let room = -1
+  let username = null
+
+  socket.on('ComponentLoad',(userArr)=>{
+    if(room>=0){
+      socket.leave(`${room}`)
+    }
+
+    if(!chatRooms[userArr[1]]){
+      chatRooms.push([])
+    }
+
+    username=userArr[0]
+    room=userArr[1]
+
+    socket.join(`${userArr[1]}`)
+    socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
+    console.log(`user: ${userArr[0]} joined room ${userArr[1]}`)
+  })
+
+  socket.on('MessageRequest',(message)=>{
+    const clock = new Date()[Symbol.toPrimitive]('number')
+    chatRooms[room].push({sender:username,message:message,time:clock})
+    console.log(`responding to message request`)
+    io.to(room).emit('chatRecordTransfer',chatRooms[room])
+  })
 })
-
-// app.ws('/msgr',(ws,req)=>{
-//   let username = ''
-//   let room = -1
-//   console.log('Client connected')
-
-// // message event
-//   ws.on('message',(message)=>{
-//     const inbound = JSON.parse(message)
-
-//     switch(inbound[0]){
-//       case 'Username':
-//         username = inbound[1]
-//         room = inbound[2]
-//         chatRooms[inbound[2]].users.add(ws)
-//         ws.send(JSON.stringify(['chatRecordTransfer',chatRooms[room].chat]))
-//         break;
-//       case 'MessageRequest':
-//         const clock = new Date()[Symbol.toPrimitive]('number')
-//         chatRooms[room].chat.push({sender:username,message:inbound[1],time:clock})
-//         chatRooms[room].users.forEach((localUsers)=>{
-//           localUsers.send(JSON.stringify(['chatRecordTransfer',chatRooms[room].chat]))
-//         })
-//         break;
-//     }
-//   })
-
-//   ws.on('close',()=>{
-//     chatRooms[room].users.delete(ws)
-//     console.log('socket closed')
-//   })
-// })
-
 
 server.listen(port, () => {
   console.log("Server Running on Port:", port);

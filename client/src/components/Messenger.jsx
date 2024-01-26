@@ -16,50 +16,29 @@ const Messenger=()=>{
         // DELETE ON IMPLEMENTATION
 
     useEffect(()=>{
-        const socket = io(SOCKET_SERVER_MSGR_ROUTE)
-        socket.on('connect',()=>{
-            console.log('connected')
+        const socket = io.connect(SOCKET_SERVER_MSGR_ROUTE)
+        setWebsocket(socket)
+        socket.emit('ComponentLoad',[username,room])
+
+        socket.on('chatRecordTransfer',(message)=>{
+            setChatlog(message)
         })
-        // socketEventListener(socket)
     },[])
 
     const sendIT=(event)=>{
         if(event.key==='Enter'&&event.target.value!==''){
-            websocket.send(JSON.stringify(['MessageRequest',event.target.value]))
+            websocket.emit('MessageRequest',event.target.value)
             event.target.value=''
         }
     }
 
         // DELETE ON IMPLEMENTATION
-    const switcheroo=()=>{
-        if(websocket){
-            websocket.close()
-        }
+    const switcheroom=()=>{
         setRoom(1)
         setChatlog(null)
-        const socket = new WebSocket(`ws://${SOCKET_SERVER_MSGR_ROUTE}`)
-        socketEventListener(socket)
-        setWebsocket(socket)
+        websocket.emit('ComponentLoad',[username,1])
     }
         // DELETE ON IMPLEMENTATION
-
-    const socketEventListener=(socket)=>{
-        socket.onopen=async()=>{ //sends server username and saves websocket instance
-            console.log('WebSocket connection opened')
-            await setWebsocket(socket)
-            socket.send(JSON.stringify(['Username',username,room]))
-        }
-        socket.onmessage=(event)=>{ //message event handler
-            const inbound = JSON.parse(event.data)
-            switch(inbound[0]){
-                case 'chatRecordTransfer':
-                    console.log('Received Message:',inbound[1])
-                    setChatlog(inbound[1])
-                    console.log('Setting Chatlog')
-                    break;
-            }
-        }
-    }
 
     return(
         <>
@@ -70,7 +49,7 @@ const Messenger=()=>{
                 <input id="msgr_input" onKeyUp={sendIT} className="textarea textarea-bordered textarea-md w-full max-w-xs" placeholder="chat here" autoComplete="off" autoFocus></input>                
             </div>
                 {/* DELETE ON IMPLEMENTATION */}
-            <button id="test_switch_rooms" onClick={switcheroo}>switch rooms</button>
+            <button id="test_switch_rooms" onClick={switcheroom}>switch rooms</button>
                 {/* DELETE ON IMPLEMENTATION */}
         </>
     )
