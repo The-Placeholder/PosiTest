@@ -16,12 +16,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: 0.5s all ease;
+  /* transition: 0.5s all ease; */
 }
 
-.ctn {
+/* .ctn {
   border: 1px solid black;
-}
+} */
 
 body {
   /* background-color: var(--G-White); */
@@ -88,4 +88,8 @@ body {
 
 #contents-ctn {
   background-color: var(--G-White);
+}
+
+.editor-ctn {
+  transition: 0s;
 }
