@@ -1,16 +1,25 @@
 import logo from '/galvanize-logo-orange.png';
-import { NavLink } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 
 const NavBar = () => {
-  const { userData } = useContext(UserContext);
+  const { userData, setuserData, setuserId } = useContext(UserContext);
+  const navigate = useNavigate();
 
   console.log('navbar', userData);
 
   if (!userData) {
     return <div>Loading user data</div>;
   }
+
+  const logOut = () => {
+    setuserData(null);
+    setuserId(null);
+    toast.success('Logout success');
+    navigate('/login');
+  };
 
   return (
     <>
@@ -52,9 +61,13 @@ const NavBar = () => {
               </li>
 
               <li>
-                <NavLink to="/login">
-                  <a>Logout</a>
-                </NavLink>
+                <a
+                  onClick={() => {
+                    logOut();
+                  }}
+                >
+                  Logout
+                </a>
               </li>
             </ul>
           </div>

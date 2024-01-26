@@ -10,6 +10,7 @@ import {
 import { useState } from 'react';
 import axios from 'axios';
 import { UserContextProvider } from '../context/UserContext';
+import { Toaster } from 'react-hot-toast';
 
 // pages
 import LoginPage from './pages/LoginPage';
@@ -53,10 +54,11 @@ axios.defaults.baseURL = 'http://localhost:3000/api';
 axios.defaults.withCredentials = true;
 
 export default function App() {
-  const [newUser, setnewUser] = useState(true);
+  // const [newUser, setnewUser] = useState(true);
 
   return (
     <UserContextProvider>
+      <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
       <RouterProvider router={router} />
     </UserContextProvider>
   );
