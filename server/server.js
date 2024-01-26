@@ -15,8 +15,10 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
+  // Socket Server based on http server
 const server = http.createServer(app)
 const io = new Server(server,{cors:{origin:'*'}})
+  // Socket Server
 
 //  ------------------------------------------------------------ MIDDLEWARE
 
@@ -42,7 +44,7 @@ app.get('/instructor/:id', async (req, res) => {
     }
   });
 
-// TEST CHATHISTORY
+  // TEST CHATHISTORY
 const globalrecords = [
   {sender:'senderA',message:'hello',time:'2 hours ago'},
   {sender:'senderB',message:'hello, how are you',time:'2 hours ago'},
@@ -52,25 +54,33 @@ const globalrecords = [
   {sender:'senderB',message:'I\'m having trouble with problem A',time:'2 hours ago'},
   {sender:'senderA',message:'sorry i\'ll help you in 1 sec, brb',time:'2 hours ago'}
 ]
+  // TEST CHATHISTORY
 
-// TEST USERS DATA... 0INDEX for GLBOAL CHAT
+// Chatrooms, 0th index for global chat
 const chatRooms = [globalrecords]
+// Chatrooms
+
+// variable for saving previous sockets, to reduce redundant sockets
+const userSockets = {}
 
 io.on('connection',(socket)=>{
   let room = -1
   let username = null
 
   socket.on('ComponentLoad',(userArr)=>{
-    if(room>=0){
+    if(room>=0){ //leaves previous room
       socket.leave(`${room}`)
+    }else if(userSockets[userArr[0]]){ //disconnects redundant sockets
+      userSockets[userArr[0]].disconnect()
     }
 
-    if(!chatRooms[userArr[1]]){
-      chatRooms.push([])
+    if(!chatRooms[userArr[1]]){ //creates chatroom 
+      chatRooms[userArr[1]]=[]
     }
 
     username=userArr[0]
     room=userArr[1]
+    userSockets[username]=socket //saves socket to username key
 
     socket.join(`${userArr[1]}`)
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
@@ -80,11 +90,10 @@ io.on('connection',(socket)=>{
   socket.on('MessageRequest',(message)=>{
     const clock = new Date()[Symbol.toPrimitive]('number')
     chatRooms[room].push({sender:username,message:message,time:clock})
-    console.log(`responding to message request`)
-    io.to(room).emit('chatRecordTransfer',chatRooms[room])
+    io.to(`${room}`).emit('chatRecordTransfer',chatRooms[room])
   })
 })
 
-server.listen(port, () => {
+server.listen(port, () => { //needs to be server.listen not app.listen
   console.log("Server Running on Port:", port);
 });

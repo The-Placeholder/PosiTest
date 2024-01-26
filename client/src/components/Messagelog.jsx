@@ -9,7 +9,7 @@ const Messagelog=({chatlog,username})=>{
 
     const relativeTime=(postedTime)=>{
         const clock = new Date()[Symbol.toPrimitive]('number')
-        let timeDiff = (postedTime-clock)/1000
+        let timeDiff = (clock-postedTime)/1000
         if(timeDiff<60){
             timeDiff=`${Math.floor(timeDiff)} seconds ago`
         } else if (timeDiff<360){

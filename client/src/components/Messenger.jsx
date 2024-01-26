@@ -16,10 +16,11 @@ const Messenger=()=>{
         // DELETE ON IMPLEMENTATION
 
     useEffect(()=>{
+        console.log('creating socket')
         const socket = io.connect(SOCKET_SERVER_MSGR_ROUTE)
         setWebsocket(socket)
         socket.emit('ComponentLoad',[username,room])
-
+        
         socket.on('chatRecordTransfer',(message)=>{
             setChatlog(message)
         })
