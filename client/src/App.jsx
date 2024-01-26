@@ -1,9 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Outlet,
   Route,
-  Routes,
   RouterProvider,
 } from 'react-router-dom';
 
@@ -23,7 +21,6 @@ import WelcomeMessage from './components/WelcomeMessage';
 import NotFound from './pages/NotFound';
 
 // layouts
-import Layout from './pages/Layout';
 import AccountLayout from './layouts/AccountLayout';
 import LobbyLayout from './layouts/LobbyLayout';
 
