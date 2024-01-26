@@ -1,62 +1,62 @@
-import ReactDOM from 'react-dom/client';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
+
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout from './pages/Layout';
-import Login from './pages/Login';
+import axios from 'axios';
+import { UserContextProvider } from '../context/UserContext';
+import { Toaster } from 'react-hot-toast';
+
+// pages
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import NavBar from './components/NavBar';
-import ExaminerLanding from './pages/ExaminerLanding';
-import HeroLanding from './pages/HeroLanding';
+import InstructorLanding from './pages/lobby/InstructorLanding';
 import TestingSuite from './pages/TestingSuite';
+import StudentLanding from './pages/lobby/StudentLanding';
+import SuiteLayout from './layouts/SuiteLayout';
+import WelcomeMessage from './components/WelcomeMessage';
+import NotFound from './pages/NotFound';
+
+// layouts
+import AccountLayout from './layouts/AccountLayout';
+import LobbyLayout from './layouts/LobbyLayout';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<AccountLayout />}>
+        <Route index element={<WelcomeMessage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+      <Route path="/lobby" element={<LobbyLayout />}>
+        <Route path="student" element={<StudentLanding />} />
+        <Route path="instructor" element={<InstructorLanding />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+
+      <Route path="/suite" element={<SuiteLayout />}>
+        <Route index element={<TestingSuite />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </>,
+  ),
+);
+
+axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.withCredentials = true;
 
 export default function App() {
-  const [navHide, setnavHide] = useState(false);
-  const [navTitle, setnavTitle] = useState('');
-  const [role, setRole] = useState(null);
-  const [newUser, setnewUser] = useState(true);
+  // const [newUser, setnewUser] = useState(true);
 
   return (
-    <>
-      {navHide ? '' : <NavBar navTitle={navTitle} />}
-      <BrowserRouter>
-        <div id="body-ctn">
-          <Routes>
-            <Route
-              path="/hero"
-              element={
-                <HeroLanding setnavHide={setnavHide} setnewUser={setnewUser} />
-              }
-            />
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Login />} />
-            </Route>
-            <Route
-              path="/LoginPage"
-              LoginPage
-              element={<LoginPage setnavTitle={setnavTitle} />}
-            />
-            <Route
-              path="/RegisterPage"
-              RegisterPage
-              element={<RegisterPage />}
-            />
-            <Route
-              path="/ExaminerLanding"
-              ExaminerLanding
-              element={<ExaminerLanding setnavTitle={setnavTitle} />}
-            />
-            <Route
-              path="/TestingSuite"
-              TestingSuite
-              element={<TestingSuite setnavTitle={setnavTitle} />}
-            />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </>
+    <UserContextProvider>
+      <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
+      <RouterProvider router={router} />
+    </UserContextProvider>
   );
 }
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
