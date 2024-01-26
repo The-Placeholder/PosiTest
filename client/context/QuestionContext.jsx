@@ -5,28 +5,22 @@ export const QuestionContext = createContext({});
 
 export function QuestionContextProvider({ children }) {
   const [questionData, setquestionData] = useState(null);
-  const [questionId, setquestionId] = useState(1);
+  const [questionId, setquestionId] = useState(3);
   // TODO usestate for user_response?
 
   useEffect(() => {
     const getQuestion = async () => {
       try {
-        const { data } = await axios.get(`/question/${questionId}`);
+        const { data } = await axios.get(`/questions/${questionId}`);
         setquestionData(data);
-        console.log('from axios', data);
+        console.log('from axios questiondata', data);
       } catch (err) {
         return <div>Error getting userdata {err}</div>;
       }
     };
-    const getSampleQuestion = async () => {
-      try{
-        const {data} = 
-      }
-    };
 
     if (!questionData && questionId) {
-      // getQuestion();
-      getSampleQuestion();
+      getQuestion();
     }
   }, [questionData, questionId]);
 

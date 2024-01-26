@@ -75,7 +75,7 @@ const TestingSuite = () => {
 
   return (
     <>
-      <div className="ctn fixed flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24 gap-4">
+      <div className="ctn fixed flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24">
         <div className="ctn h-full w-3/12">
           <ProblemExplanation />
         </div>
