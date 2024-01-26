@@ -2,7 +2,8 @@ import express, { json } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import pg from 'pg';
-import expressWs from "express-ws";
+import http from 'http'
+import { Server } from 'socket.io'
 
 dotenv.config();
 
@@ -14,7 +15,8 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
-expressWs(app);
+const server = http.createServer(app)
+const io = new Server(server)
 
 //  ------------------------------------------------------------ MIDDLEWARE
 
@@ -56,36 +58,43 @@ const chatRooms = [
   {users:new Set(),chat:globalrecords}
 ]
 
-app.ws('/msgr',(ws,req)=>{
-  let username = ''
-  let room = -1
-// init
-  console.log('Client connected')
-  ws.send(JSON.stringify(['chatRecordTransfer',chatRooms[0].chat]))
-
-// message event
-  ws.on('message',(message)=>{
-    const inbound = JSON.parse(message)
-
-    switch(inbound[0]){
-      case 'Username':
-        username = inbound[1]
-        chatRooms[0].users.add(ws)
-        break;
-      case 'MessageRequest':
-        const clock = new Date()[Symbol.toPrimitive]('number')
-        console.log(`received message: ${message} @ time: ${clock}`)
-
-        chatRooms[room].chat.push({sender:username,message:inbound[1],time:clock})
-        chatRooms[room].users.forEach((localUsers)=>{
-          localUsers.send(JSON.stringify(['chatRecordTransfer',chatRooms[room].chat]))
-        })
-        break;
-    }
-  })
+io.on('connection',(socket)=>{
+  console.log('connected')
 })
-  
 
-app.listen(port, () => {
+// app.ws('/msgr',(ws,req)=>{
+//   let username = ''
+//   let room = -1
+//   console.log('Client connected')
+
+// // message event
+//   ws.on('message',(message)=>{
+//     const inbound = JSON.parse(message)
+
+//     switch(inbound[0]){
+//       case 'Username':
+//         username = inbound[1]
+//         room = inbound[2]
+//         chatRooms[inbound[2]].users.add(ws)
+//         ws.send(JSON.stringify(['chatRecordTransfer',chatRooms[room].chat]))
+//         break;
+//       case 'MessageRequest':
+//         const clock = new Date()[Symbol.toPrimitive]('number')
+//         chatRooms[room].chat.push({sender:username,message:inbound[1],time:clock})
+//         chatRooms[room].users.forEach((localUsers)=>{
+//           localUsers.send(JSON.stringify(['chatRecordTransfer',chatRooms[room].chat]))
+//         })
+//         break;
+//     }
+//   })
+
+//   ws.on('close',()=>{
+//     chatRooms[room].users.delete(ws)
+//     console.log('socket closed')
+//   })
+// })
+
+
+server.listen(port, () => {
   console.log("Server Running on Port:", port);
 });
