@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import socket from '../../utils/socket.js';
+import ProblemExplanation from '../components/ProblemExplanation.jsx';
 
 const TestingSuite = () => {
   const [code, setCode] = useState('');
@@ -76,10 +77,10 @@ const TestingSuite = () => {
     <>
       <div className="ctn fixed flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24 gap-4">
         <div className="ctn h-full w-3/12">
-          <h1>Code Problem Explanation</h1>
+          <ProblemExplanation />
         </div>
-        <div className="flex flex-col w-8/12 gap-4">
-          <div className="ctn w-full h-2/3 ">
+        <div className="flex flex-col w-8/12 gap-8 bg-slate-800">
+          <div className="w-full flex flex-wrap justify-end h-2/3 ">
             <Editor
               defaultLanguage="javascript"
               theme="vs-dark"
@@ -88,17 +89,27 @@ const TestingSuite = () => {
               width="100%"
               onChange={handleEditorChange}
             />
-            <button
-              onClick={() => {
-                executeCode(code);
-              }}
-            >
-              Execute Code
-            </button>
+            <div id="input-ctn" className="flex flex-row mr-8 mt-2 gap-8">
+              <button
+                onClick={() => {
+                  executeCode(code);
+                }}
+                className="g-btn p-5 bg-green-500/50 text-white rounded-lg font-medium"
+              >
+                Execute Code
+              </button>
+              <button className="g-btn p-5 bg-g-orange text-white rounded-lg font-medium">
+                Submit Code
+              </button>
+            </div>
           </div>
-          <div className="ctn w-full h-1/3">
+          <div className="w-full h-1/3">
             {' '}
-            <textarea value={output} readOnly />
+            <textarea
+              value={output}
+              readOnly
+              className="ctn w-full h-full outline-none"
+            />
           </div>
         </div>
       </div>

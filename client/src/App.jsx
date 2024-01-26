@@ -8,6 +8,7 @@ import {
 import { useState } from 'react';
 import axios from 'axios';
 import { UserContextProvider } from '../context/UserContext';
+import { QuestionContextProvider } from '../context/QuestionContext';
 import { Toaster } from 'react-hot-toast';
 
 // pages
@@ -55,8 +56,10 @@ export default function App() {
 
   return (
     <UserContextProvider>
-      <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
-      <RouterProvider router={router} />
+      <QuestionContextProvider>
+        <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
+        <RouterProvider router={router} />
+      </QuestionContextProvider>
     </UserContextProvider>
   );
 }

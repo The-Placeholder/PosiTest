@@ -10,6 +10,8 @@
   --G-White: #ffffff;
   --G-BG-Gray: rgb(228, 228, 228);
   --G-Green: #85d3c4;
+
+  font-family: 'poppins', sans-serif;
 }
 
 * {
@@ -19,9 +21,9 @@
   /* transition: 0.5s all ease; */
 }
 
-/* .ctn {
+.ctn {
   border: 1px solid black;
-} */
+}
 
 body {
   /* background-color: var(--G-White); */
@@ -58,8 +60,11 @@ body {
 .bg-g-greyblue {
   background-color: var(--G-GreyBlue);
 }
-.bg-g-orange {
+.bg-g-lightorange {
   background-color: var(--G-LightO);
+}
+.bg-g-orange {
+  background-color: var(--G-Orange);
 }
 
 /* ----------------------------------------text colors */
@@ -79,17 +84,19 @@ body {
   color: var(--G-LightO);
 }
 
-.g-btn {
-  /* border-radius: .75rem */
-}
-
-.g-btn:hover {
-}
-
 #contents-ctn {
   background-color: var(--G-White);
 }
 
 .editor-ctn {
   transition: 0s;
+}
+
+.g-btn {
+  scale: 100%;
+  transition: 0.2s all linear;
+}
+
+.g-btn:hover {
+  scale: 105%;
 }

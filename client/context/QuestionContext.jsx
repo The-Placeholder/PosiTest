@@ -17,10 +17,17 @@ export function QuestionContextProvider({ children }) {
       } catch (err) {
         return <div>Error getting userdata {err}</div>;
       }
-      if (!questionData && questionId) {
-        getQuestion();
+    };
+    const getSampleQuestion = async () => {
+      try{
+        const {data} = 
       }
     };
+
+    if (!questionData && questionId) {
+      // getQuestion();
+      getSampleQuestion();
+    }
   }, [questionData, questionId]);
 
   return (
