@@ -5,7 +5,7 @@ export const QuestionContext = createContext({});
 
 export function QuestionContextProvider({ children }) {
   const [questionData, setquestionData] = useState(null);
-  const [questionId, setquestionId] = useState(3);
+  const [questionId, setquestionId] = useState(1);
   // TODO usestate for user_response?
 
   useEffect(() => {

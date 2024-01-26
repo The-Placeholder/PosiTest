@@ -57,7 +57,7 @@ export default function App() {
   return (
     <UserContextProvider>
       <QuestionContextProvider>
-        <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
+        <Toaster position="bottom-right" toastOptions={{ duration: 8000 }} />
         <RouterProvider router={router} />
       </QuestionContextProvider>
     </UserContextProvider>

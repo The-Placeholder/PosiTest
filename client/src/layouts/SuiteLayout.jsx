@@ -9,7 +9,7 @@ export default function SuiteLayout() {
       {/* <VerticalNav /> */}
       <NavBar />
       <main>
-        <div className="h-full w-screen pb-12">
+        <div className="h-full w-screen pb-12 fixed">
           <Outlet />
         </div>
       </main>

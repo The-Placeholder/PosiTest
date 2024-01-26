@@ -75,12 +75,12 @@ const TestingSuite = () => {
 
   return (
     <>
-      <div className="ctn fixed flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24">
+      <div className="ctn flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24 overflow-auto">
         <div className="ctn h-full w-3/12">
           <ProblemExplanation />
         </div>
-        <div className="flex flex-col w-8/12 gap-8 bg-slate-800">
-          <div className="w-full flex flex-wrap justify-end h-2/3 ">
+        <div className="flex h-full flex-col w-8/12 gap-8 bg-g-editor">
+          <div className="w-full flex flex-wrap justify-end h-2/3 p-3 ">
             <Editor
               defaultLanguage="javascript"
               theme="vs-dark"
@@ -107,8 +107,10 @@ const TestingSuite = () => {
             {' '}
             <textarea
               value={output}
+              name=""
               readOnly
-              className="ctn w-full h-full outline-none"
+              className="ctn w-full h-full outline-none p-8"
+              placeholder="Console: >"
             />
           </div>
         </div>
