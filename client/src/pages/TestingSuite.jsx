@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import socket from '../../utils/socket.js';
 import ProblemExplanation from '../components/ProblemExplanation.jsx';
+import toast from 'react-hot-toast';
 
 const TestingSuite = () => {
   const [code, setCode] = useState('');
@@ -57,6 +58,7 @@ const TestingSuite = () => {
     `);
     iframeDocument.close();
     window.addEventListener('message', handleMessage);
+    toast.info('Code Executed');
   }
 
   function handleMessage(event) {
@@ -65,6 +67,7 @@ const TestingSuite = () => {
       setOutput(data.output);
     } else if (data.error !== undefined) {
       setOutput(`Error: ${data.error}`);
+      toast.error('Code Execution Error');
     }
     if (iframeRef.current) {
       iframeRef.current.parentNode.removeChild(iframeRef.current);
