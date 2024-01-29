@@ -4,7 +4,7 @@ import socket from '../../utils/socket.js';
 import { UserContext } from "../../context/UserContext.jsx";
 
 const Messenger=({isglobal})=>{ 
-    const {channel}=useContext(UserContext)
+    const {channel,userData}=useContext(UserContext)
     const [chatlog,setChatlog]=useState(null)
         // NEED USERNAME
     const [username, setUsername]=useState(`guest${Math.floor(Math.random()*1000)}`)
@@ -23,7 +23,7 @@ const Messenger=({isglobal})=>{
 
     const sendIT=(event)=>{
         if(event.key==='Enter'&&event.target.value!==''){
-            socket.emit('MessageRequest',event.target.value)
+            socket.emit('MessageRequest',[event.target.value,userData.profile_pic])
             event.target.value=''
         }
     }
@@ -37,15 +37,13 @@ const Messenger=({isglobal})=>{
     }
 
     return(
-        <>
-            <div id='msgr_ctn' className={suiteroom==='global'?"h-screen":"h-1/2"}>
-                <h1>{globalorprivate()} Chat</h1>
-                <div id="msgr_log">
-                    {chatlog&&<Messagelog chatlog={chatlog} username={username}/>}
-                </div>
-                <input id="msgr_input" onKeyUp={sendIT} className="textarea textarea-bordered textarea-md w-full max-w-xs" placeholder="chat here" autoComplete="off" autoFocus></input>                
+        <div id='msgr_ctn'>
+            <h1>{globalorprivate()} Chat</h1>
+            <div id="msgr_log">
+                {chatlog&&<Messagelog chatlog={chatlog} username={username}/>}
             </div>
-        </>
+            <input id="msgr_input" onKeyUp={sendIT} className="textarea textarea-bordered textarea-md w-full max-w-xs" placeholder="chat here" autoComplete="off" autoFocus></input>                
+        </div>
     )
     
 }

@@ -53,7 +53,7 @@ const StudentLanding = () => {
           </div>
         </div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-screen">
+        <div id="chatroom-ctn" className="ctn w-4/12 max-h-1080px h-screen">
           <Messenger isglobal={true}/>
         </div>
       </div>

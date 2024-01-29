@@ -67,7 +67,7 @@ const InstructorLanding = () => {
           {/* End of usercard-ctn */}
         </div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-screen">
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full">
           <Messenger isglobal={true}/>
         </div>
       </div>

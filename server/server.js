@@ -307,13 +307,13 @@ io.on('connection', (socket) => {
 
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
     io.to(room).emit('doc-change', currentContent);
-    
+
     console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
   })
   
   socket.on('MessageRequest',(message)=>{
     const clock = new Date()[Symbol.toPrimitive]('number')
-    chatRooms[room].push({sender:username,message:message,time:clock})
+    chatRooms[room].push({sender:username,message:message[0],time:clock,icon:message[1]})
     io.to(room).emit('chatRecordTransfer',chatRooms[room])
   })
 });

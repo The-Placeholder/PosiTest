@@ -1,11 +1,4 @@
 const Messagelog=({chatlog,username})=>{
-    const whichSide=(sideBool)=>{
-        let returnStr=''
-        sideBool?
-            returnStr = "chat chat-end":
-            returnStr = "chat chat-start"
-        return returnStr
-    }
 
     const relativeTime=(postedTime)=>{
         const clock = new Date()[Symbol.toPrimitive]('number')
@@ -20,15 +13,34 @@ const Messagelog=({chatlog,username})=>{
         return timeDiff
     }
 
+    const formattedMsg=(sideBool,x,key)=>{
+        let tagObj={msgCTN:null,msgBody:null}
+        if(sideBool){
+            tagObj.msgCTN='chat chat-end'
+            tagObj.msgBody='chat-bubble bg-g-orange text-white'
+        }
+        else{
+            tagObj.msgCTN='chat chat-start'
+            tagObj.msgBody='chat-bubble bg-g-blue text-white'
+        }
+
+        return(
+            <div className={tagObj.msgCTN} key={key}>
+                <div className="chat-image avatar">
+                    <div className="w-7 rounded-full">
+                        <img alt="Tailwind CSS chat bubble component" src={x.icon}/>
+                    </div>
+                </div>
+                <div className="chat-header ">{x.sender}</div>
+                <div className={tagObj.msgBody}>{x.message}</div>
+                <div className="chat-footer opacity-50">{relativeTime(x.time)}</div>
+            </div>
+        )
+    }
+
     return(
         chatlog.map((x,key)=>(
-            <div className={whichSide(x.sender===username)} key={key}>
-                <div className="chat-header">
-                    {x.sender}
-                    <time className="text-xs opacity-50">- {relativeTime(x.time)}</time>
-                </div>
-                <div className="chat-bubble">{x.message}</div>
-            </div>
+            formattedMsg(x.sender===username,x,key)
         ))
     )
 }
