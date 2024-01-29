@@ -52,7 +52,7 @@ const NavBar = () => {
                 <BsWechat />
               </label>
             ) : (
-              <h1>No side chat</h1>
+              ''
             )}
 
             <div className="dropdown dropdown-end">
