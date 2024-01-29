@@ -45,7 +45,7 @@ const Timer = () => {
     // const seconds = totalSeconds % 60;
 
     return (
-      <span className="countdown font-mono text-2xl ">
+      <span className="countdown font-mono text-lg ">
         <span style={{ '--value': formatTime(hours) }}></span>h
         <span style={{ '--value': formatTime(minutes) }}></span>m
         {/* <span style={{ '--value': formatTime(seconds) }}></span>s */}
@@ -54,7 +54,7 @@ const Timer = () => {
   };
 
   return (
-    <div className="flex flex-nowrap gap-2 text-md text-md justify-center">
+    <div className="flex flex-nowrap gap-2 text-md text-md justify-center text-sm">
       <div>Duration:</div>
       <div>{formattedTime()}</div>
       {/* <button onClick={toggleTimer} className="p-2">
