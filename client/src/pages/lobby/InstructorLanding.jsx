@@ -6,7 +6,7 @@ import { UserContext } from '../../../context/UserContext';
 const InstructorLanding = () => {
   const { setChannel } = useContext(UserContext);
   const [users, setUsers] = useState([]);
-  const [roomCount, setRoomCount] = useState([1, 2, 3, 4, 5, 6, 7, 8]); //this is placeholder for rooms
+  const [roomCount, setRoomCount] = useState([1, 2, 3, 4]); //this is placeholder for rooms
 
   console.log(`roomCount`, roomCount);
 
@@ -59,7 +59,7 @@ const InstructorLanding = () => {
                     <Link to="/suite">
                       <button
                         className="btn btn-primary opacity-75"
-                        onClick={() => selectSuite(user.username)}
+                        onClick={() => selectSuite(roomId)}
                       >
                         Select
                       </button>
