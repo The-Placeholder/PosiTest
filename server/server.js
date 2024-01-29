@@ -294,24 +294,20 @@ io.on('connection', (socket) => {
 
   // MESSENGER EVENTS 
   socket.on('ComponentLoad',(userArr)=>{
-    if(room){ //leaves previous room
+    if(room){
       socket.leave(room)
     }
-    // else if(userSockets[userArr[0]]){ //disconnects redundant sockets
-    //   userSockets[userArr[0]].disconnect()
-    // }
-
-    if(!chatRooms[userArr[1]]){ //creates chatroom 
+    if(!chatRooms[userArr[1]]){
       chatRooms[userArr[1]]=[]
     }
 
     username=userArr[0]
     room=userArr[1]
-    // userSockets[username]=socket //saves socket to username key
-
     socket.join(userArr[1])
+
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
     io.to(room).emit('doc-change', currentContent);
+    
     console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
   })
   

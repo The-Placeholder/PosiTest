@@ -6,8 +6,10 @@ import { UserContext } from "../../context/UserContext.jsx";
 const Messenger=({isglobal})=>{ 
     const {channel}=useContext(UserContext)
     const [chatlog,setChatlog]=useState(null)
-        // DELETE ON IMPLEMENTATION
+        // NEED USERNAME
     const [username, setUsername]=useState(`guest${Math.floor(Math.random()*1000)}`)
+        // NEED USERNAME
+
     let suiteroom
     isglobal?suiteroom='global':suiteroom=channel
 
