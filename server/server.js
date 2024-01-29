@@ -18,7 +18,7 @@ const io = new SocketIOServer(server, {
     methods: ['GET', 'POST'],
   },
 });
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const router = express.Router();
 
 // Initialize Supabase client
@@ -285,7 +285,7 @@ io.on('connection', (socket) => {
   socket.on('doc-change', (newCode) => {
     if (currentContent !== newCode) {
       currentContent = newCode;
-      socket.broadcast.emit('doc-change', currentContent);
+      io.to(room).emit('doc-change', currentContent);
     }
   });
   socket.on('disconnect', () => {
@@ -311,6 +311,7 @@ io.on('connection', (socket) => {
 
     socket.join(userArr[1])
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
+    io.to(room).emit('doc-change', currentContent);
     console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
   })
   
