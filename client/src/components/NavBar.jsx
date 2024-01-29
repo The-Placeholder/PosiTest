@@ -4,6 +4,7 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import NavChatBtn from './NavChatBtn';
+import NavBackBtn from './NavBackBtn';
 
 const NavBar = () => {
   const location = useLocation();
@@ -16,9 +17,10 @@ const NavBar = () => {
     return <div>Loading user data</div>;
   }
 
-  const showAddtionalOptions =
+  const showChat =
     location.pathname === '/suite' && userData?.role === 'instructor';
-  console.log('useLocation:', location);
+
+  const showBackBtn = location.pathname === '/suite';
 
   const logOut = () => {
     setuserData(null);
@@ -44,7 +46,8 @@ const NavBar = () => {
 
         <div className="no-flex">
           <div id="right-nav" className="flex flex-nowrap flex-row gap-8">
-            {showAddtionalOptions ? <NavChatBtn /> : ''}
+            {showBackBtn ? <NavBackBtn /> : ''}
+            {showChat ? <NavChatBtn /> : ''}
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
