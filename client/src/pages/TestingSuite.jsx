@@ -80,7 +80,7 @@ const TestingSuite = () => {
     <>
       <div className="ctn flex flex-row flex-wrap w-full h-screen justify-center py-6 pb-40 overflow-auto">
         <div className="ctn h-full w-3/12">
-          {/* <ProblemExplanation executeCode={executeCode} code={code} /> */}
+          <ProblemExplanation executeCode={executeCode} code={code} />
         </div>
         <div className="flex h-full flex-col w-8/12 gap-8 bg-g-editor">
           <div className="w-full flex flex-wrap justify-end h-2/3 p-3 ">

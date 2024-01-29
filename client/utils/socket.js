@@ -1,6 +1,6 @@
 import socketIOClient from 'socket.io-client';
 
-const ENDPOINT = 'http://localhost:3000';
+const ENDPOINT = 'http://localhost:3001';
 let socket;
 if (process.env.NODE_ENV === 'development') {
   console.log('Running in Dev mode');
