@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
 
 export default function LobbyLayout() {
-  const { userData, setSuiteroom } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
   const navigate = useNavigate('');
   useEffect(() => {
     const loadRolePage = () => {
@@ -21,10 +21,6 @@ export default function LobbyLayout() {
       loadRolePage();
     }
   }, [userData]);
-
-  useEffect(()=>{
-    setSuiteroom('global')
-  },[])
 
   if (!userData) {
     return <div>Loading Userdata</div>;

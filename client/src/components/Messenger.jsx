@@ -1,13 +1,15 @@
 import { useEffect,useState,useContext } from "react"
 import Messagelog from "./Messagelog.jsx"
 import socket from '../../utils/socket.js';
-import { UserContext } from '../../context/UserContext.jsx';
+import { UserContext } from "../../context/UserContext.jsx";
 
-const Messenger=()=>{
-    const { suiteroom,setSuiteroom } = useContext(UserContext); 
+const Messenger=({isglobal})=>{ 
+    const {channel}=useContext(UserContext)
     const [chatlog,setChatlog]=useState(null)
         // DELETE ON IMPLEMENTATION
     const [username, setUsername]=useState(`guest${Math.floor(Math.random()*1000)}`)
+    let suiteroom
+    isglobal?suiteroom='global':suiteroom=channel
 
     useEffect(()=>{
         setChatlog(null)

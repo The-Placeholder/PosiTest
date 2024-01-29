@@ -6,7 +6,7 @@ export const UserContext = createContext({});
 export function UserContextProvider({ children }) {
   const [userId, setuserId] = useState(null);
   const [userData, setuserData] = useState(null);
-  const [suiteroom,setSuiteroom] = useState('global')
+  const [channel,setChannel] = useState(null)
 
   useEffect(() => {
     const getUser = async () => {
@@ -24,7 +24,7 @@ export function UserContextProvider({ children }) {
   }, [userId, userData]);
 
   return (
-    <UserContext.Provider value={{ userData, setuserData, setuserId, suiteroom, setSuiteroom }}>
+    <UserContext.Provider value={{ userData, setuserData, setuserId, channel, setChannel }}>
       {children}
     </UserContext.Provider>
   );

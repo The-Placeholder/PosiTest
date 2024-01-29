@@ -277,6 +277,9 @@ router.delete('/users/:id', async (req, res) => {
 // Socket.io Logic for real-time document editing
 let currentContent = '';
 io.on('connection', (socket) => {
+  let room = null
+  let username = null
+
   console.log(`⚡: ${socket.id} user just connected`);
   socket.emit('doc-change', currentContent);
   socket.on('doc-change', (newCode) => {
@@ -290,8 +293,6 @@ io.on('connection', (socket) => {
   });
 
   // MESSENGER EVENTS 
-  let room = null
-  let username = null
   socket.on('ComponentLoad',(userArr)=>{
     if(room){ //leaves previous room
       socket.leave(room)

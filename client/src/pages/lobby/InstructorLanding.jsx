@@ -4,7 +4,7 @@ import Messenger from '../../components/Messenger';
 import { UserContext } from '../../../context/UserContext';
 
 const InstructorLanding = () => {
-  const { setSuiteroom } = useContext(UserContext); 
+  const { setChannel } = useContext(UserContext); 
   const [users, setUsers] = useState([]);
   // console.log(users);
   useEffect(() => {
@@ -24,7 +24,7 @@ const InstructorLanding = () => {
   }, []);
 
   const selectSuite=(roomID)=>{
-    setSuiteroom(roomID)
+    setChannel(roomID)
     console.log(`changing rooms ${roomID}`)
   }
 
@@ -68,7 +68,7 @@ const InstructorLanding = () => {
         </div>
         {/* End of lobby-ctn */}
         <div id="chatroom-ctn" className="ctn w-4/12 h-screen">
-          <Messenger/>
+          <Messenger isglobal={true}/>
         </div>
       </div>
       {/* End of content-ctn */}

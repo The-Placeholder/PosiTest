@@ -21,16 +21,14 @@ const Messagelog=({chatlog,username})=>{
     }
 
     return(
-        chatlog.map(x=>(
-            <>
-                <div className={whichSide(x.sender===username)}>
-                    <div className="chat-header">
-                        {x.sender}
-                        <time className="text-xs opacity-50">- {relativeTime(x.time)}</time>
-                    </div>
-                    <div className="chat-bubble">{x.message}</div>
+        chatlog.map((x,key)=>(
+            <div className={whichSide(x.sender===username)} key={key}>
+                <div className="chat-header">
+                    {x.sender}
+                    <time className="text-xs opacity-50">- {relativeTime(x.time)}</time>
                 </div>
-            </>
+                <div className="chat-bubble">{x.message}</div>
+            </div>
         ))
     )
 }
