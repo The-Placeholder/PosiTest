@@ -11,16 +11,17 @@ export function QuestionContextProvider({ children }) {
   useEffect(() => {
     const getQuestion = async () => {
       try {
-        const { data } = await axios.get(`/question/${questionId}`);
+        const { data } = await axios.get(`/questions/${questionId}`);
         setquestionData(data);
-        console.log('from axios', data);
+        console.log('from axios questiondata', data);
       } catch (err) {
         return <div>Error getting userdata {err}</div>;
       }
-      if (!questionData && questionId) {
-        getQuestion();
-      }
     };
+
+    if (!questionData && questionId) {
+      getQuestion();
+    }
   }, [questionData, questionId]);
 
   return (

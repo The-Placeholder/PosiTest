@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import socket from '../../utils/socket.js';
+import ProblemExplanation from '../components/ProblemExplanation.jsx';
+import toast from 'react-hot-toast';
 
 const TestingSuite = () => {
   const [code, setCode] = useState('');
@@ -56,6 +58,7 @@ const TestingSuite = () => {
     `);
     iframeDocument.close();
     window.addEventListener('message', handleMessage);
+    toast.info('Code Executed');
   }
 
   function handleMessage(event) {
@@ -64,6 +67,7 @@ const TestingSuite = () => {
       setOutput(data.output);
     } else if (data.error !== undefined) {
       setOutput(`Error: ${data.error}`);
+      toast.error('Code Execution Error');
     }
     if (iframeRef.current) {
       iframeRef.current.parentNode.removeChild(iframeRef.current);
@@ -74,31 +78,30 @@ const TestingSuite = () => {
 
   return (
     <>
-      <div className="ctn fixed flex flex-row flex-wrap w-full h-full justify-center py-6 pb-24 gap-4">
+      <div className="ctn flex flex-row flex-wrap w-full h-screen justify-center py-6 pb-40 overflow-auto">
         <div className="ctn h-full w-3/12">
-          <h1>Code Problem Explanation</h1>
+          <ProblemExplanation executeCode={executeCode} code={code} />
         </div>
-        <div className="flex flex-col w-8/12 gap-4">
-          <div className="ctn w-full h-2/3 ">
+        <div className="flex h-full flex-col w-8/12 gap-8 bg-g-editor">
+          <div className="w-full flex flex-wrap justify-end h-2/3 p-3 ">
             <Editor
               defaultLanguage="javascript"
               theme="vs-dark"
               value={code}
-              height="50vh"
+              height="93%"
               width="100%"
               onChange={handleEditorChange}
             />
-            <button
-              onClick={() => {
-                executeCode(code);
-              }}
-            >
-              Execute Code
-            </button>
           </div>
-          <div className="ctn w-full h-1/3">
+          <div className="w-full h-1/3">
             {' '}
-            <textarea value={output} readOnly />
+            <textarea
+              value={output}
+              name=""
+              readOnly
+              className="ctn w-full h-full outline-none p-8"
+              placeholder="Console: >"
+            />
           </div>
         </div>
       </div>
