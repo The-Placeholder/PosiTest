@@ -17,18 +17,6 @@ const RegisterPage = () => {
           </h1>
         </div>
         <div id="registration-inputs" className="flex flex-col items-center ">
-          <div className="flex gap-1">
-            <input
-              type="text"
-              placeholder="First Name"
-              className="input input-bordered w-40 max-w-xs mb-2 bg-g-greyblue"
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              className="input input-bordered w-40 max-w-xs mb-2 bg-g-greyblue"
-            />
-          </div>
           <input
             type="text"
             placeholder="Email"
