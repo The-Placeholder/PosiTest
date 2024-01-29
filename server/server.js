@@ -290,11 +290,11 @@ io.on('connection', (socket) => {
   });
 
   // MESSENGER EVENTS 
-  let room = -1
+  let room = null
   let username = null
   socket.on('ComponentLoad',(userArr)=>{
-    if(room>=0){ //leaves previous room
-      socket.leave(`${room}`)
+    if(room){ //leaves previous room
+      socket.leave(room)
     }
     // else if(userSockets[userArr[0]]){ //disconnects redundant sockets
     //   userSockets[userArr[0]].disconnect()
@@ -308,7 +308,7 @@ io.on('connection', (socket) => {
     room=userArr[1]
     // userSockets[username]=socket //saves socket to username key
 
-    socket.join(`${userArr[1]}`)
+    socket.join(userArr[1])
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
     console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
   })
@@ -316,7 +316,7 @@ io.on('connection', (socket) => {
   socket.on('MessageRequest',(message)=>{
     const clock = new Date()[Symbol.toPrimitive]('number')
     chatRooms[room].push({sender:username,message:message,time:clock})
-    io.to(`${room}`).emit('chatRecordTransfer',chatRooms[room])
+    io.to(room).emit('chatRecordTransfer',chatRooms[room])
   })
 });
 
@@ -338,6 +338,6 @@ const globalrecords = [
   {sender:'senderA',message:'sorry i\'ll help you in 1 sec, brb',time:'2 hours ago'}
 ]
   // Chatrooms, 0th index for global chat
-const chatRooms = [globalrecords]
+const chatRooms = {global:globalrecords}
   // variable for saving previous sockets, to reduce redundant sockets
 // const userSockets = {}

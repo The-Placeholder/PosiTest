@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Messenger from '../../components/Messenger';
+import { useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 const InstructorLanding = () => {
+  const { suiteroom,setSuiteroom } = useContext(UserContext); 
   const [users, setUsers] = useState([]);
   // console.log(users);
   useEffect(() => {
@@ -20,6 +23,11 @@ const InstructorLanding = () => {
     };
     fetchData();
   }, []);
+
+  const selectSuite=(roomID)=>{
+    setSuiteroom(roomID)
+    console.log(`changing rooms ${roomID}`)
+  }
 
   return (
     <>
@@ -47,7 +55,7 @@ const InstructorLanding = () => {
                   <h2 className="card-title text-3xl">{user.username}</h2>
                   <div className="card-actions">
                     <Link to="/suite">
-                      <button className="btn btn-primary opacity-75">
+                      <button className="btn btn-primary opacity-75" onClick={()=>selectSuite(user.username)}>
                         Select
                       </button>
                     </Link>
