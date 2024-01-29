@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Messenger from '../../components/Messenger';
 
 const InstructorLanding = () => {
   const [users, setUsers] = useState([]);
@@ -60,7 +61,7 @@ const InstructorLanding = () => {
         </div>
         {/* End of lobby-ctn */}
         <div id="chatroom-ctn" className="ctn w-4/12 h-screen">
-          <h1>chat component</h1>
+          <Messenger/>
         </div>
       </div>
       {/* End of content-ctn */}

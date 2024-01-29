@@ -288,9 +288,55 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
+
+  // MESSENGER EVENTS 
+  let room = -1
+  let username = null
+  socket.on('ComponentLoad',(userArr)=>{
+    if(room>=0){ //leaves previous room
+      socket.leave(`${room}`)
+    }else if(userSockets[userArr[0]]){ //disconnects redundant sockets
+      userSockets[userArr[0]].disconnect()
+    }
+
+    if(!chatRooms[userArr[1]]){ //creates chatroom 
+      chatRooms[userArr[1]]=[]
+    }
+
+    username=userArr[0]
+    room=userArr[1]
+    userSockets[username]=socket //saves socket to username key
+
+    socket.join(`${userArr[1]}`)
+    socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
+    console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
+  })
+  
+  socket.on('MessageRequest',(message)=>{
+    const clock = new Date()[Symbol.toPrimitive]('number')
+    chatRooms[room].push({sender:username,message:message,time:clock})
+    io.to(`${room}`).emit('chatRecordTransfer',chatRooms[room])
+  })
 });
 
 // Server Listening
 server.listen(port, () => {
   console.log(`Server Running on Port: ${port}`);
 });
+
+
+//--MESSENGER TEST HARDCODED VARIABLES-------------------------
+  // TEST CHATHISTORY
+const globalrecords = [
+  {sender:'senderA',message:'hello',time:'2 hours ago'},
+  {sender:'senderB',message:'hello, how are you',time:'2 hours ago'},
+  {sender:'senderA',message:'good, how are you',time:'2 hours ago'},
+  {sender:'senderB',message:'I\'m doing good as well',time:'2 hours ago'},
+  {sender:'senderA',message:'how can I help you',time:'2 hours ago'},
+  {sender:'senderB',message:'I\'m having trouble with problem A',time:'2 hours ago'},
+  {sender:'senderA',message:'sorry i\'ll help you in 1 sec, brb',time:'2 hours ago'}
+]
+  // Chatrooms, 0th index for global chat
+const chatRooms = [globalrecords]
+  // variable for saving previous sockets, to reduce redundant sockets
+const userSockets = {}

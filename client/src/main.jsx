@@ -5,8 +5,6 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* move messenger component on implementation */}
-    <Messenger/>
     <App />
   </React.StrictMode>,
 );
