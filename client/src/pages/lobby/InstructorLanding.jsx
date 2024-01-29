@@ -32,11 +32,11 @@ const InstructorLanding = () => {
     <>
       <div
         id="contents-ctn"
-        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 p-5 h-full rounded-2xl "
+        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 p-5 pb-32 h-screen rounded-2xl "
       >
         <div
           id="lobby-ctn"
-          className="w-7/12 flex flex-wrap max-h-[1080px] overflow-y-auto"
+          className="w-7/12 flex flex-wrap h-full overflow-y-auto"
         >
           <h1 className="w-full text-center text-5xl font-bold text-black mt-3 self-center">
             Student Lobbies
