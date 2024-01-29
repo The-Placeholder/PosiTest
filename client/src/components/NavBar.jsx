@@ -34,7 +34,7 @@ const NavBar = () => {
       <div className="navbar bg-g-blue top-0 z-50 h-24 px-5 flex flex-row justify-between">
         <div className="flex relative">
           <NavLink
-            path="/lobby"
+            to="/"
             className="w-44 content-center justify-center absolute top-[-15px] mx-2"
           >
             <img src={logo} alt="galvanize logo" className="object-fit" />
