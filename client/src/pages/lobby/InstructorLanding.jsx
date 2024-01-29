@@ -27,7 +27,7 @@ const InstructorLanding = () => {
   }, []);
 
   const selectSuite = (roomID) => {
-    setChannel(roomID);
+    setChannel(`${roomID}`);
     console.log(`changing rooms ${roomID}`);
   };
 

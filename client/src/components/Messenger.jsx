@@ -51,7 +51,7 @@ const Messenger=({isglobal})=>{
                 {chatlog&&<Messagelog chatlog={chatlog} username={username}/>}
             </div>
             <div className="bg-stone-400 h-2 w-full my-2 border-1 border-black"></div>
-            <input id="msgr_input" onKeyUp={sendIT} className="textarea textarea-bordered textarea-md w-full msgr_input" placeholder="Message here" autoComplete="off" autoFocus></input>                
+            <input id="msgr_input" onKeyUp={sendIT} className="textarea textarea-bordered textarea-md w-full msgr_input" placeholder="Message here" autoComplete="off"></input>                
         </div>
     )    
 }
