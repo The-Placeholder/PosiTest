@@ -1,20 +1,38 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import bcrypt from 'bcrypt';
 import { createClient } from '@supabase/supabase-js';
+import { Server as SocketIOServer } from 'socket.io';
+import http from 'http';
 
+// Load environment variables
 dotenv.config();
 
+// Initialize Express app and HTTP server
 const app = express();
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+  },
+});
+const port = process.env.PORT || 3001;
 const router = express.Router();
-const port = process.env.PORT || 3000;
+
+// Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-//  ------------------------------------------------------------ MIDDLEWARE
-
-app.use(cors());
+// Middleware
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.static('./public'));
 
@@ -62,11 +80,42 @@ app.get('/api/users/:id', async (req, res) => {
   }
 });
 
+// GET 1 ROUTE for Question
+app.get('/api/questions/:id', async (req, res) => {
+  try {
+    const questionId = req.params.id;
+
+    const { data, error } = await supabase
+      .from('problem')
+      .select('*')
+      .eq('id', questionId)
+      .single();
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error fetching question');
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Question not found' });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching question');
+  }
+});
+
 app.use('/api', router);
 // POST ROUTE
 router.post('/register', async (req, res) => {
   try {
     const { email, hashed_pw, role, username } = req.body;
+
+    const saltRounds = 10;
+    const hashed_password = await bcrypt.hash(hashed_pw, saltRounds);
+
     const { data: existingUser, error } = await supabase
       .from('user')
       .select('*')
@@ -83,7 +132,7 @@ router.post('/register', async (req, res) => {
 
     const { data: newUser, registrationError } = await supabase
       .from('user')
-      .insert([{ email, hashed_pw, role, username }]);
+      .insert([{ email, hashed_pw: hashed_password, role, username }]);
 
     if (registrationError) {
       console.error(registrationError);
@@ -99,6 +148,51 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// Login route
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    // Fetch user by username
+    const { data: user, error: fetchError } = await supabase
+      .from('user')
+      .select('id, username, hashed_pw')
+      .eq('username', username)
+      .single();
+
+    if (fetchError) {
+      console.error(fetchError);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    console.log(typeof password);
+    console.log(typeof user.hashed_pw);
+    console.log('Original Password:', password);
+    console.log('Stored Hash:', user.hashed_pw);
+
+    // Compare hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.hashed_pw);
+
+    console.log('Result of bcrypt.compare:', isPasswordValid);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    res
+      .status(200)
+      .json({ success: 'Login successful', user: { id: user.id, username } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Patch Route
 router.patch('/users/:id', async (req, res) => {
   try {
@@ -180,6 +274,23 @@ router.delete('/users/:id', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log('Server Running on Port:', port);
+// Socket.io Logic for real-time document editing
+let currentContent = '';
+io.on('connection', (socket) => {
+  console.log(`⚡: ${socket.id} user just connected`);
+  socket.emit('doc-change', currentContent);
+  socket.on('doc-change', (newCode) => {
+    if (currentContent !== newCode) {
+      currentContent = newCode;
+      socket.broadcast.emit('doc-change', currentContent);
+    }
+  });
+  socket.on('disconnect', () => {
+    console.log('🔥: A user disconnected');
+  });
+});
+
+// Server Listening
+server.listen(port, () => {
+  console.log(`Server Running on Port: ${port}`);
 });
