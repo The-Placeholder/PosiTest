@@ -10,7 +10,7 @@ const ProblemExplanation = ({ executeCode, code }) => {
       <div id="test-info" className="max-h-12 gap-5 flex flex-row w-full">
         <div
           id="timer-ctn"
-          className="w-6/12 m-auto p-3 bg-g-orange opacity-40 text-white rounded-md"
+          className="w-6/12 m-auto p-3 bg-g-orange opacity-40 text-white rounded-md text-xs"
         >
           <Timer />
         </div>
@@ -18,37 +18,34 @@ const ProblemExplanation = ({ executeCode, code }) => {
           id="input-ctn"
           className="flex flex-row mr-8 my-auto gap-2 w-5/12 max-h-12"
         >
-          <button className="g-btn btn btn-primary p-3 bg-g-orange text-white rounded-lg font-medium">
+          <button className="g-btn btn btn-primary p-3 bg-g-orange text-white rounded-lg font-medium text-xs">
             Submit
           </button>
           <button
             onClick={() => {
               executeCode(code);
             }}
-            className="g-btn btn btn-primary p-3 bg-green-500/50 text-white rounded-lg"
+            className="g-btn btn btn-primary p-3 bg-green-500/50 text-white rounded-lg text-xs"
           >
             Run Code
           </button>
         </div>
       </div>
 
-      <h1 className="text-4xl text-white">
+      <h1 className="text-3xl text-white">
         <span className="g-orange font-bold">
           {`Question: `} {questionData.title}
         </span>
-        <span id="q-id" className="ml-5 text-lg my-auto text-gray-500">
-          {`(QID: ${questionData.id})`}
-        </span>
       </h1>
-      <div className="w-full flex flex-row content-center text-2xl gap-5">
+      <div className="w-full flex flex-row content-center text-sm gap-5">
         <div id="badge-ctn" className="">
-          <div className="rounded-xl text-gray-300 bg-green-800/70 p-2 px-4 text-sm">
+          <div className="rounded-xl text-gray-300 bg-green-800/70 p-1 px-3 text-[.75rem]">
             {questionData.difficulty}
           </div>
         </div>
       </div>
 
-      <div id="q-instructions" className="text-2xl">
+      <div id="q-instructions" className="">
         {questionData.instructions}
       </div>
 
@@ -56,14 +53,14 @@ const ProblemExplanation = ({ executeCode, code }) => {
         <div
           id={`hint${index + 1}`}
           key={`hint${index + 1}`}
-          className="w-full"
+          className="w-full "
         >
           <div className="collapse bg-base-200">
             <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">
+            <div className="collapse-title text-sm font-medium p-3">
               Hint {index + 1}:
             </div>
-            <div className="collapse-content">
+            <div className="collapse-content text-xs">
               {hint}
               <div>hello</div>
             </div>

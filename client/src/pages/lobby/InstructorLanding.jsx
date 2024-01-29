@@ -6,7 +6,10 @@ import { UserContext } from '../../../context/UserContext';
 const InstructorLanding = () => {
   const { setChannel } = useContext(UserContext); 
   const [users, setUsers] = useState([]);
-  // console.log(users);
+  const [roomCount, setRoomCount] = useState([1, 2, 3, 4, 5, 6, 7, 8]); //this is placeholder for rooms
+
+  console.log(`roomCount`, roomCount);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,22 +42,22 @@ const InstructorLanding = () => {
           className="w-7/12 flex flex-wrap h-full overflow-y-auto"
         >
           <h1 className="w-full text-center text-5xl font-bold text-black mt-3 self-center">
-            Student Lobbies
+            Coding Rooms
           </h1>
           <div
             id="usercard-ctn"
             className="ctn flex flex-wrap gap-5 justify-evenly p-9 mb-16"
           >
-            {users.map((user, index) => (
+            {roomCount.map((roomId, index) => (
               <div
-                key={user + index}
+                key={roomId + index}
                 className="card w-5/12 h-36 shadow-xl flex justify-center content-center bg-g-greyblue "
               >
                 <div className="card-body items-center text-center text-black">
-                  <h2 className="card-title text-3xl">{user.username}</h2>
+                  <h2 className="card-title text-3xl">{`Room: ${roomId}`}</h2>
                   <div className="card-actions">
                     <Link to="/suite">
-                      <button className="btn btn-primary opacity-75" onClick={()=>selectSuite(user.username)}>
+                      <button className="btn btn-primary opacity-75" onClick={()=>selectSuite(roomId)}>
                         Select
                       </button>
                     </Link>
