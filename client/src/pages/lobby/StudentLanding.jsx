@@ -60,7 +60,7 @@ const StudentLanding = () => {
             >
               <label
                 htmlFor="room"
-                className="w-6/12 text-3xl mt-1 font-semibold"
+                className="w-6/12 text-3xl mt-1 font-semibold "
               >
                 Room Id{' '}
               </label>
@@ -76,7 +76,7 @@ const StudentLanding = () => {
             </div>
             <button
               id="enterinput"
-              className="btn ml-60 btn-primary opacity-75 w-3/12 text-2xl"
+              className="btn ml-60 btn-primary opacity-75 w-3/12 text-2xl py-6 flex content-center"
               onClick={() => enterHandler()}
             >
               Enter
