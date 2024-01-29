@@ -61,7 +61,7 @@ const ProblemExplanation = ({ executeCode, code }) => {
           <div className="collapse bg-base-200">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
-              Hint {index}:
+              Hint {index + 1}:
             </div>
             <div className="collapse-content">
               {hint}
