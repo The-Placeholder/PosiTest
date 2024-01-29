@@ -1,13 +1,18 @@
-const express = require('express')
-const bcrypt = require('bcrypt')
-const pool = require('../db')
-const router = express.Router()
-const jwtGenerator = require('../utils/jwtGenerator')
-const validInfo = require('../middleware/validInfo')
-const authorization = require('../middleware/authorization')
+import express from 'express';
+import bcrypt from 'bcrypt';
+import pool from '../db';
+import { Router } from 'express';
+import jwtGenerator from '../utils/jwtGenerator';
+import validInfo from '../middleware/validInfo';
+import authorization from '../middleware/authorization';
+
+const router = Router();
+
+// Rest of your code...
 
 
-router.get('/verify', authorization, async(req, res) => {
+
+router.get('/verify', authorization, async(req, res) => {2
     try{
         res.json(true)
     } catch (error) {
@@ -72,4 +77,4 @@ router.post('/login', validInfo, async(req,res) => {
     }
 })
 
-module.exports = router
+export default router;

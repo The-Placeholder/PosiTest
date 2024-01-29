@@ -13,7 +13,6 @@ const router = express.Router();
 router.use(cors(corsOptions));
 
 // Routes
-router.get('/', test);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/profile', getProfile);

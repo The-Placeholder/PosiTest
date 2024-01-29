@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { createClient } from '@supabase/supabase-js';
 import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
+import cookieParser from 'cookie-parser';
 
 // Load environment variables
 dotenv.config();
@@ -34,7 +35,10 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('./public'));
+
+app.use('/', require('./routes/authRoutes'));
 
 //  ------------------------------------------------------------ DB API ROUTES
 
