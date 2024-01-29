@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Messenger from '../../components/Messenger';
-import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 
 const InstructorLanding = () => {
-  const { suiteroom,setSuiteroom } = useContext(UserContext); 
+  const { setSuiteroom } = useContext(UserContext); 
   const [users, setUsers] = useState([]);
   // console.log(users);
   useEffect(() => {

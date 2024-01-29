@@ -1,11 +1,8 @@
-import io from 'socket.io-client'
-import { useEffect,useState } from "react"
+import { useEffect,useState,useContext } from "react"
 import Messagelog from "./Messagelog.jsx"
 import socket from '../../utils/socket.js';
-import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext.jsx';
 
-// required input: username & room
 const Messenger=()=>{
     const { suiteroom,setSuiteroom } = useContext(UserContext); 
     const [chatlog,setChatlog]=useState(null)
