@@ -46,12 +46,12 @@ const Messenger=({isglobal})=>{
 
     return(
         <div id='msgr_ctn' className="h-full">
-            <h1 className="text-4xl text-center mb-2 msgr_head text-black">{globalorprivate()} Chat</h1>
+            <h1 className="text-4xl text-center mb-2 msgr_head text-black w-full">{globalorprivate()} Chat</h1>
             <div id="msgr_log" className="msgr_overflow p-2 pt-12" ref={scrollingDivRef}>
                 {chatlog&&<Messagelog chatlog={chatlog} username={username}/>}
             </div>
             <div className="bg-stone-400 h-2 w-full my-2 border-1 border-black"></div>
-            <input id="msgr_input" onKeyUp={sendIT} className="textarea textarea-bordered textarea-md w-full max-w-xs" placeholder="Message here" autoComplete="off" autoFocus></input>                
+            <input id="msgr_input" onKeyUp={sendIT} className="textarea textarea-bordered textarea-md w-full msgr_input" placeholder="Message here" autoComplete="off" autoFocus></input>                
         </div>
     )    
 }

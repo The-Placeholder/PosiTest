@@ -24,5 +24,9 @@
 .msgr_head{
   position: absolute;
   z-index: 1000;
-  background-image: linear-gradient(to top, rgba(255,255,255,0.9),rgba(255,255,255,1))
+  background-image: linear-gradient(to top, rgba(255,255,255,0.95),rgba(255,255,255,1))
+}
+
+.msgr_input{
+  height: 5%;
 }
