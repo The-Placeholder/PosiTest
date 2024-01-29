@@ -193,6 +193,53 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// POST route for submitting answers
+router.post('/answers', async (req, res) => {
+  try {
+    const { user_id, problem_id, answer } = req.body;
+
+    // Check if the user and problem exist
+    const { data: existingUser, userError } = await supabase
+      .from('user')
+      .select('*')
+      .eq('id', user_id)
+      .single();
+
+    const { data: existingProblem, problemError } = await supabase
+      .from('problem')
+      .select('*')
+      .eq('id', problem_id)
+      .single();
+
+    if (userError || problemError) {
+      console.error(userError || problemError);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    if (!existingUser || !existingProblem) {
+      return res.status(404).json({ error: 'User or problem not found' });
+    }
+
+    // Insert the answer
+    const { data: newAnswer, answerError } = await supabase
+      .from('answer')
+      .insert([{ user_id, problem_id, answer }]);
+
+    if (answerError) {
+      console.error(answerError);
+      return res
+        .status(500)
+        .json({ error: 'Internal Server Error during answer submission' });
+    }
+
+    console.log(newAnswer);
+    res.status(200).json({ success: 'Answer submitted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Patch Route
 router.patch('/users/:id', async (req, res) => {
   try {
