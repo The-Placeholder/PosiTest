@@ -295,9 +295,10 @@ io.on('connection', (socket) => {
   socket.on('ComponentLoad',(userArr)=>{
     if(room>=0){ //leaves previous room
       socket.leave(`${room}`)
-    }else if(userSockets[userArr[0]]){ //disconnects redundant sockets
-      userSockets[userArr[0]].disconnect()
     }
+    // else if(userSockets[userArr[0]]){ //disconnects redundant sockets
+    //   userSockets[userArr[0]].disconnect()
+    // }
 
     if(!chatRooms[userArr[1]]){ //creates chatroom 
       chatRooms[userArr[1]]=[]
@@ -305,7 +306,7 @@ io.on('connection', (socket) => {
 
     username=userArr[0]
     room=userArr[1]
-    userSockets[username]=socket //saves socket to username key
+    // userSockets[username]=socket //saves socket to username key
 
     socket.join(`${userArr[1]}`)
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
@@ -339,4 +340,4 @@ const globalrecords = [
   // Chatrooms, 0th index for global chat
 const chatRooms = [globalrecords]
   // variable for saving previous sockets, to reduce redundant sockets
-const userSockets = {}
+// const userSockets = {}
