@@ -324,20 +324,65 @@ router.delete('/users/:id', async (req, res) => {
 // Socket.io Logic for real-time document editing
 let currentContent = '';
 io.on('connection', (socket) => {
+  let room = null
+  let username = null
+
   console.log(`⚡: ${socket.id} user just connected`);
   socket.emit('doc-change', currentContent);
   socket.on('doc-change', (newCode) => {
     if (currentContent !== newCode) {
       currentContent = newCode;
-      socket.broadcast.emit('doc-change', currentContent);
+      io.to(room).emit('doc-change', currentContent);
     }
   });
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
   });
+
+  // MESSENGER EVENTS 
+  socket.on('ComponentLoad',(userArr)=>{
+    if(room){
+      socket.leave(room)
+    }
+    if(!chatRooms[userArr[1]]){
+      chatRooms[userArr[1]]=[]
+    }
+
+    username=userArr[0]
+    room=userArr[1]
+    socket.join(userArr[1])
+
+    socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
+    io.to(room).emit('doc-change', currentContent);
+
+    console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
+  })
+  
+  socket.on('MessageRequest',(message)=>{
+    const clock = new Date()[Symbol.toPrimitive]('number')
+    chatRooms[room].push({sender:username,message:message[0],time:clock,icon:message[1]})
+    io.to(room).emit('chatRecordTransfer',chatRooms[room])
+  })
 });
 
 // Server Listening
 server.listen(port, () => {
   console.log(`Server Running on Port: ${port}`);
 });
+
+
+//--MESSENGER TEST HARDCODED VARIABLES-------------------------
+  // TEST CHATHISTORY
+const globalrecords = [
+  {sender:'senderA',message:'hello',time:'2 hours ago'},
+  {sender:'senderB',message:'hello, how are you',time:'2 hours ago'},
+  {sender:'senderA',message:'good, how are you',time:'2 hours ago'},
+  {sender:'senderB',message:'I\'m doing good as well',time:'2 hours ago'},
+  {sender:'senderA',message:'how can I help you',time:'2 hours ago'},
+  {sender:'senderB',message:'I\'m having trouble with problem A',time:'2 hours ago'},
+  {sender:'senderA',message:'sorry i\'ll help you in 1 sec, brb',time:'2 hours ago'}
+]
+  // Chatrooms, 0th index for global chat
+const chatRooms = {global:globalrecords}
+  // variable for saving previous sockets, to reduce redundant sockets
+// const userSockets = {}

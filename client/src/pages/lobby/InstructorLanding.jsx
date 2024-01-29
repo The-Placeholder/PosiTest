@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Messenger from '../../components/Messenger';
+import { UserContext } from '../../../context/UserContext';
 
 const InstructorLanding = () => {
+  const { setChannel } = useContext(UserContext); 
   const [users, setUsers] = useState([]);
   // console.log(users);
   useEffect(() => {
@@ -19,6 +22,11 @@ const InstructorLanding = () => {
     };
     fetchData();
   }, []);
+
+  const selectSuite=(roomID)=>{
+    setChannel(roomID)
+    console.log(`changing rooms ${roomID}`)
+  }
 
   return (
     <>
@@ -46,7 +54,7 @@ const InstructorLanding = () => {
                   <h2 className="card-title text-3xl">{user.username}</h2>
                   <div className="card-actions">
                     <Link to="/suite">
-                      <button className="btn btn-primary opacity-75">
+                      <button className="btn btn-primary opacity-75" onClick={()=>selectSuite(user.username)}>
                         Select
                       </button>
                     </Link>
@@ -59,8 +67,8 @@ const InstructorLanding = () => {
           {/* End of usercard-ctn */}
         </div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-screen">
-          <h1>chat component</h1>
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full">
+          <Messenger isglobal={true}/>
         </div>
       </div>
       {/* End of content-ctn */}

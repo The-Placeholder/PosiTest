@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
+import Messenger from '../../components/Messenger';
 
 const StudentLanding = () => {
   const { userData } = useContext(UserContext);
@@ -52,8 +53,8 @@ const StudentLanding = () => {
           </div>
         </div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-screen">
-          <h1>chat component</h1>
+        <div id="chatroom-ctn" className="ctn w-4/12 max-h-1080px h-screen">
+          <Messenger isglobal={true}/>
         </div>
       </div>
       {/* End of content-ctn */}
