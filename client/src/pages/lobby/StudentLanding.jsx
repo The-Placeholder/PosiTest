@@ -11,11 +11,11 @@ const StudentLanding = () => {
     <>
       <div
         id="contents-ctn"
-        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 p-5 h-full rounded-2xl "
+        className="shadow-xl flex flex-row flex-wrap justify-evenly max-h-[800px] gap-15 m-5 p-5 h-full rounded-2xl "
       >
         <div
           id="lobby-ctn"
-          className="w-7/12 text-center flex flex-wrap max-h-[1080px] overflow-y-auto"
+          className="w-7/12 h-full p-20 text-center flex flex-wrap "
         >
           <h1 className="w-full text-5xl font-bold text-black self-center">
             Live Coding Assesment Suite Instructions:
@@ -45,7 +45,7 @@ const StudentLanding = () => {
               the "Submit" button.
             </li>
           </ul>
-          <div className="absolute bottom-5 left-1/4 transform -translate-x-1/2">
+          <div className="">
             <button className="btn btn-primary opacity-75">
               Room Dropdown Selection
             </button>
@@ -53,8 +53,11 @@ const StudentLanding = () => {
           </div>
         </div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 max-h-1080px h-screen">
-          <Messenger isglobal={true}/>
+        <div
+          id="chatroom-ctn"
+          className="ctn w-4/12 max-h-1080px h-screen overflow-auto"
+        >
+          <Messenger isglobal={true} />
         </div>
       </div>
       {/* End of content-ctn */}
