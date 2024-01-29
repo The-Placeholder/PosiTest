@@ -382,7 +382,5 @@ const globalrecords = [
   {sender:'senderB',message:'I\'m having trouble with problem A',time:'2 hours ago'},
   {sender:'senderA',message:'sorry i\'ll help you in 1 sec, brb',time:'2 hours ago'}
 ]
-  // Chatrooms, 0th index for global chat
+  // Chatrooms
 const chatRooms = {global:globalrecords}
-  // variable for saving previous sockets, to reduce redundant sockets
-// const userSockets = {}
