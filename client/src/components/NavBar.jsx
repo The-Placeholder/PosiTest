@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import { BsWechat } from 'react-icons/bs';
+import NavChatBtn from './NavChatBtn';
 
 const NavBar = () => {
   const location = useLocation();
@@ -16,7 +16,7 @@ const NavBar = () => {
     return <div>Loading user data</div>;
   }
 
-  const hasSideChat =
+  const showAddtionalOptions =
     location.pathname === '/suite' && userData?.role === 'instructor';
   console.log('useLocation:', location);
 
@@ -29,7 +29,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar bg-g-blue top-0 z-50 h-24 flex flex-row justify-between">
+      <div className="navbar bg-g-blue top-0 z-50 h-24 px-5 flex flex-row justify-between">
         <div className="flex relative">
           <NavLink
             path="/lobby"
@@ -42,19 +42,9 @@ const NavBar = () => {
           Lobby - {userData?.role}
         </div>
 
-        <div className="flex-none ">
-          <div id="right-nav" className="">
-            {hasSideChat ? (
-              <label
-                htmlFor="my-drawer"
-                className="drawer-button btn btn-primary"
-              >
-                <BsWechat />
-              </label>
-            ) : (
-              ''
-            )}
-
+        <div className="no-flex">
+          <div id="right-nav" className="flex flex-nowrap flex-row gap-8">
+            {showAddtionalOptions ? <NavChatBtn /> : ''}
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -67,7 +57,7 @@ const NavBar = () => {
                     src={userData.profile_pic}
                   />
                 </div>
-                <span className="g-orange text-lg absolute top-10">
+                <span className="role-title g-orange text-md absolute top-12 text-xs">
                   {userData?.role}
                 </span>
               </div>
