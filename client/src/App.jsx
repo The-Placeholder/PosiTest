@@ -48,7 +48,8 @@ const router = createBrowserRouter(
   ),
 );
 
-axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.baseURL =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : '/api';
 axios.defaults.withCredentials = true;
 
 export default function App() {

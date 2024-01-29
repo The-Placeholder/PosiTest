@@ -18,7 +18,7 @@ const io = new SocketIOServer(server, {
     methods: ['GET', 'POST'],
   },
 });
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const router = express.Router();
 
 // Initialize Supabase client
