@@ -84,6 +84,7 @@ const StudentLanding = () => {
             <div></div>
           </div>
         </div>
+        <div className="divider lg:divider-horizontal"></div>
         {/* End of lobby-ctn */}
         <div id="chatroom-ctn" className="ctn w-4/12 h-full overflow-auto">
           <Messenger isglobal={true} />
