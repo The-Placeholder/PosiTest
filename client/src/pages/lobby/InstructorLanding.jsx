@@ -4,9 +4,9 @@ import Messenger from '../../components/Messenger';
 import { UserContext } from '../../../context/UserContext';
 
 const InstructorLanding = () => {
-  const { setChannel } = useContext(UserContext); 
+  const { setChannel } = useContext(UserContext);
   const [users, setUsers] = useState([]);
-  const [roomCount, setRoomCount] = useState([1, 2, 3, 4, 5, 6, 7, 8]); //this is placeholder for rooms
+  const [roomCount, setRoomCount] = useState([1, 2, 3, 4]); //this is placeholder for rooms
 
   console.log(`roomCount`, roomCount);
 
@@ -26,16 +26,16 @@ const InstructorLanding = () => {
     fetchData();
   }, []);
 
-  const selectSuite=(roomID)=>{
-    setChannel(roomID)
-    console.log(`changing rooms ${roomID}`)
-  }
+  const selectSuite = (roomID) => {
+    setChannel(roomID);
+    console.log(`changing rooms ${roomID}`);
+  };
 
   return (
     <>
       <div
         id="contents-ctn"
-        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 p-5 pb-32 h-screen rounded-2xl "
+        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 p-5 pb-32 h-screen rounded-2xl max-h-[900px] "
       >
         <div
           id="lobby-ctn"
@@ -57,7 +57,10 @@ const InstructorLanding = () => {
                   <h2 className="card-title text-3xl">{`Room: ${roomId}`}</h2>
                   <div className="card-actions">
                     <Link to="/suite">
-                      <button className="btn btn-primary opacity-75" onClick={()=>selectSuite(roomId)}>
+                      <button
+                        className="btn btn-primary opacity-75"
+                        onClick={() => selectSuite(roomId)}
+                      >
                         Select
                       </button>
                     </Link>
@@ -70,8 +73,8 @@ const InstructorLanding = () => {
           {/* End of usercard-ctn */}
         </div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-full">
-          <Messenger isglobal={true}/>
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full overflow-auto">
+          <Messenger isglobal={true} />
         </div>
       </div>
       {/* End of content-ctn */}
