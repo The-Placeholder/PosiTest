@@ -57,7 +57,7 @@ const InstructorLanding = () => {
                   <h2 className="card-title text-3xl">{`Room: ${roomId}`}</h2>
                   <div className="card-actions">
                     <Link to="/suite">
-                      <button className="btn btn-primary opacity-75" onClick={()=>selectSuite(user.username)}>
+                      <button className="btn btn-primary opacity-75" onClick={()=>selectSuite(roomId)}>
                         Select
                       </button>
                     </Link>
