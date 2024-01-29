@@ -8,6 +8,7 @@ import {
 import { useState } from 'react';
 import axios from 'axios';
 import { UserContextProvider } from '../context/UserContext';
+import { QuestionContextProvider } from '../context/QuestionContext';
 import { Toaster } from 'react-hot-toast';
 
 // pages
@@ -47,7 +48,8 @@ const router = createBrowserRouter(
   ),
 );
 
-axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.baseURL =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api' : '/api';
 axios.defaults.withCredentials = true;
 
 export default function App() {
@@ -55,8 +57,10 @@ export default function App() {
 
   return (
     <UserContextProvider>
-      <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
-      <RouterProvider router={router} />
+      <QuestionContextProvider>
+        <Toaster position="bottom-right" toastOptions={{ duration: 8000 }} />
+        <RouterProvider router={router} />
+      </QuestionContextProvider>
     </UserContextProvider>
   );
 }

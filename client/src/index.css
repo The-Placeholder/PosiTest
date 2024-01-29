@@ -10,18 +10,21 @@
   --G-White: #ffffff;
   --G-BG-Gray: rgb(228, 228, 228);
   --G-Green: #85d3c4;
+  --editor-bg: #1b1b1b;
+
+  font-family: 'poppins', sans-serif;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: 0.5s all ease;
+  /* transition: 0.5s all ease; */
 }
 
-.ctn {
+/* .ctn {
   border: 1px solid black;
-}
+} */
 
 body {
   /* background-color: var(--G-White); */
@@ -58,8 +61,14 @@ body {
 .bg-g-greyblue {
   background-color: var(--G-GreyBlue);
 }
-.bg-g-orange {
+.bg-g-lightorange {
   background-color: var(--G-LightO);
+}
+.bg-g-orange {
+  background-color: var(--G-Orange);
+}
+.bg-g-editor {
+  background: var(--editor-bg);
 }
 
 /* ----------------------------------------text colors */
@@ -79,13 +88,41 @@ body {
   color: var(--G-LightO);
 }
 
-.g-btn {
-  /* border-radius: .75rem */
-}
-
-.g-btn:hover {
-}
-
 #contents-ctn {
   background-color: var(--G-White);
 }
+
+.editor-ctn {
+  transition: 0s;
+}
+
+#timer-ctn {
+  transition: 0.5s all ease-in-out;
+}
+
+#timer-ctn:hover {
+  opacity: 0.9;
+}
+
+.g-btn {
+  transition: 0.5s all ease-in-out;
+  border: none;
+  outline: none;
+}
+
+.g-btn:hover {
+  /* background-color: rgb(23, 48, 114); */
+  background-color: var(--G-Blue);
+}
+
+#timer-ctn {
+  transition: 0.5s all ease;
+}
+
+/* -------------------------CSS Animations */
+
+/* .btn:hover {
+  background: #fff;
+  box-shadow: 0px 2px 20px 10px #97B1BF;
+  color: #000;
+} */
