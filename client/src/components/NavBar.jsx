@@ -1,4 +1,5 @@
 import logo from '/galvanize-logo-orange.png';
+import nopic from '/noprofilepic.png';
 import { toast } from 'react-hot-toast';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
@@ -55,8 +56,8 @@ const NavBar = () => {
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
-                    src={userData.profile_pic}
+                    alt="user profile picture"
+                    src={userData.profile_pic || nopic}
                   />
                 </div>
                 <span className="role-title g-orange text-md absolute top-12 text-xs">
