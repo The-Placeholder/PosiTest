@@ -347,17 +347,17 @@ router.delete('/users/:id', async (req, res) => {
 });
 
 // Socket.io Logic for real-time document editing
-let currentContent = '';
+let currentContent = {};
 io.on('connection', (socket) => {
   let room = null;
   let username = null;
 
   console.log(`⚡: ${socket.id} user just connected`);
-  socket.emit('doc-change', currentContent);
+  // socket.emit('doc-change', currentContent);
   socket.on('doc-change', (newCode) => {
-    if (currentContent !== newCode) {
-      currentContent = newCode;
-      io.to(room).emit('doc-change', currentContent);
+    if (currentContent[room] !== newCode) {
+      currentContent[room] = newCode;
+      io.to(room).emit('doc-change', currentContent[room]);
     }
   });
   socket.on('disconnect', () => {
@@ -378,7 +378,7 @@ io.on('connection', (socket) => {
     socket.join(userArr[1]);
 
     socket.emit('chatRecordTransfer', chatRooms[userArr[1]]);
-    io.to(room).emit('doc-change', currentContent);
+    io.to(room).emit('doc-change', currentContent[room]);
 
     console.log(
       `componentLoad received username: ${userArr[0]}, room ${userArr[1]}`
@@ -394,6 +394,7 @@ io.on('connection', (socket) => {
       icon: message[1],
     });
     io.to(room).emit('chatRecordTransfer', chatRooms[room]);
+    console.log(`message request approved, sending to ${room}`);
   });
 });
 
@@ -405,23 +406,48 @@ server.listen(port, () => {
 //--MESSENGER TEST HARDCODED VARIABLES-------------------------
 // TEST CHATHISTORY
 const globalrecords = [
-  { sender: 'senderA', message: 'hello', time: '2 hours ago' },
-  { sender: 'senderB', message: 'hello, how are you', time: '2 hours ago' },
-  { sender: 'senderA', message: 'good, how are you', time: '2 hours ago' },
-  { sender: 'senderB', message: "I'm doing good as well", time: '2 hours ago' },
-  { sender: 'senderA', message: 'how can I help you', time: '2 hours ago' },
   {
-    sender: 'senderB',
+    sender: 'Bloo',
+    message: 'hello',
+    time: '2 hours ago',
+    icon: `https://i.insider.com/5b2d4b7142e1cc041623dc16?width=900&format=jpeg`,
+  },
+  {
+    sender: 'Bully Mcguire',
+    message: 'I missed the part where thats my problem',
+    time: '2 hours ago',
+    icon: `https://i.stack.imgur.com/5Kgaq.jpg?s=256&g=1`,
+  },
+  {
+    sender: 'Handsome Squidward',
+    message: 'Fortunately, I Have Enough Talent For All Of You',
+    time: '2 hours ago',
+    icon: `https://i.pinimg.com/originals/e4/d9/50/e4d950f1332f136e7f9a21d6e499e949.jpg`,
+  },
+  {
+    sender: 'Not a bot',
+    message: "I'm doing good as well",
+    time: '2 hours ago',
+    icon: `https://mymodernmet.com/wp/wp-content/uploads/2019/09/100k-ai-faces-5.jpg`,
+  },
+  {
+    sender: 'Bloo',
+    message: 'how can I help you',
+    time: '2 hours ago',
+    icon: `https://i.insider.com/5b2d4b7142e1cc041623dc16?width=900&format=jpeg`,
+  },
+  {
+    sender: 'Viking Beardman',
     message: "I'm having trouble with problem A",
     time: '2 hours ago',
+    icon: `https://avatars.githubusercontent.com/u/104329744?v=4`,
   },
   {
-    sender: 'senderA',
+    sender: 'Duckin Duck',
     message: "sorry i'll help you in 1 sec, brb",
     time: '2 hours ago',
+    icon: `https://avatars.githubusercontent.com/u/123521469?v=4`,
   },
 ];
-// Chatrooms, 0th index for global chat
+// Chatrooms
 const chatRooms = { global: globalrecords };
-// variable for saving previous sockets, to reduce redundant sockets
-// const userSockets = {}

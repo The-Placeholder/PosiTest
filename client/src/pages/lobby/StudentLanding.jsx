@@ -2,12 +2,14 @@ import { useContext, useRef } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import Messenger from '../../components/Messenger';
 import { AiFillCaretRight } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const StudentLanding = () => {
-  const { userData } = useContext(UserContext);
+  const { userData, setChannel } = useContext(UserContext);
   const roomRef = useRef(null);
 
-  const enterHandler = () => {
+  const imgoingtoroom = () => {
+    setChannel(`${roomRef.current.value}`);
     console.log('roomid is', roomRef.current.value);
   };
 
@@ -31,14 +33,14 @@ const StudentLanding = () => {
     <>
       <div
         id="contents-ctn"
-        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 p-5 h-full rounded-2xl overflow-auto"
+        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 pb-16 h-screen rounded-2xl max-h-[800px]  "
       >
         <div
           id="lobby-ctn"
-          className="w-7/12 h-[90%] p-2 text-center flex flex-col mt-10 gap-20"
+          className="w-7/12 h-full mt-10 p-10 text-center flex flex-col gap-20 overflow-y-auto pb-32 no-scrollbar"
         >
           <h1 className="w-full text-5xl font-bold text-black self-center">
-            Live Coding Assesment Suite Instructions:
+            Assesment Suite Instructions:
           </h1>
           <ul className="text-left ml-32">
             {instructions.map((instruction, index) => (
@@ -54,12 +56,18 @@ const StudentLanding = () => {
             ))}
           </ul>
           <div className="flex flex-row justify-center">
-            <div id="roomSelection" className="flex flex-row w-5/12">
-              <label htmlFor="room" className="w-6/12">
+            <div
+              id="roomSelection"
+              className="flex flex-row w-5/12 content-center"
+            >
+              <label
+                htmlFor="room"
+                className="w-6/12 text-3xl mt-1 font-semibold "
+              >
                 Room Id{' '}
               </label>
               <select
-                className="select select-bordered w-full max-w-xs"
+                className="select select-bordered w-full max-w-xs bg-g-greyblue text-lg"
                 ref={roomRef}
               >
                 <option>1</option>
@@ -68,21 +76,21 @@ const StudentLanding = () => {
                 <option>4</option>
               </select>
             </div>
-            <button
-              id="enterinput"
-              className="btn ml-60 btn-primary opacity-75 w-3/12"
-              onClick={() => enterHandler()}
-            >
-              Enter
-            </button>
+            <Link to="/suite">
+              <button
+                id="enterinput"
+                className="btn ml-60 btn-primary opacity-75 w-4/12 text-lg text-white"
+                onClick={() => imgoingtoroom()}
+              >
+                Enter
+              </button>
+            </Link>
             <div></div>
           </div>
         </div>
+        <div className="divider lg:divider-horizontal"></div>
         {/* End of lobby-ctn */}
-        <div
-          id="chatroom-ctn"
-          className="ctn w-4/12 max-h-1080px h-screen overflow-auto"
-        >
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full overflow-auto">
           <Messenger isglobal={true} />
         </div>
       </div>
