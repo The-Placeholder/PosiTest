@@ -61,6 +61,34 @@ const TestingSuite = () => {
     toast.info('Code Executed');
   }
 
+  // function to handle submitting answer
+  const submitAnswer = async (problemId, userId, code) => {
+    try {
+      const res = await fetch('http://localhost:3001/api/answers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          problem_id: problemId,
+          answer: code,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to submit');
+      }
+
+      const data = await res.json();
+      console.log(data);
+      toast.success('Answer submitted');
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to submit');
+    }
+  };
+
   function handleMessage(event) {
     const { data } = event;
     if (data.output !== undefined) {
@@ -80,7 +108,11 @@ const TestingSuite = () => {
     <>
       <div className="ctn flex flex-row flex-wrap w-full h-screen justify-center py-6 pb-40 overflow-auto">
         <div className="ctn h-full w-3/12">
-          <ProblemExplanation executeCode={executeCode} code={code} />
+          <ProblemExplanation
+            submitAnswer={submitAnswer}
+            executeCode={executeCode}
+            code={code}
+          />
         </div>
         <div className="flex h-full flex-col w-8/12 gap-8 bg-g-editor">
           <div className="w-full flex flex-wrap justify-end h-2/3 p-3 ">
