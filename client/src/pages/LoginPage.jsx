@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
-
+import axios from 'axios';
 const LoginPage = () => {
   const [userCreds, setuserCreds] = useState({
     username: null,
@@ -11,10 +11,27 @@ const LoginPage = () => {
   const { setuserId } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const loginUser = () => {
-    console.log(Number(userCreds.username));
-    setuserId(Number(userCreds.username));
-    navigate('/lobby');
+  const loginUser = async () => {
+    try {
+      const response = await axios.post('/login', {
+        username: userCreds.username,
+        password: userCreds.password,
+      });
+      if (response.status === 200) {
+        const auth = await axios.get('/auth');
+        console.log(auth.data.id);
+        setuserId(auth.data.id);
+        navigate('/lobby');
+      } else {
+        console.error('Login failed:', response.data.error);
+      }
+    } catch (error) {
+      // Handle errors, such as network issues or server being down
+      console.error(
+        'An error occurred during login:',
+        error.response ? error.response.data : error.message,
+      );
+    }
   };
 
   return (

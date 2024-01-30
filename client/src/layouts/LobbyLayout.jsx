@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 export default function LobbyLayout() {
   const { userData } = useContext(UserContext);
   const navigate = useNavigate('');
+
   useEffect(() => {
     const loadRolePage = () => {
       if (userData.role === 'student') {

@@ -5,6 +5,10 @@ import bcrypt from 'bcrypt';
 import { createClient } from '@supabase/supabase-js';
 import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
+import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
+import cookieParser from 'cookie-parser';
+import authorization from './auth/jwt.js';
 
 // Load environment variables
 dotenv.config();
@@ -18,7 +22,7 @@ const io = new SocketIOServer(server, {
     methods: ['GET', 'POST'],
   },
 });
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const router = express.Router();
 
 // Initialize Supabase client
@@ -35,8 +39,13 @@ app.use(
 );
 app.use(express.json());
 app.use(express.static('./public'));
+app.use(cookieParser());
 
 //  ------------------------------------------------------------ DB API ROUTES
+app.get('/api/auth', authorization, async (req, res) => {
+  const userData = req.userData;
+  res.status(200).json(userData);
+});
 
 app.get('/api/users', async (req, res) => {
   try {
@@ -111,10 +120,10 @@ app.use('/api', router);
 // POST ROUTE
 router.post('/register', async (req, res) => {
   try {
-    const { email, hashed_pw, role, username } = req.body;
-
+    const { email, password, username } = req.body;
+    const role = 'student';
     const saltRounds = 10;
-    const hashed_password = await bcrypt.hash(hashed_pw, saltRounds);
+    const hashed_password = await bcrypt.hash(password, saltRounds);
 
     const { data: existingUser, error } = await supabase
       .from('user')
@@ -142,7 +151,7 @@ router.post('/register', async (req, res) => {
     }
 
     console.log(newUser);
-    res.status(200).json({ success: 'Registration successful' });
+    res.status(201).json({ success: 'Registration successful' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -153,7 +162,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-
+    console.log(username + password);
     // Fetch user by username
     const { data: user, error: fetchError } = await supabase
       .from('user')
@@ -183,7 +192,23 @@ router.post('/login', async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
+    //JWT TOKEN SIGNING (IT STORES THE USERNAME AND ID)
+    const token = jwt.sign(
+      { username: username, id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+    //COOKIE OPTIONS
+    const cookieOptions = {
+      maxAge: 3600000,
+      httpOnly: true,
+      secure: process.env.NODE_ENV == 'production',
+    };
+    //ADD THE COOKIE TO THE HEADER
+    res.setHeader(
+      'Set-Cookie',
+      cookie.serialize('jwtToken', token, cookieOptions)
+    );
     res
       .status(200)
       .json({ success: 'Login successful', user: { id: user.id, username } });
@@ -191,6 +216,21 @@ router.post('/login', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
+});
+
+router.get('/logout', (req, res) => {
+  // Use the same options, but set maxAge to 0 or use expires for past date
+  const cookieOptions = {
+    httpOnly: true, // Match the setting used when the cookie was set
+    secure: process.env.NODE_ENV === 'production', // Match the setting used when the cookie was set
+    maxAge: 0, // Immediately expire the cookie
+    // Or use expires with a past date
+    // expires: new Date(0)
+  };
+
+  // Clear the cookie named 'jwtToken'
+  res.clearCookie('jwtToken', cookieOptions);
+  res.status(200).json({ success: 'User Logged Out' });
 });
 
 // POST route for submitting answers
