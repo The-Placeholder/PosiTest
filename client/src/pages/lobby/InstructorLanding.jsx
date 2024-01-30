@@ -59,10 +59,7 @@ const InstructorLanding = () => {
         </div>
         <div className="divider lg:divider-horizontal"></div>
         {/* End of lobby-ctn */}
-        <div
-          id="chatroom-ctn"
-          className="ctn w-4/12 h-full min-h-0 border-2 border-black p-2"
-        >
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full min-h-0 pb-32 ">
           <Messenger isglobal={true} />
         </div>
       </div>
