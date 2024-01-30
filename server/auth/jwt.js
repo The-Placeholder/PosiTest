@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
-import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
 dotenv.config;

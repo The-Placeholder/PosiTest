@@ -18,7 +18,9 @@ const LoginPage = () => {
         password: userCreds.password,
       });
       if (response.status === 200) {
-        setuserId(response.data.id);
+        const auth = await axios.get('/auth');
+        console.log(auth.data.id);
+        setuserId(auth.data.id);
         navigate('/lobby');
       } else {
         console.error('Login failed:', response.data.error);

@@ -7,7 +7,9 @@ import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
+import cookieParser from 'cookie-parser';
 import authorization from './auth/jwt.js';
+
 // Load environment variables
 dotenv.config();
 
@@ -37,11 +39,12 @@ app.use(
 );
 app.use(express.json());
 app.use(express.static('./public'));
+app.use(cookieParser());
 
 //  ------------------------------------------------------------ DB API ROUTES
 app.get('/api/auth', authorization, async (req, res) => {
   const userData = req.userData;
-  req.status(200).json(userData);
+  res.status(200).json(userData);
 });
 
 app.get('/api/users', async (req, res) => {
@@ -117,10 +120,10 @@ app.use('/api', router);
 // POST ROUTE
 router.post('/register', async (req, res) => {
   try {
-    const { email, hashed_pw, role, username } = req.body;
-
+    const { email, password, username } = req.body;
+    const role = 'student';
     const saltRounds = 10;
-    const hashed_password = await bcrypt.hash(hashed_pw, saltRounds);
+    const hashed_password = await bcrypt.hash(password, saltRounds);
 
     const { data: existingUser, error } = await supabase
       .from('user')
@@ -148,7 +151,7 @@ router.post('/register', async (req, res) => {
     }
 
     console.log(newUser);
-    res.status(200).json({ success: 'Registration successful' });
+    res.status(201).json({ success: 'Registration successful' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
