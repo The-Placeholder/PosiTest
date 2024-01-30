@@ -382,7 +382,7 @@ server.listen(port, () => {
 // TEST CHATHISTORY
 const globalrecords = [
   {
-    sender: 'senderA',
+    sender: 'Bloo',
     message: 'hello',
     time: '2 hours ago',
     icon: `https://i.insider.com/5b2d4b7142e1cc041623dc16?width=900&format=jpeg`,
@@ -394,31 +394,31 @@ const globalrecords = [
     icon: `https://i.stack.imgur.com/5Kgaq.jpg?s=256&g=1`,
   },
   {
-    sender: 'senderA',
+    sender: 'Handsome Squidward',
     message: 'Fortunately, I Have Enough Talent For All Of You',
     time: '2 hours ago',
     icon: `https://i.pinimg.com/originals/e4/d9/50/e4d950f1332f136e7f9a21d6e499e949.jpg`,
   },
   {
-    sender: 'senderB',
+    sender: 'Not a bot',
     message: "I'm doing good as well",
     time: '2 hours ago',
     icon: `https://mymodernmet.com/wp/wp-content/uploads/2019/09/100k-ai-faces-5.jpg`,
   },
   {
-    sender: 'senderA',
+    sender: 'Bloo',
     message: 'how can I help you',
     time: '2 hours ago',
     icon: `https://i.insider.com/5b2d4b7142e1cc041623dc16?width=900&format=jpeg`,
   },
   {
-    sender: 'senderB',
+    sender: 'Viking Beardman',
     message: "I'm having trouble with problem A",
     time: '2 hours ago',
     icon: `https://avatars.githubusercontent.com/u/104329744?v=4`,
   },
   {
-    sender: 'senderA',
+    sender: 'Duckin Duck',
     message: "sorry i'll help you in 1 sec, brb",
     time: '2 hours ago',
     icon: `https://avatars.githubusercontent.com/u/123521469?v=4`,
