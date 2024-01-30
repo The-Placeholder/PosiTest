@@ -16,13 +16,16 @@ export default function LobbyLayout() {
         navigate('/lobby/instructor');
         toast.success(`Login Success: Welcome ${userData.username}`);
       } else {
-        navigate('/lobby/NotFound');
-        toast.error('no role found');
+        navigate('/lobby/notfound');
+        toast.error('No role found');
       }
     };
 
     if (userData) {
       loadRolePage();
+    }
+    if (!userData) {
+      navigate('/lobby/notfound');
     }
   }, [userData]);
 

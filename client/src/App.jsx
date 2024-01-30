@@ -37,9 +37,9 @@ const router = createBrowserRouter(
       <Route path="/lobby" element={<LobbyLayout />}>
         <Route path="student" element={<StudentLanding />} />
         <Route path="instructor" element={<InstructorLanding />} />
+        <Route path="notfound" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Route>
-
       <Route path="/suite" element={<SuiteLayout />}>
         <Route index element={<TestingSuite />} />
         <Route path="*" element={<NotFound />} />
