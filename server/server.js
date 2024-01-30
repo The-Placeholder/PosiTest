@@ -218,6 +218,21 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/logout', (req, res) => {
+  // Use the same options, but set maxAge to 0 or use expires for past date
+  const cookieOptions = {
+    httpOnly: true, // Match the setting used when the cookie was set
+    secure: process.env.NODE_ENV === 'production', // Match the setting used when the cookie was set
+    maxAge: 0, // Immediately expire the cookie
+    // Or use expires with a past date
+    // expires: new Date(0)
+  };
+
+  // Clear the cookie named 'jwtToken'
+  res.clearCookie('jwtToken', cookieOptions);
+  res.status(200).json({ success: 'User Logged Out' });
+});
+
 // POST route for submitting answers
 router.post('/answers', async (req, res) => {
   try {

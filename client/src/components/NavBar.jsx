@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
+import axios from 'axios';
 
 const NavBar = () => {
   const location = useLocation();
@@ -21,7 +22,9 @@ const NavBar = () => {
 
   const showBackBtn = location.pathname === '/suite';
 
-  const logOut = () => {
+  const logOut = async () => {
+    const response = await axios.get('/logout');
+    console.log(response.data);
     setuserData(null);
     setuserId(null);
     toast.success('Logout success');
