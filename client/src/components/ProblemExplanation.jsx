@@ -1,9 +1,27 @@
 import { QuestionContext } from '../../context/QuestionContext';
-import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
+import { useContext, useState } from 'react';
 import Timer from './Timer';
 
-const ProblemExplanation = ({ executeCode, code }) => {
+const ProblemExplanation = ({ executeCode, submitAnswer, code }) => {
   const { questionData } = useContext(QuestionContext);
+  const { userData } = useContext(UserContext);
+
+  const handleSubmit = async () => {
+    try {
+      const userId = userData.id;
+      const problemId = questionData.id;
+      const answer = code;
+      console.log(userId);
+      console.log(problemId);
+      console.log(answer);
+
+      await submitAnswer(userId, problemId, answer);
+      console.log('success');
+    } catch (error) {
+      console.error('error', error.message);
+    }
+  };
 
   return (
     <div className="flex flex-row flex-wrap content-start w-full h-full p-8 gap-5 bg-slate-700 overflow-x-auto relative ">
@@ -18,7 +36,10 @@ const ProblemExplanation = ({ executeCode, code }) => {
           id="input-ctn"
           className="flex flex-row mr-8 my-auto gap-2 w-5/12 max-h-12"
         >
-          <button className="g-btn btn btn-primary p-3 bg-g-orange text-white rounded-lg font-medium text-xs">
+          <button
+            onClick={handleSubmit}
+            className="g-btn btn btn-primary p-3 bg-g-orange text-white rounded-lg font-medium text-xs"
+          >
             Submit
           </button>
           <button
