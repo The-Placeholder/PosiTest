@@ -46,7 +46,7 @@ const Messenger=({isglobal})=>{
 
     return(
         <div id='msgr_ctn' className="h-full">
-            <h1 className="text-4xl text-center mb-2 msgr_head text-black w-full">{globalorprivate()} Chat</h1>
+            <h1 className="text-4xl text-center mb-2 msgr_head text-black">{globalorprivate()} Chat</h1>
             <div id="msgr_log" className="msgr_overflow p-2 pt-12" ref={scrollingDivRef}>
                 {chatlog&&<Messagelog chatlog={chatlog} username={username}/>}
             </div>
