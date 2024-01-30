@@ -11,7 +11,7 @@ const InstructorLanding = () => {
   console.log(`roomCount`, roomCount);
 
   const selectSuite = (roomID) => {
-    setChannel(roomID);
+    setChannel(`${roomID}`);
     console.log(`changing rooms ${roomID}`);
   };
 
@@ -58,8 +58,8 @@ const InstructorLanding = () => {
         </div>
         <div className="divider lg:divider-horizontal"></div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-full overflow-auto">
-          <Messenger isglobal={true} />
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full min-h-0 border-2 border-black p-2">
+          <Messenger isglobal={true}/>
         </div>
       </div>
       {/* End of content-ctn */}

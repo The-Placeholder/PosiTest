@@ -322,17 +322,17 @@ router.delete('/users/:id', async (req, res) => {
 });
 
 // Socket.io Logic for real-time document editing
-let currentContent = '';
+let currentContent = {};
 io.on('connection', (socket) => {
   let room = null
   let username = null
 
   console.log(`⚡: ${socket.id} user just connected`);
-  socket.emit('doc-change', currentContent);
+  // socket.emit('doc-change', currentContent);
   socket.on('doc-change', (newCode) => {
-    if (currentContent !== newCode) {
-      currentContent = newCode;
-      io.to(room).emit('doc-change', currentContent);
+    if (currentContent[room] !== newCode) {
+      currentContent[room] = newCode;
+      io.to(room).emit('doc-change', currentContent[room]);
     }
   });
   socket.on('disconnect', () => {
@@ -353,7 +353,7 @@ io.on('connection', (socket) => {
     socket.join(userArr[1])
 
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
-    io.to(room).emit('doc-change', currentContent);
+    io.to(room).emit('doc-change', currentContent[room]);
 
     console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
   })
@@ -362,6 +362,7 @@ io.on('connection', (socket) => {
     const clock = new Date()[Symbol.toPrimitive]('number')
     chatRooms[room].push({sender:username,message:message[0],time:clock,icon:message[1]})
     io.to(room).emit('chatRecordTransfer',chatRooms[room])
+    console.log(`message request approved, sending to ${room}`)
   })
 });
 
@@ -382,7 +383,5 @@ const globalrecords = [
   {sender:'senderB',message:'I\'m having trouble with problem A',time:'2 hours ago'},
   {sender:'senderA',message:'sorry i\'ll help you in 1 sec, brb',time:'2 hours ago'}
 ]
-  // Chatrooms, 0th index for global chat
+  // Chatrooms
 const chatRooms = {global:globalrecords}
-  // variable for saving previous sockets, to reduce redundant sockets
-// const userSockets = {}

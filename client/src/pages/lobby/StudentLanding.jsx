@@ -2,12 +2,14 @@ import { useContext, useRef } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import Messenger from '../../components/Messenger';
 import { AiFillCaretRight } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const StudentLanding = () => {
-  const { userData } = useContext(UserContext);
+  const { userData, setChannel } = useContext(UserContext);
   const roomRef = useRef(null);
 
-  const enterHandler = () => {
+  const imgoingtoroom = () => {
+    setChannel(`${roomRef.current.value}`);
     console.log('roomid is', roomRef.current.value);
   };
 
@@ -74,13 +76,15 @@ const StudentLanding = () => {
                 <option>4</option>
               </select>
             </div>
-            <button
-              id="enterinput"
-              className="btn ml-60 btn-primary opacity-75 w-3/12 text-2xl py-6 flex content-center"
-              onClick={() => enterHandler()}
-            >
-              Enter
-            </button>
+            <Link to="/suite">
+              <button
+                id="enterinput"
+                className="btn ml-60 btn-primary opacity-75 w-3/12"
+                onClick={() => imgoingtoroom()}
+              >
+                Enter
+              </button>
+            </Link>
             <div></div>
           </div>
         </div>

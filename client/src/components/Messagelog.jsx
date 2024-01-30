@@ -31,7 +31,7 @@ const Messagelog=({chatlog,username})=>{
                         <img alt="Tailwind CSS chat bubble component" src={x.icon}/>
                     </div>
                 </div>
-                <div className="chat-header ">{x.sender}</div>
+                <div className="chat-header">{x.sender}</div>
                 <div className={tagObj.msgBody}>{x.message}</div>
                 <div className="chat-footer opacity-50">{relativeTime(x.time)}</div>
             </div>
