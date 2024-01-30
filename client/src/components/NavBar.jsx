@@ -40,8 +40,9 @@ const NavBar = () => {
             <img src={logo} alt="galvanize logo" className="object-fit" />
           </NavLink>
         </div>
-        <div className="text-white text-4xl font-bold">
-          Lobby - {userData?.role}
+        <div className="text-white text-4xl font-bold flex flex-row flex-nowrap gap-2">
+          <div>Lobby - </div>
+          <span className="first-letter:capitalize">{userData?.role}</span>
         </div>
 
         <div className="no-flex">
@@ -60,7 +61,7 @@ const NavBar = () => {
                     src={userData.profile_pic || nopic}
                   />
                 </div>
-                <span className="role-title g-orange text-md absolute top-12 text-xs">
+                <span className="role-title g-orange text-md absolute top-12 text-xs first-letter:capitalize">
                   {userData?.role}
                 </span>
               </div>
