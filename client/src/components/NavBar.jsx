@@ -17,8 +17,7 @@ const NavBar = () => {
     return <div>Loading user data</div>;
   }
 
-  const showChat =
-    location.pathname === '/suite' //&& userData?.role === 'instructor';
+  const showChat = location.pathname === '/suite'; //&& userData?.role === 'instructor';
 
   const showBackBtn = location.pathname === '/suite';
 
@@ -34,7 +33,7 @@ const NavBar = () => {
       <div className="navbar bg-g-blue top-0 z-50 h-24 px-5 flex flex-row justify-between">
         <div className="flex relative">
           <NavLink
-            path="/lobby"
+            to="/"
             className="w-44 content-center justify-center absolute top-[-15px] mx-2"
           >
             <img src={logo} alt="galvanize logo" className="object-fit" />
@@ -72,7 +71,7 @@ const NavBar = () => {
                 <a className="justify-between">Profile</a>
               </li> */}
 
-                <li>
+                <li className="z-20">
                   <a
                     onClick={() => {
                       logOut();
