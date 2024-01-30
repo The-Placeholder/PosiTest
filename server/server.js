@@ -5,7 +5,9 @@ import bcrypt from 'bcrypt';
 import { createClient } from '@supabase/supabase-js';
 import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
-
+import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
+import authorization from './auth/jwt.js';
 // Load environment variables
 dotenv.config();
 
@@ -18,7 +20,7 @@ const io = new SocketIOServer(server, {
     methods: ['GET', 'POST'],
   },
 });
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const router = express.Router();
 
 // Initialize Supabase client
@@ -37,6 +39,10 @@ app.use(express.json());
 app.use(express.static('./public'));
 
 //  ------------------------------------------------------------ DB API ROUTES
+app.get('/api/auth', authorization, async (req, res) => {
+  const userData = req.userData;
+  req.status(200).json(userData);
+});
 
 app.get('/api/users', async (req, res) => {
   try {
@@ -153,7 +159,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-
+    console.log(username + password);
     // Fetch user by username
     const { data: user, error: fetchError } = await supabase
       .from('user')
@@ -183,7 +189,23 @@ router.post('/login', async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
+    //JWT TOKEN SIGNING (IT STORES THE USERNAME AND ID)
+    const token = jwt.sign(
+      { username: username, id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+    //COOKIE OPTIONS
+    const cookieOptions = {
+      maxAge: 3600000,
+      httpOnly: true,
+      secure: process.env.NODE_ENV == 'production',
+    };
+    //ADD THE COOKIE TO THE HEADER
+    res.setHeader(
+      'Set-Cookie',
+      cookie.serialize('jwtToken', token, cookieOptions)
+    );
     res
       .status(200)
       .json({ success: 'Login successful', user: { id: user.id, username } });
@@ -324,8 +346,8 @@ router.delete('/users/:id', async (req, res) => {
 // Socket.io Logic for real-time document editing
 let currentContent = '';
 io.on('connection', (socket) => {
-  let room = null
-  let username = null
+  let room = null;
+  let username = null;
 
   console.log(`⚡: ${socket.id} user just connected`);
   socket.emit('doc-change', currentContent);
@@ -339,30 +361,37 @@ io.on('connection', (socket) => {
     console.log('🔥: A user disconnected');
   });
 
-  // MESSENGER EVENTS 
-  socket.on('ComponentLoad',(userArr)=>{
-    if(room){
-      socket.leave(room)
+  // MESSENGER EVENTS
+  socket.on('ComponentLoad', (userArr) => {
+    if (room) {
+      socket.leave(room);
     }
-    if(!chatRooms[userArr[1]]){
-      chatRooms[userArr[1]]=[]
+    if (!chatRooms[userArr[1]]) {
+      chatRooms[userArr[1]] = [];
     }
 
-    username=userArr[0]
-    room=userArr[1]
-    socket.join(userArr[1])
+    username = userArr[0];
+    room = userArr[1];
+    socket.join(userArr[1]);
 
-    socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
+    socket.emit('chatRecordTransfer', chatRooms[userArr[1]]);
     io.to(room).emit('doc-change', currentContent);
 
-    console.log(`componentLoad received username: ${userArr[0]}, room ${userArr[1]}`)
-  })
-  
-  socket.on('MessageRequest',(message)=>{
-    const clock = new Date()[Symbol.toPrimitive]('number')
-    chatRooms[room].push({sender:username,message:message[0],time:clock,icon:message[1]})
-    io.to(room).emit('chatRecordTransfer',chatRooms[room])
-  })
+    console.log(
+      `componentLoad received username: ${userArr[0]}, room ${userArr[1]}`
+    );
+  });
+
+  socket.on('MessageRequest', (message) => {
+    const clock = new Date()[Symbol.toPrimitive]('number');
+    chatRooms[room].push({
+      sender: username,
+      message: message[0],
+      time: clock,
+      icon: message[1],
+    });
+    io.to(room).emit('chatRecordTransfer', chatRooms[room]);
+  });
 });
 
 // Server Listening
@@ -370,19 +399,26 @@ server.listen(port, () => {
   console.log(`Server Running on Port: ${port}`);
 });
 
-
 //--MESSENGER TEST HARDCODED VARIABLES-------------------------
-  // TEST CHATHISTORY
+// TEST CHATHISTORY
 const globalrecords = [
-  {sender:'senderA',message:'hello',time:'2 hours ago'},
-  {sender:'senderB',message:'hello, how are you',time:'2 hours ago'},
-  {sender:'senderA',message:'good, how are you',time:'2 hours ago'},
-  {sender:'senderB',message:'I\'m doing good as well',time:'2 hours ago'},
-  {sender:'senderA',message:'how can I help you',time:'2 hours ago'},
-  {sender:'senderB',message:'I\'m having trouble with problem A',time:'2 hours ago'},
-  {sender:'senderA',message:'sorry i\'ll help you in 1 sec, brb',time:'2 hours ago'}
-]
-  // Chatrooms, 0th index for global chat
-const chatRooms = {global:globalrecords}
-  // variable for saving previous sockets, to reduce redundant sockets
+  { sender: 'senderA', message: 'hello', time: '2 hours ago' },
+  { sender: 'senderB', message: 'hello, how are you', time: '2 hours ago' },
+  { sender: 'senderA', message: 'good, how are you', time: '2 hours ago' },
+  { sender: 'senderB', message: "I'm doing good as well", time: '2 hours ago' },
+  { sender: 'senderA', message: 'how can I help you', time: '2 hours ago' },
+  {
+    sender: 'senderB',
+    message: "I'm having trouble with problem A",
+    time: '2 hours ago',
+  },
+  {
+    sender: 'senderA',
+    message: "sorry i'll help you in 1 sec, brb",
+    time: '2 hours ago',
+  },
+];
+// Chatrooms, 0th index for global chat
+const chatRooms = { global: globalrecords };
+// variable for saving previous sockets, to reduce redundant sockets
 // const userSockets = {}
