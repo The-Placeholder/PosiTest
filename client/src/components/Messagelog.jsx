@@ -1,3 +1,5 @@
+import nopic from '/noprofilepic.png';
+
 const Messagelog = ({ chatlog, username }) => {
   const relativeTime = (postedTime) => {
     const clock = new Date()[Symbol.toPrimitive]('number');
@@ -26,7 +28,7 @@ const Messagelog = ({ chatlog, username }) => {
       <div className={tagObj.msgCTN} key={key}>
         <div className="chat-image avatar">
           <div className="w-7 rounded-full">
-            <img alt="user profile picture" src={x.icon} />
+            <img alt="user profile picture" src={x.icon || nopic} />
           </div>
         </div>
         <div className="chat-header">{x.sender}</div>
