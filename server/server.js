@@ -388,14 +388,14 @@ const globalrecords = [
     icon: `https://i.insider.com/5b2d4b7142e1cc041623dc16?width=900&format=jpeg`,
   },
   {
-    sender: 'senderB',
-    message: 'hello, how are you',
+    sender: 'Bully Mcguire',
+    message: 'I missed the part where thats my problem',
     time: '2 hours ago',
     icon: `https://i.stack.imgur.com/5Kgaq.jpg?s=256&g=1`,
   },
   {
     sender: 'senderA',
-    message: 'good, how are you',
+    message: 'Fortunately, I Have Enough Talent For All Of You',
     time: '2 hours ago',
     icon: `https://i.pinimg.com/originals/e4/d9/50/e4d950f1332f136e7f9a21d6e499e949.jpg`,
   },
