@@ -53,8 +53,6 @@ axios.defaults.baseURL =
 axios.defaults.withCredentials = true;
 
 export default function App() {
-  // const [newUser, setnewUser] = useState(true);
-
   return (
     <UserContextProvider>
       <QuestionContextProvider>

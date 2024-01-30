@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Messenger from '../../components/Messenger';
 import { UserContext } from '../../../context/UserContext';
+import toast from 'react-hot-toast';
 
 const InstructorLanding = () => {
   const { setChannel } = useContext(UserContext);
-  const [users, setUsers] = useState([]);
   const [roomCount, setRoomCount] = useState([1, 2, 3, 4]); //this is placeholder for rooms
 
   console.log(`roomCount`, roomCount);
@@ -13,6 +13,7 @@ const InstructorLanding = () => {
   const selectSuite = (roomID) => {
     setChannel(`${roomID}`);
     console.log(`changing rooms ${roomID}`);
+    toast.success('joined room successfully');
   };
 
   return (

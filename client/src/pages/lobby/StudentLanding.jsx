@@ -3,6 +3,7 @@ import { UserContext } from '../../../context/UserContext';
 import Messenger from '../../components/Messenger';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const StudentLanding = () => {
   const { userData, setChannel } = useContext(UserContext);
@@ -11,6 +12,7 @@ const StudentLanding = () => {
   const imgoingtoroom = () => {
     setChannel(`${roomRef.current.value}`);
     console.log('roomid is', roomRef.current.value);
+    toast.success('joined room successfully');
   };
 
   const instructions = [
