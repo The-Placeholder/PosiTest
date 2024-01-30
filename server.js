@@ -5,6 +5,10 @@ import bcrypt from 'bcrypt';
 import { createClient } from '@supabase/supabase-js';
 import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
+import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
+import cookieParser from 'cookie-parser';
+import authorization from './auth/jwt.js';
 
 // Load environment variables
 dotenv.config();
@@ -35,8 +39,13 @@ app.use(
 );
 app.use(express.json());
 app.use(express.static('./public'));
+app.use(cookieParser());
 
 //  ------------------------------------------------------------ DB API ROUTES
+app.get('/api/auth', authorization, async (req, res) => {
+  const userData = req.userData;
+  res.status(200).json(userData);
+});
 
 app.get('/api/users', async (req, res) => {
   try {
@@ -111,10 +120,10 @@ app.use('/api', router);
 // POST ROUTE
 router.post('/register', async (req, res) => {
   try {
-    const { email, hashed_pw, role, username } = req.body;
-
+    const { email, password, username } = req.body;
+    const role = 'student';
     const saltRounds = 10;
-    const hashed_password = await bcrypt.hash(hashed_pw, saltRounds);
+    const hashed_password = await bcrypt.hash(password, saltRounds);
 
     const { data: existingUser, error } = await supabase
       .from('user')
@@ -142,7 +151,7 @@ router.post('/register', async (req, res) => {
     }
 
     console.log(newUser);
-    res.status(200).json({ success: 'Registration successful' });
+    res.status(201).json({ success: 'Registration successful' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -153,7 +162,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-
+    console.log(username + password);
     // Fetch user by username
     const { data: user, error: fetchError } = await supabase
       .from('user')
@@ -183,10 +192,88 @@ router.post('/login', async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
+    //JWT TOKEN SIGNING (IT STORES THE USERNAME AND ID)
+    const token = jwt.sign(
+      { username: username, id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+    //COOKIE OPTIONS
+    const cookieOptions = {
+      maxAge: 3600000,
+      httpOnly: true,
+      secure: process.env.NODE_ENV == 'production',
+    };
+    //ADD THE COOKIE TO THE HEADER
+    res.setHeader(
+      'Set-Cookie',
+      cookie.serialize('jwtToken', token, cookieOptions)
+    );
     res
       .status(200)
       .json({ success: 'Login successful', user: { id: user.id, username } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.get('/logout', (req, res) => {
+  // Use the same options, but set maxAge to 0 or use expires for past date
+  const cookieOptions = {
+    httpOnly: true, // Match the setting used when the cookie was set
+    secure: process.env.NODE_ENV === 'production', // Match the setting used when the cookie was set
+    maxAge: 0, // Immediately expire the cookie
+    // Or use expires with a past date
+    // expires: new Date(0)
+  };
+
+  // Clear the cookie named 'jwtToken'
+  res.clearCookie('jwtToken', cookieOptions);
+  res.status(200).json({ success: 'User Logged Out' });
+});
+
+// POST route for submitting answers
+router.post('/answers', async (req, res) => {
+  try {
+    const { user_id, problem_id, answer } = req.body;
+
+    // Check if the user and problem exist
+    const { data: existingUser, userError } = await supabase
+      .from('user')
+      .select('*')
+      .eq('id', user_id)
+      .single();
+
+    const { data: existingProblem, problemError } = await supabase
+      .from('problem')
+      .select('*')
+      .eq('id', problem_id)
+      .single();
+
+    if (userError || problemError) {
+      console.error(userError || problemError);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    if (!existingUser || !existingProblem) {
+      return res.status(404).json({ error: 'User or problem not found' });
+    }
+
+    // Insert the answer
+    const { data: newAnswer, answerError } = await supabase
+      .from('answer')
+      .insert([{ user_id, problem_id, answer }]);
+
+    if (answerError) {
+      console.error(answerError);
+      return res
+        .status(500)
+        .json({ error: 'Internal Server Error during answer submission' });
+    }
+
+    console.log(newAnswer);
+    res.status(200).json({ success: 'Answer submitted successfully' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -275,18 +362,54 @@ router.delete('/users/:id', async (req, res) => {
 });
 
 // Socket.io Logic for real-time document editing
-let currentContent = '';
+let currentContent = {};
 io.on('connection', (socket) => {
+  let room = null;
+  let username = null;
+
   console.log(`⚡: ${socket.id} user just connected`);
-  socket.emit('doc-change', currentContent);
+  // socket.emit('doc-change', currentContent);
   socket.on('doc-change', (newCode) => {
-    if (currentContent !== newCode) {
-      currentContent = newCode;
-      socket.broadcast.emit('doc-change', currentContent);
+    if (currentContent[room] !== newCode) {
+      currentContent[room] = newCode;
+      io.to(room).emit('doc-change', currentContent[room]);
     }
   });
   socket.on('disconnect', () => {
     console.log('🔥: A user disconnected');
+  });
+
+  // MESSENGER EVENTS
+  socket.on('ComponentLoad', (userArr) => {
+    if (room) {
+      socket.leave(room);
+    }
+    if (!chatRooms[userArr[1]]) {
+      chatRooms[userArr[1]] = [];
+    }
+
+    username = userArr[0];
+    room = userArr[1];
+    socket.join(userArr[1]);
+
+    socket.emit('chatRecordTransfer', chatRooms[userArr[1]]);
+    io.to(room).emit('doc-change', currentContent[room]);
+
+    console.log(
+      `componentLoad received username: ${userArr[0]}, room ${userArr[1]}`
+    );
+  });
+
+  socket.on('MessageRequest', (message) => {
+    const clock = new Date()[Symbol.toPrimitive]('number');
+    chatRooms[room].push({
+      sender: username,
+      message: message[0],
+      time: clock,
+      icon: message[1],
+    });
+    io.to(room).emit('chatRecordTransfer', chatRooms[room]);
+    console.log(`message request approved, sending to ${room}`);
   });
 });
 
@@ -294,3 +417,52 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Server Running on Port: ${port}`);
 });
+
+//--MESSENGER TEST HARDCODED VARIABLES-------------------------
+// TEST CHATHISTORY
+const globalrecords = [
+  {
+    sender: 'Bloo',
+    message: 'hello',
+    time: '2 hours ago',
+    icon: `https://i.insider.com/5b2d4b7142e1cc041623dc16?width=900&format=jpeg`,
+  },
+  {
+    sender: 'Bully Mcguire',
+    message: 'I missed the part where thats my problem',
+    time: '2 hours ago',
+    icon: `https://i.stack.imgur.com/5Kgaq.jpg?s=256&g=1`,
+  },
+  {
+    sender: 'Handsome Squidward',
+    message: 'Fortunately, I Have Enough Talent For All Of You',
+    time: '2 hours ago',
+    icon: `https://i.pinimg.com/originals/e4/d9/50/e4d950f1332f136e7f9a21d6e499e949.jpg`,
+  },
+  {
+    sender: 'Not a bot',
+    message: "I'm doing good as well",
+    time: '2 hours ago',
+    icon: `https://mymodernmet.com/wp/wp-content/uploads/2019/09/100k-ai-faces-5.jpg`,
+  },
+  {
+    sender: 'Bloo',
+    message: 'how can I help you',
+    time: '2 hours ago',
+    icon: `https://i.insider.com/5b2d4b7142e1cc041623dc16?width=900&format=jpeg`,
+  },
+  {
+    sender: 'Viking Beardman',
+    message: "I'm having trouble with problem A",
+    time: '2 hours ago',
+    icon: `https://avatars.githubusercontent.com/u/104329744?v=4`,
+  },
+  {
+    sender: 'Duckin Duck',
+    message: "sorry i'll help you in 1 sec, brb",
+    time: '2 hours ago',
+    icon: `https://avatars.githubusercontent.com/u/123521469?v=4`,
+  },
+];
+// Chatrooms
+const chatRooms = { global: globalrecords };

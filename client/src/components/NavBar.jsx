@@ -1,9 +1,12 @@
 import logo from '/galvanize-logo-orange.png';
+import nopic from '/noprofilepic.png';
 import { toast } from 'react-hot-toast';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import { BsWechat } from 'react-icons/bs';
+import NavChatBtn from './NavChatBtn';
+import NavBackBtn from './NavBackBtn';
+import axios from 'axios';
 
 const NavBar = () => {
   const location = useLocation();
@@ -16,11 +19,16 @@ const NavBar = () => {
     return <div>Loading user data</div>;
   }
 
-  const hasSideChat =
-    location.pathname === '/suite' && userData?.role === 'instructor';
-  console.log('useLocation:', location);
+  const showChat = location.pathname === '/suite'; //&& userData?.role === 'instructor';
 
-  const logOut = () => {
+  const showBackBtn = location.pathname === '/suite';
+
+  const logOut = async () => {
+    // const response = await axios.get('/logout');
+    // console.log(response.data);
+    document.cookie =
+      'jwtToken=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+
     setuserData(null);
     setuserId(null);
     toast.success('Logout success');
@@ -29,32 +37,24 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar bg-g-blue top-0 z-50 h-24 flex flex-row justify-between">
+      <div className="navbar bg-g-blue top-0 z-50 h-24 px-5 flex flex-row justify-between">
         <div className="flex relative">
           <NavLink
-            path="/lobby"
+            to="/"
             className="w-44 content-center justify-center absolute top-[-15px] mx-2"
           >
             <img src={logo} alt="galvanize logo" className="object-fit" />
           </NavLink>
         </div>
-        <div className="text-white text-4xl font-bold">
-          Lobby - {userData?.role}
+        <div className="text-white text-4xl font-bold flex flex-row flex-nowrap gap-2">
+          <div>Lobby - </div>
+          <span className="first-letter:capitalize">{userData?.role}</span>
         </div>
 
-        <div className="flex-none ">
-          <div id="right-nav" className="">
-            {hasSideChat ? (
-              <label
-                htmlFor="my-drawer"
-                className="drawer-button btn btn-primary"
-              >
-                <BsWechat />
-              </label>
-            ) : (
-              <h1>No side chat</h1>
-            )}
-
+        <div className="no-flex">
+          <div id="right-nav" className="flex flex-nowrap flex-row gap-8">
+            {showBackBtn ? <NavBackBtn /> : ''}
+            {showChat ? <NavChatBtn /> : ''}
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -63,11 +63,11 @@ const NavBar = () => {
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
-                    src={userData.profile_pic}
+                    alt="user profile picture"
+                    src={userData.profile_pic || nopic}
                   />
                 </div>
-                <span className="g-orange text-lg absolute top-10">
+                <span className="role-title g-orange text-md absolute top-12 text-xs first-letter:capitalize">
                   {userData?.role}
                 </span>
               </div>
@@ -79,7 +79,7 @@ const NavBar = () => {
                 <a className="justify-between">Profile</a>
               </li> */}
 
-                <li>
+                <li className="z-20">
                   <a
                     onClick={() => {
                       logOut();

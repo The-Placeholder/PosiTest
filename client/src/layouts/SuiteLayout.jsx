@@ -11,7 +11,7 @@ export default function SuiteLayout() {
       <NavBar />
 
       <main>
-        <div className="h-full w-screen pb-12 fixed">
+        <div className="h-full w-screen pb-12 fixed overflow-hidden">
           <SuiteSideChat />
           <Outlet />
         </div>
