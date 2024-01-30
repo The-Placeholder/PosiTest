@@ -7,6 +7,7 @@ import { UserContext } from '../../context/UserContext';
 import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
 import axios from 'axios';
+import QuestionConfigBtn from './QuestionConfigBtn';
 
 const NavBar = () => {
   const location = useLocation();
@@ -55,6 +56,8 @@ const NavBar = () => {
           <div id="right-nav" className="flex flex-nowrap flex-row gap-8">
             {showBackBtn ? <NavBackBtn /> : ''}
             {showChat ? <NavChatBtn /> : ''}
+            <QuestionConfigBtn />
+
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -75,9 +78,9 @@ const NavBar = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
-                {/* <li>
-                <a className="justify-between">Profile</a>
-              </li> */}
+                <li>
+                  <a className="justify-between">Profile Settings</a>
+                </li>
 
                 <li className="z-20">
                   <a

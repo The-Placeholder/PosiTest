@@ -42,7 +42,7 @@ const StudentLanding = () => {
           className="w-7/12  flex flex-wrap h-full mt-10 p-10 pb-32 text-center gap-20 overflow-auto no-scrollbar"
         >
           <h1 className="w-full text-5xl font-bold text-black self-center">
-            Assesment Suite Instructions:
+            Assessment Suite Instructions:
           </h1>
           <ul className="text-left mx-auto content-center ">
             {instructions.map((instruction, index) => (

@@ -53,7 +53,7 @@ const LoginPage = () => {
             className="input input-bordered w-full max-w-xs mb-2 bg-g-greyblue"
           />
           <input
-            type="text"
+            type="password"
             onChange={(e) => {
               setuserCreds({ ...userCreds, password: e.target.value });
             }}
