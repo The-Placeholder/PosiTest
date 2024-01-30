@@ -17,8 +17,7 @@ const NavBar = () => {
     return <div>Loading user data</div>;
   }
 
-  const showChat =
-    location.pathname === '/suite' //&& userData?.role === 'instructor';
+  const showChat = location.pathname === '/suite'; //&& userData?.role === 'instructor';
 
   const showBackBtn = location.pathname === '/suite';
 
