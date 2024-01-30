@@ -40,7 +40,7 @@ const StudentLanding = () => {
           className="w-7/12 h-full mt-10 p-10 text-center flex flex-col gap-20 overflow-y-auto pb-32 no-scrollbar"
         >
           <h1 className="w-full text-5xl font-bold text-black self-center">
-            Live Coding Assesment Suite Instructions:
+            Assesment Suite Instructions:
           </h1>
           <ul className="text-left ml-32">
             {instructions.map((instruction, index) => (
@@ -79,7 +79,7 @@ const StudentLanding = () => {
             <Link to="/suite">
               <button
                 id="enterinput"
-                className="btn ml-60 btn-primary opacity-75 w-3/12"
+                className="btn ml-60 btn-primary opacity-75 w-4/12 text-lg text-white"
                 onClick={() => imgoingtoroom()}
               >
                 Enter
