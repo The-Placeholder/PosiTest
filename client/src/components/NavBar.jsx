@@ -23,8 +23,11 @@ const NavBar = () => {
   const showBackBtn = location.pathname === '/suite';
 
   const logOut = async () => {
-    const response = await axios.get('/logout');
-    console.log(response.data);
+    // const response = await axios.get('/logout');
+    // console.log(response.data);
+    document.cookie =
+      'jwtToken=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+
     setuserData(null);
     setuserId(null);
     toast.success('Logout success');
