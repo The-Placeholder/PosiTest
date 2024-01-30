@@ -8,11 +8,7 @@ const Messenger = ({ isglobal }) => {
   const { channel, userData } = useContext(UserContext);
   const [chatlog, setChatlog] = useState(null);
   const scrollingDivRef = useRef(null);
-  // NEED USERNAME
-  const [username, setUsername] = useState(
-    `guest${Math.floor(Math.random() * 1000)}`,
-  );
-  // NEED USERNAME
+  const [username, setUsername] = useState(userData.username);
 
   let suiteroom;
   isglobal ? (suiteroom = 'global') : (suiteroom = channel);
