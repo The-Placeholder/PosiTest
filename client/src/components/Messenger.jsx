@@ -46,7 +46,7 @@ const Messenger = ({ isglobal }) => {
 
   return (
     <div id="msgr_ctn" className="h-full">
-      <h1 className="text-4xl text-center mb-2 msgr_head text-black w-full">
+      <h1 className="text-4xl text-center mb-2 msgr_head text-black w-fit">
         {globalorprivate()} Chat
       </h1>
       <div

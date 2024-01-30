@@ -33,7 +33,7 @@ const StudentLanding = () => {
     <>
       <div
         id="contents-ctn"
-        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 pb-16 h-screen rounded-2xl max-h-[800px] "
+        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 pb-16 h-screen rounded-2xl max-h-[800px]  "
       >
         <div
           id="lobby-ctn"
