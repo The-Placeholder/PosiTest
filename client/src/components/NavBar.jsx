@@ -1,4 +1,5 @@
 import logo from '/galvanize-logo-orange.png';
+import nopic from '/noprofilepic.png';
 import { toast } from 'react-hot-toast';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
@@ -45,8 +46,9 @@ const NavBar = () => {
             <img src={logo} alt="galvanize logo" className="object-fit" />
           </NavLink>
         </div>
-        <div className="text-white text-4xl font-bold">
-          Lobby - {userData?.role}
+        <div className="text-white text-4xl font-bold flex flex-row flex-nowrap gap-2">
+          <div>Lobby - </div>
+          <span className="first-letter:capitalize">{userData?.role}</span>
         </div>
 
         <div className="no-flex">
@@ -61,11 +63,11 @@ const NavBar = () => {
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
-                    src={userData.profile_pic}
+                    alt="user profile picture"
+                    src={userData.profile_pic || nopic}
                   />
                 </div>
-                <span className="role-title g-orange text-md absolute top-12 text-xs">
+                <span className="role-title g-orange text-md absolute top-12 text-xs first-letter:capitalize">
                   {userData?.role}
                 </span>
               </div>
