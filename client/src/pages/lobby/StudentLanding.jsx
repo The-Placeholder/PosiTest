@@ -3,6 +3,7 @@ import { UserContext } from '../../../context/UserContext';
 import Messenger from '../../components/Messenger';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const StudentLanding = () => {
   const { userData, setChannel } = useContext(UserContext);
@@ -11,6 +12,7 @@ const StudentLanding = () => {
   const imgoingtoroom = () => {
     setChannel(`${roomRef.current.value}`);
     console.log('roomid is', roomRef.current.value);
+    toast.success('joined room successfully');
   };
 
   const instructions = [
@@ -33,20 +35,20 @@ const StudentLanding = () => {
     <>
       <div
         id="contents-ctn"
-        className="shadow-xl flex flex-row flex-wrap justify-evenly gap-15 m-5 pb-16 h-screen rounded-2xl max-h-[800px]  "
+        className="shadow-xl flex flex-row flex-wrap justify-evenly m-5 p-5 pb-32 h-screen rounded-2xl max-h-[900px]"
       >
         <div
           id="lobby-ctn"
-          className="w-7/12 h-full mt-10 p-10 text-center flex flex-col gap-20 overflow-y-auto pb-32 no-scrollbar"
+          className="w-7/12  flex flex-wrap h-full mt-10 p-10 pb-32 text-center gap-20 overflow-auto no-scrollbar"
         >
           <h1 className="w-full text-5xl font-bold text-black self-center">
             Assesment Suite Instructions:
           </h1>
-          <ul className="text-left ml-32">
+          <ul className="text-left mx-auto content-center ">
             {instructions.map((instruction, index) => (
               <li
                 key={`step${index}`}
-                className="mb-3 flex items-center gap-x-3 p-2"
+                className="mb-1 flex items-center gap-x-3 p-2 "
               >
                 <span className="g-orange">
                   <AiFillCaretRight />
@@ -55,19 +57,19 @@ const StudentLanding = () => {
               </li>
             ))}
           </ul>
-          <div className="flex flex-row justify-center">
+          <div className="flex flex-row justify-center w-full gap-8">
             <div
               id="roomSelection"
-              className="flex flex-row w-5/12 content-center"
+              className="flex flex-row w-5/12 content-center gap-8"
             >
               <label
                 htmlFor="room"
-                className="w-6/12 text-3xl mt-1 font-semibold "
+                className="w-6/12 mt-1 text-md font-semibold lg:text-3xl text-nowrap "
               >
                 Room Id{' '}
               </label>
               <select
-                className="select select-bordered w-full max-w-xs bg-g-greyblue text-lg"
+                className="select select-bordered w-full max-w-xs bg-g-greyblue text-md font-semibold lg:text-3xl"
                 ref={roomRef}
               >
                 <option>1</option>
@@ -79,7 +81,7 @@ const StudentLanding = () => {
             <Link to="/suite">
               <button
                 id="enterinput"
-                className="btn ml-60 btn-primary opacity-75 w-4/12 text-lg text-white"
+                className="btn btn-primary flex content-center mx-auto  opacity-75 w-4/12 p-5 px-16 text-3xl text-white "
                 onClick={() => imgoingtoroom()}
               >
                 Enter
@@ -90,7 +92,7 @@ const StudentLanding = () => {
         </div>
         <div className="divider lg:divider-horizontal"></div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-full overflow-auto">
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full min-h-0 pb-32">
           <Messenger isglobal={true} />
         </div>
       </div>
