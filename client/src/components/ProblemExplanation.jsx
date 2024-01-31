@@ -81,10 +81,7 @@ const ProblemExplanation = ({ executeCode, submitAnswer, code }) => {
             <div className="collapse-title text-sm font-medium p-3">
               Hint {index + 1}:
             </div>
-            <div className="collapse-content text-xs">
-              {hint}
-              <div>hello</div>
-            </div>
+            <div className="collapse-content text-xs">{hint}</div>
           </div>
         </div>
       ))}
