@@ -1,54 +1,101 @@
 import { UserContext } from '../../context/UserContext';
-import { useContext, useState, useRef } from 'react';
-import profilepic from '/noprofilepic.png';
+import { useContext, useState, useEffect } from 'react';
+import nopic from '/noprofilepic.png';
 import axios from 'axios';
 
 const EditProfileModal = () => {
-  // const [imgType, setImgType] = useState(false)
-  const [isURL, setIsURL] = useState(false);
-  const { userData, userId } = useContext(UserContext);
-  const [userUpdate, setUserUpdate] = useState({
-    // email: userData.email,
-    // username: userData.username,
-    profile_pic: userData.profile_pic || null,
-  });
-  // get user context for all their info
-  // any changes they make here will be saved over the default in the account
-  // handle submit with patch route
+  const [isImgFile, setIsImgFile] = useState(false);
+  const { userData, setuserData, userId } = useContext(UserContext);
+  const [urlPic, setUrlPic] = useState(userData.profile_pic || null);
+  const [imgPic, setImgPic] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  const handeInputChange = (e) => {
-    let { name, value } = e.target;
+  const handleImgUrlChange = (e) => {
+    const { files, value } = e.target;
 
-    if (name === 'profile_pic' && value === '') {
-      value = null;
+    if (files && files.length > 0) {
+      const objectUrl = URL.createObjectURL(files[0]);
+      setImagePreview(objectUrl);
+    } else {
+      setImagePreview(null);
     }
 
-    setUserUpdate((prevUserUpdate) => ({
-      ...prevUserUpdate,
-      [name]: value,
-    }));
+    setUrlPic(value);
   };
 
+  const handleImgFileChange = (e) => {
+    const { files } = e.target;
+
+    if (files && files.length > 0) {
+      const objectUrl = URL.createObjectURL(files[0]);
+      setImagePreview(objectUrl);
+    } else {
+      setImagePreview(null);
+    }
+
+    setImgPic(files[0]);
+  };
+
+  //clear img inputs if toggled
   const handleImgTypeToggle = () => {
-    setIsURL(!isURL);
+    setImgPic(null);
+    setUrlPic(null);
+    setImagePreview(null);
+    setIsImgFile(!isImgFile);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('form data', userUpdate);
+    const formData = new FormData();
 
-    // axios({
-    //   method: 'patch',
-    //   url: `/users/:${userId}`,
-    //   data: { userUpdate },
-    // }).then(
-    //   (res) => {
-    //     console.log(res);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   },
-    // );
+    // Add data based on whether it's an image file or URL
+    if (isImgFile) {
+      formData.append('profile_pic', imgPic);
+    } else {
+      formData.append('profile_pic', urlPic);
+    }
+
+    // Log the form data
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    console.log('formData', formData.getAll('profile_pic'));
+
+    if (isImgFile) {
+      // imgfile route
+      try {
+        const response = await axios({
+          method: 'patch',
+          url: `/users/${userId}`,
+          data: { profile_pic: urlPic },
+        });
+
+        if (response.ok) {
+          console.log('img update success:');
+          setuserData({ ...userData, uploaded_pic: imgPic });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    //url route
+    else {
+      try {
+        const response = await axios({
+          method: 'patch',
+          url: `/users/${userId}`,
+          data: { profile_pic: urlPic },
+        });
+
+        if (response.ok) {
+          console.log('img update success:');
+          setuserData({ ...userData, profile_pic: urlPic });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   return (
@@ -57,7 +104,7 @@ const EditProfileModal = () => {
         <div id="title-ctn" className="w-full flex flex-col gap-5">
           <div className="mx-auto">
             <img
-              src={userData.profile_pic || profilepic}
+              src={userData.profile_pic || nopic}
               alt="user profile picture"
               className="w-20 rounded-full"
             />
@@ -77,48 +124,56 @@ const EditProfileModal = () => {
               onChange={handleImgTypeToggle}
               type="checkbox"
               className="toggle"
-              checked={isURL}
+              checked={isImgFile}
             />
             <span className="label-text cursor-pointer">Upload Image</span>
           </label>
         </div>
 
         <div className="mt-5 w-full">
-          {isURL ? (
+          {isImgFile ? (
             <input
               type="file"
+              name="uploaded_pic"
               className="file-input file-input-bordered w-full max-w-xs"
+              onChange={(e) => handleImgFileChange(e)}
             />
           ) : (
             <>
               <form className="flex flex-row flex-wrap w-full gap-5">
-                {/* <label className="form-control w-full">
-              <span className="label-text">Username</span>
-              <input
-                name="username"
-                type="text"
-                value={userData.username}
-                onChange={handeInputChange}
-                className="input input-bordered w-full"
-              />
-            </label> */}
-
                 <label className="form-control w-full">
                   <span className="label-text">Profile Image</span>
                   <input
                     name="profile_pic"
                     type="text"
-                    placeholder={
-                      userData.profile_pic ? userData.profile_pic : 'none'
-                    }
-                    onChange={handeInputChange}
-                    value={userData.profile_pic}
+                    placeholder="profile pic url here"
+                    onChange={(e) => handleImgUrlChange(e)}
+                    value={urlPic}
                     className="input input-bordered w-full"
                   />
                 </label>
               </form>
             </>
           )}
+
+          <label className="label justify-center gap-10">
+            <div className="mx-auto">
+              <span className="label-text cursor-pointer">New Pic</span>
+              {isImgFile ? (
+                <img
+                  src={imagePreview}
+                  alt="user profile picture"
+                  className="w-20 rounded-full"
+                />
+              ) : (
+                <img
+                  src={urlPic}
+                  alt="user profile picture"
+                  className="w-20 rounded-full"
+                />
+              )}
+            </div>
+          </label>
 
           <div className="w-full ">
             <input
