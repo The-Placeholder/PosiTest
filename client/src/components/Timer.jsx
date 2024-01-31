@@ -5,7 +5,7 @@ import socket from '../../utils/socket.js';
 
 const Timer = () => {
   const { questionData } = useContext(QuestionContext);
-  const { userData } = useContext(UserContext)
+  const { userData } = useContext(UserContext);
 
   const [totalSeconds, setTotalSeconds] = useState(
     questionData.duration.seconds,
@@ -29,18 +29,20 @@ const Timer = () => {
     return () => clearInterval(interval); // Cleanup the interval on component unmount or when isActive changes
   }, [isActive, totalSeconds]);
 
-  useEffect(()=>{
-    socket.on('pauseplay',(status)=>{
-      const clock = new Date()[Symbol.toPrimitive]('number')
-      console.log(`setting status: ${status[0]} and time: ${status[1]-Math.floor((clock-status[2])/1000)}`)
-      setIsActive(status[0])
-      setTotalSeconds(status[1]-Math.floor((clock-status[2])/1000))
-    })
-  },[])
+  useEffect(() => {
+    socket.on('pauseplay', (status) => {
+      const clock = new Date()[Symbol.toPrimitive]('number');
+      console.log(
+        `setting status: ${status[0]} and time: ${status[1] - Math.floor((clock - status[2]) / 1000)}`,
+      );
+      setIsActive(status[0]);
+      setTotalSeconds(status[1] - Math.floor((clock - status[2]) / 1000));
+    });
+  }, []);
 
   const toggleTimer = () => {
-    if(userData.role==='instructor'){
-      socket.emit('pauseplay',[!isActive,totalSeconds])
+    if (userData.role === 'instructor') {
+      socket.emit('pauseplay', [!isActive, totalSeconds]);
       setIsActive((prevIsActive) => !prevIsActive);
     }
   };
@@ -69,17 +71,20 @@ const Timer = () => {
   };
 
   return (
-    <div className="flex flex-nowrap gap-2 text-md text-md justify-center text-sm cursor-pointer" onClick={()=>toggleTimer()}>
-      {
-        isActive?
-          <>
-            <div>Duration:</div>
-            <div>{formattedTime()}</div>
-          </>:
-          userData.role==='instructor'?
-            'Paused - click to start':
-            'Paused - wait for Instructor'
-      }
+    <div
+      className="flex flex-nowrap gap-2 text-md text-md justify-center text-sm cursor-pointer"
+      onClick={() => toggleTimer()}
+    >
+      {isActive ? (
+        <>
+          <div>Duration:</div>
+          <div>{formattedTime()}</div>
+        </>
+      ) : userData.role === 'instructor' ? (
+        'Paused - click to start'
+      ) : (
+        'Paused - wait for Instructor'
+      )}
       {/* <button onClick={toggleTimer} className="p-2">
         {isActive ? `Pause` : `Start`}
       </button>

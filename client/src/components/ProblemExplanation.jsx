@@ -3,7 +3,7 @@ import { UserContext } from '../../context/userContext';
 import { useContext, useState } from 'react';
 import Timer from './Timer';
 
-const ProblemExplanation = ({ executeCode, submitAnser, code }) => {
+const ProblemExplanation = ({ executeCode, submitAnswer, code }) => {
   const { questionData } = useContext(QuestionContext);
   const { userData } = useContext(UserContext);
 
