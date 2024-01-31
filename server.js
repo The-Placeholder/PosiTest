@@ -318,14 +318,14 @@ router.patch('/users/:id', multerConditionalUpload, async (req, res) => {
       const contentType = getContentTypeByFile(req.file.originalname);
       try {
         // If a file is uploaded, use this URL instead
-        pictureUrl = await uploadImage(
+        const pictureUrl = await uploadImage(
           req.file.originalname,
           req.file.buffer,
           contentType
         );
-        updateData.profile_pic;
+        updateData.profile_pic = pictureUrl;
       } catch (err) {
-        return res.status(500).send('Failed to upload image.');
+        return res.status(500).send('Failed to upload image.', err);
       }
     }
 
@@ -357,7 +357,6 @@ router.patch('/users/:id', multerConditionalUpload, async (req, res) => {
         .json({ error: 'Internal Server Error during update' });
     }
 
-    console.log(updateData);
     res
       .status(200)
       .json({ success: 'User updated successfully', updateData: updateData });
