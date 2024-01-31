@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { QuestionContext } from '../../context/QuestionContext';
+import socket from '../../utils/socket.js';
 
 const Timer = () => {
   const { questionData } = useContext(QuestionContext);

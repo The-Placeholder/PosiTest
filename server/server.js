@@ -350,7 +350,14 @@ io.on('connection', (socket) => {
 
     username=userArr[0]
     room=userArr[1]
-    socket.join(userArr[1])
+    socket.join(room)
+    
+    if(room!=='global'){
+      // io.to(room).emit('clockSync')
+      // socket.on('clockSync',(time)=>{
+      //   socket.emit()
+      // })
+    }
 
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
     io.to(room).emit('doc-change', currentContent[room]);
@@ -364,6 +371,7 @@ io.on('connection', (socket) => {
     io.to(room).emit('chatRecordTransfer',chatRooms[room])
     console.log(`message request approved, sending to ${room}`)
   })
+  
 });
 
 // Server Listening
