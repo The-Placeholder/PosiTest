@@ -78,7 +78,7 @@ const EditProfileModal = () => {
 
         if (response.ok) {
           console.log('img update success:');
-          setuserData({ ...userData, profile: imgPic });
+          setuserData({ ...userData, profile_pic: imgPic });
         }
       } catch (err) {
         console.error(err);
