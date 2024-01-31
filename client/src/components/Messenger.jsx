@@ -9,6 +9,7 @@ const Messenger = ({ isglobal }) => {
   const [chatlog, setChatlog] = useState(null);
   const scrollingDivRef = useRef(null);
   const [username, setUsername] = useState(userData.username);
+  const [participants, setParticipants] = useState([]);
 
   let suiteroom;
   isglobal ? (suiteroom = 'global') : (suiteroom = channel);
@@ -18,6 +19,9 @@ const Messenger = ({ isglobal }) => {
     socket.emit('ComponentLoad', [username, suiteroom]);
     socket.on('chatRecordTransfer', (message) => {
       setChatlog(message);
+    });
+    socket.on('participantUpdate', (participantList) => {
+      setParticipants(participantList);
     });
   }, []);
 
@@ -36,7 +40,9 @@ const Messenger = ({ isglobal }) => {
 
   const globalorprivate = () => {
     let returnStr;
-    suiteroom === 'global' ? (returnStr = 'Global') : (returnStr = 'Private');
+    suiteroom === 'global'
+      ? (returnStr = 'Lobby')
+      : (returnStr = `Room ${channel}`);
     return returnStr;
   };
 
@@ -45,12 +51,20 @@ const Messenger = ({ isglobal }) => {
       <h1 className="text-4xl text-center text-gray-500 rounded-full p-1 mx-auto drop-shadow-lg w-fit">
         {globalorprivate()} Chat
       </h1>
-      <div
-        id="msgr_log"
-        className="msgr_overflow p-2 pt-12 "
-        ref={scrollingDivRef}
-      >
-        {chatlog && <Messagelog chatlog={chatlog} username={username} />}
+      <div className="flex h-full w-full">
+        <div
+          id="msgr_log"
+          className="msgr_overflow p-2 pt-12 w-5/6 h-full"
+          ref={scrollingDivRef}
+        >
+          {chatlog && <Messagelog chatlog={chatlog} username={username} />}
+        </div>
+        <div className="w-1/6 bg-g-greyblue h-full">
+          <h2>Participants</h2>
+          {participants.map((x) => (
+            <div>{x}</div>
+          ))}
+        </div>
       </div>
       <div className="bg-stone-400 h-2 w-full my-2 border-1 border-black"></div>
       <input
