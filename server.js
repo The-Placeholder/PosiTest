@@ -397,6 +397,9 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     roomParticipants[room].delete(username);
     console.log('🔥: A user disconnected');
+    if (roomParticipants[room].size === 0) {
+      roomstatus[room] = [];
+    }
   });
 
   // MESSENGER EVENTS
@@ -406,6 +409,9 @@ io.on('connection', (socket) => {
       io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
 
       socket.leave(room);
+      if (roomParticipants[room].size === 0) {
+        roomstatus[room] = [];
+      }
     }
     if (!chatRooms[userArr[1]]) {
       chatRooms[userArr[1]] = [];
@@ -413,7 +419,7 @@ io.on('connection', (socket) => {
     if (!roomParticipants[userArr[1]]) {
       roomParticipants[userArr[1]] = new Set();
     }
-    if (roomstatus[userArr[1]]) {
+    if (roomstatus[userArr[1]]?.length > 0) {
       socket.emit('pauseplay', roomstatus[userArr[1]]);
     }
 
