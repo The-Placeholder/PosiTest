@@ -182,13 +182,13 @@ const EditProfileModal = () => {
                 <img
                   src={imagePreview || nopic}
                   alt="user profile picture"
-                  className="w-20 rounded-full"
+                  className="w-20 h-20 rounded-full"
                 />
               ) : (
                 <img
                   src={urlPic || nopic}
                   alt="user profile picture"
-                  className="w-20 rounded-full"
+                  className="w-20 h-20 rounded-full"
                 />
               )}
             </div>

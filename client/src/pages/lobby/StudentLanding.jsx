@@ -1,11 +1,13 @@
 import { useContext, useRef } from 'react';
 import { UserContext } from '../../../context/UserContext';
+import { QuestionContext } from '../../../context/QuestionContext';
 import Messenger from '../../components/Messenger';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const StudentLanding = () => {
+  const { questionData } = useContext(QuestionContext);
   const { userData, setChannel } = useContext(UserContext);
   const roomRef = useRef(null);
 
@@ -41,9 +43,15 @@ const StudentLanding = () => {
           id="lobby-ctn"
           className="w-7/12  flex flex-wrap h-full mt-10 p-10 pb-32 text-center gap-20 overflow-auto no-scrollbar"
         >
-          <h1 className="w-full text-5xl font-bold text-black self-center">
-            Assessment Suite Instructions:
-          </h1>
+          <div id="title-ctn" className=" mt-10 mx-auto flex flex-col gap-5">
+            <h1 className="w-full text-5xl font-bold text-center text-black self-center">
+              Assessment Suite Instructions:
+            </h1>
+            <h2 className="w-full text-2xl text-center self-center">
+              Coding Test: {questionData.title}
+            </h2>
+          </div>
+
           <ul className="text-left mx-auto content-center ">
             {instructions.map((instruction, index) => (
               <li
