@@ -61,8 +61,8 @@ const Messenger = ({ isglobal }) => {
         </div>
         <div className="w-1/6 bg-g-greyblue h-full">
           <h2>Participants</h2>
-          {participants.map((x) => (
-            <div>{x}</div>
+          {participants.map((x, key) => (
+            <div key={key}>{x}</div>
           ))}
         </div>
       </div>
