@@ -8,7 +8,7 @@ import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
 import axios from 'axios';
 import QuestionConfigBtn from './QuestionConfigBtn';
-import AccountSettingModal from './AccountSettingModal';
+import EditProfileModal from './EditProfileModal';
 
 const NavBar = () => {
   const location = useLocation();
@@ -72,7 +72,7 @@ const NavBar = () => {
                   />
                 </div>
                 <span className="role-title g-orange text-md absolute top-12 text-xs first-letter:capitalize">
-                  {userData?.role}
+                  {userData?.username}
                 </span>
               </div>
               <ul
@@ -83,10 +83,10 @@ const NavBar = () => {
                   <a
                     className=""
                     onClick={() =>
-                      document.getElementById('my_modal_4').showModal()
+                      document.getElementById('profileModal').showModal()
                     }
                   >
-                    open modal
+                    Update Profile Pic
                   </a>
                 </li>
 
@@ -105,7 +105,7 @@ const NavBar = () => {
           {/* end dropdown */}
         </div>
       </div>
-      <AccountSettingModal />
+      <EditProfileModal />
     </>
   );
 };
