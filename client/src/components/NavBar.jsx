@@ -6,7 +6,6 @@ import { useContext } from 'react';
 import { UserContext } from '../../context/userContext';
 import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
-import axios from 'axios';
 import QuestionConfigBtn from './QuestionConfigBtn';
 import EditProfileModal from './EditProfileModal';
 
