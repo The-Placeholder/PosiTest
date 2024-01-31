@@ -1,4 +1,12 @@
+import { QuestionContext } from '../../context/QuestionContext';
+import { useContext, useEffect } from 'react';
+
 const QuestionConfigBtn = () => {
+  const { questionData, setquestionId } = useContext(QuestionContext);
+  useEffect(() => {
+    console.log('Updated questionData:', questionData);
+  }, [questionData]);
+
   return (
     <div className="dropdown dropdown-end">
       <div
@@ -19,17 +27,45 @@ const QuestionConfigBtn = () => {
         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-          <a className="justify-between">Question Id: 1</a>
+          <a
+            onClick={() => {
+              setquestionId(1);
+            }}
+            className="justify-between"
+          >
+            Two Sum
+          </a>
         </li>
 
         <li>
-          <a className="justify-between">Question Id: 2</a>
+          <a
+            onClick={() => {
+              setquestionId(2);
+            }}
+            className="justify-between"
+          >
+            Remove Element
+          </a>
         </li>
         <li>
-          <a className="justify-between">Question Id: 3</a>
+          <a
+            onClick={() => {
+              setquestionId(3);
+            }}
+            className="justify-between"
+          >
+            Print Even Numbers
+          </a>
         </li>
         <li>
-          <a className="justify-between">Question Id: 4</a>
+          <a
+            onClick={() => {
+              setquestionId(4);
+            }}
+            className="justify-between"
+          >
+            Count Elemtns
+          </a>
         </li>
       </ul>
     </div>
