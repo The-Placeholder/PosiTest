@@ -37,9 +37,9 @@ const router = createBrowserRouter(
       <Route path="/lobby" element={<LobbyLayout />}>
         <Route path="student" element={<StudentLanding />} />
         <Route path="instructor" element={<InstructorLanding />} />
+        <Route path="notfound" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Route>
-
       <Route path="/suite" element={<SuiteLayout />}>
         <Route index element={<TestingSuite />} />
         <Route path="*" element={<NotFound />} />
@@ -49,12 +49,10 @@ const router = createBrowserRouter(
 );
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api' : '/api';
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api' : '/api';
 axios.defaults.withCredentials = true;
 
 export default function App() {
-  // const [newUser, setnewUser] = useState(true);
-
   return (
     <UserContextProvider>
       <QuestionContextProvider>

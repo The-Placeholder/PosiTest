@@ -27,6 +27,34 @@
   background-image: linear-gradient(to top, rgba(255,255,255,0.95),rgba(255,255,255,1))
 }
 
-.msgr_input{
-  height: 5%;
+/* .msgr_input{
+  height: 10%;
+} */
+
+.msgr_overflow {
+  overflow-y: scroll;
+  height:90%;
 }
+
+.msgr_overflow::-webkit-scrollbar{
+  width:5px;
+}
+
+.msgr_overflow::-webkit-scrollbar-track{
+  background: none;
+}
+
+.msgr_overflow::-webkit-scrollbar-thumb{
+  background-color: #0B0F4A;
+  border-radius: 3px;
+}
+
+.msgr_head{
+  position: absolute;
+  z-index: 1000;
+  background-image: linear-gradient(to top, rgba(255,255,255,0.95),rgba(255,255,255,1))
+}
+
+/* .msgr_input{
+  height: 10%;
+} */

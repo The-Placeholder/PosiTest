@@ -1,12 +1,28 @@
 import { AiFillCaretRight } from 'react-icons/ai';
 import { useNavigate, Link } from 'react-router-dom';
-
+import { UserContext } from '../../context/UserContext';
+import { useContext } from 'react';
+import axios from 'axios';
 const WelcomeMessage = () => {
-  // const navigate = useNavigate();
-  // const newUserHandler = () => {
-  //   setnewUser(false);
-  //   navigate('/LoginPage');
-  // };
+  const { userData, setuserId } = useContext(UserContext);
+
+  const navigate = useNavigate();
+  const newUserHandler = async () => {
+    try {
+      const authResponse = await axios.get('/auth');
+      if (authResponse.status === 200) {
+        console.log('cheese');
+        const userId = authResponse.data.id;
+        setuserId(userId);
+        navigate('/lobby');
+      } else {
+        navigate('/login');
+      }
+    } catch (err) {
+      console.error('Error checking authentication:', err);
+      navigate('/login');
+    }
+  };
 
   // if user auth valid useNavigate to lobby
 
@@ -43,11 +59,12 @@ const WelcomeMessage = () => {
           </li>
         </ul>
       </div>
-      <Link to="login">
-        <button className="btn btn-primary text-white w-48 h-20 text-center right-0 text-2xl rounded-xl">
-          Get Started
-        </button>
-      </Link>
+      <button
+        onClick={newUserHandler}
+        className="btn btn-primary text-white w-48 h-20 text-center right-0 text-2xl rounded-xl"
+      >
+        Get Started
+      </button>
     </>
   );
 };
