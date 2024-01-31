@@ -380,6 +380,7 @@ router.delete('/users/:id', async (req, res) => {
 
 // Socket.io Logic for real-time document editing
 let currentContent = {};
+let roomstatus = {}
 io.on('connection', (socket) => {
   let room = null;
   let username = null;
@@ -398,11 +399,15 @@ io.on('connection', (socket) => {
 
   // MESSENGER EVENTS
   socket.on('ComponentLoad', (userArr) => {
+    const clock = new Date()[Symbol.toPrimitive]('number');
     if (room) {
       socket.leave(room);
     }
     if (!chatRooms[userArr[1]]) {
       chatRooms[userArr[1]] = [];
+    }
+    if (roomstatus[room]){
+      socket.emit('pauseplay',roomstatus[room])
     }
 
     username = userArr[0];
@@ -428,6 +433,13 @@ io.on('connection', (socket) => {
     io.to(room).emit('chatRecordTransfer', chatRooms[room]);
     console.log(`message request approved, sending to ${room}`);
   });
+
+  socket.on('pauseplay',(status)=>{
+    const clock = new Date()[Symbol.toPrimitive]('number');
+    roomstatus[room] = status
+    roomstatus[room].push(clock)
+    io.to(room).emit('pauseplay',status)
+  })
 });
 
 // Server Listening

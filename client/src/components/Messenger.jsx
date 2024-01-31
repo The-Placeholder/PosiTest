@@ -36,7 +36,7 @@ const Messenger = ({ isglobal }) => {
 
   const globalorprivate = () => {
     let returnStr;
-    suiteroom === 'global' ? (returnStr = 'Global') : (returnStr = 'Private');
+    suiteroom === 'global' ? (returnStr = 'Lobby') : (returnStr = `Room ${channel}`);
     return returnStr;
   };
 
