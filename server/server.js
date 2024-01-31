@@ -323,6 +323,8 @@ router.delete('/users/:id', async (req, res) => {
 
 // Socket.io Logic for real-time document editing
 let currentContent = {};
+let roomstatus = {} // pause/play
+
 io.on('connection', (socket) => {
   let room = null
   let username = null
@@ -347,17 +349,13 @@ io.on('connection', (socket) => {
     if(!chatRooms[userArr[1]]){
       chatRooms[userArr[1]]=[]
     }
+    if(roomstatus[room]){
+      socket.emit('pauseplay',roomstatus[room])
+    }
 
     username=userArr[0]
     room=userArr[1]
     socket.join(room)
-    
-    if(room!=='global'){
-      // io.to(room).emit('clockSync')
-      // socket.on('clockSync',(time)=>{
-      //   socket.emit()
-      // })
-    }
 
     socket.emit('chatRecordTransfer',chatRooms[userArr[1]])
     io.to(room).emit('doc-change', currentContent[room]);
@@ -372,6 +370,13 @@ io.on('connection', (socket) => {
     console.log(`message request approved, sending to ${room}`)
   })
   
+  socket.on('pauseplay',(status)=>{
+    const clock = new Date()[Symbol.toPrimitive]('number')
+    roomstatus[room]=status
+    roomstatus[room].push(clock)
+    console.log(`room ${room} status: ${roomstatus[room][0]} time: ${roomstatus[room][1]} at: ${roomstatus[room][2]}`)
+    io.to(room).emit('pauseplay',roomstatus[room])
+  })
 });
 
 // Server Listening

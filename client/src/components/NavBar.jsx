@@ -2,7 +2,7 @@ import logo from '/galvanize-logo-orange.png';
 import { toast } from 'react-hot-toast';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../context/userContext';
 import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
 
