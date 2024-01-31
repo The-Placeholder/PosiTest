@@ -9,6 +9,8 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import cookieParser from 'cookie-parser';
 import authorization from './auth/jwt.js';
+import { getContentTypeByFile, uploadImage } from './aws.js';
+import multer from 'multer';
 
 // Load environment variables
 dotenv.config();
@@ -40,6 +42,16 @@ app.use(
 app.use(express.json());
 app.use(express.static('./public'));
 app.use(cookieParser());
+// Sets up Multer for Memory Storage
+
+function multerConditionalUpload(req, res, next) {
+  if (req.headers['content-type'].startsWith('multipart/form-data')) {
+    return upload.single('uploaded_pic')(req, res, next);
+  }
+  next();
+}
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 //  ------------------------------------------------------------ DB API ROUTES
 app.get('/api/auth', authorization, async (req, res) => {
@@ -281,7 +293,7 @@ router.post('/answers', async (req, res) => {
 });
 
 // Patch Route
-router.patch('/users/:id', async (req, res) => {
+router.patch('/users/:id', multerConditionalUpload, async (req, res) => {
   try {
     const userId = req.params.id;
     const { email, hashed_pw, role, username, profile_pic } = req.body;
@@ -302,6 +314,21 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     const updateData = {};
+    if (req.file) {
+      const contentType = getContentTypeByFile(req.file.originalname);
+      try {
+        // If a file is uploaded, use this URL instead
+        pictureUrl = await uploadImage(
+          req.file.originalname,
+          req.file.buffer,
+          contentType
+        );
+        updateData.profile_pic;
+      } catch (err) {
+        return res.status(500).send('Failed to upload image.');
+      }
+    }
+
     if (profile_pic) {
       updateData.profile_pic = profile_pic;
     }
@@ -330,8 +357,10 @@ router.patch('/users/:id', async (req, res) => {
         .json({ error: 'Internal Server Error during update' });
     }
 
-    console.log(updatedUser);
-    res.status(200).json({ success: 'User updated successfully' });
+    console.log(updateData);
+    res
+      .status(200)
+      .json({ success: 'User updated successfully', updateData: updateData });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
