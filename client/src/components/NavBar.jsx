@@ -8,6 +8,7 @@ import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
 import axios from 'axios';
 import QuestionConfigBtn from './QuestionConfigBtn';
+import AccountSettingModal from './AccountSettingModal';
 
 const NavBar = () => {
   const location = useLocation();
@@ -79,7 +80,14 @@ const NavBar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <a className="justify-between">Profile Settings</a>
+                  <a
+                    className=""
+                    onClick={() =>
+                      document.getElementById('my_modal_4').showModal()
+                    }
+                  >
+                    open modal
+                  </a>
                 </li>
 
                 <li className="z-20">
@@ -97,6 +105,7 @@ const NavBar = () => {
           {/* end dropdown */}
         </div>
       </div>
+      <AccountSettingModal />
     </>
   );
 };
