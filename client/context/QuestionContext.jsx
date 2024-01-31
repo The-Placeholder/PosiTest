@@ -20,6 +20,10 @@ export function QuestionContextProvider({ children }) {
       }
     };
 
+    if (!questionData && questionId) {
+      getQuestion();
+    }
+
     if (questionId !== prevQuestionId.current) {
       getQuestion();
       prevQuestionId.current = questionId;
