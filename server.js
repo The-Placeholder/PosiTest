@@ -284,7 +284,7 @@ router.post('/answers', async (req, res) => {
 router.patch('/users/:id', async (req, res) => {
   try {
     const userId = req.params.id;
-    const { email, hashed_pw, role, username } = req.body;
+    const { email, hashed_pw, role, username, profile_pic } = req.body;
 
     const { data: existingUser, error: fetchError } = await supabase
       .from('user')
@@ -301,10 +301,26 @@ router.patch('/users/:id', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Update the user with the new data
+    const updateData = {};
+    if (profile_pic) {
+      updateData.profile_pic = profile_pic;
+    }
+    if (email) {
+      updateData.email = email;
+    }
+    if (hashed_pw) {
+      updateData.hashed_pw = hashed_pw;
+    }
+    if (role) {
+      updateData.role = role;
+    }
+    if (username) {
+      updateData.username = username;
+    }
+
     const { data: updatedUser, error: updateError } = await supabase
       .from('user')
-      .update({ email, hashed_pw, role, username })
+      .update(updateData)
       .eq('id', userId);
 
     if (updateError) {
@@ -321,6 +337,7 @@ router.patch('/users/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 // Delete route
 router.delete('/users/:id', async (req, res) => {
   try {
