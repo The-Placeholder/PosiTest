@@ -52,7 +52,7 @@ const EditProfileModal = () => {
 
     // Add data based on whether it's an image file or URL
     if (isImgFile) {
-      formData.append('profile_pic', imgPic);
+      formData.append('uploaded_pic', imgPic);
     } else {
       formData.append('profile_pic', urlPic);
     }
