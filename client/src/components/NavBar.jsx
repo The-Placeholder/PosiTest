@@ -8,7 +8,7 @@ import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
 import QuestionConfigBtn from './QuestionConfigBtn';
 import EditProfileModal from './EditProfileModal';
-
+import axios from 'axios';
 const NavBar = () => {
   const location = useLocation();
   const { userData, setuserData, setuserId } = useContext(UserContext);
@@ -25,10 +25,8 @@ const NavBar = () => {
   const showQuestionConfig = location.pathname === '/lobby/instructor';
 
   const logOut = async () => {
-    // const response = await axios.get('/logout');
-    // console.log(response.data);
-    document.cookie =
-      'jwtToken=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+    const response = await axios.get('/logout');
+    console.log(response.data);
 
     setuserData(null);
     setuserId(null);
