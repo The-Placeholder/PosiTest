@@ -212,9 +212,11 @@ router.post('/login', async (req, res) => {
     );
     //COOKIE OPTIONS
     const cookieOptions = {
+      path: '/', // Sets the cookie for the entire site
       maxAge: 3600000,
       httpOnly: true,
       secure: process.env.NODE_ENV == 'production',
+      sameSite: 'strict', // Ensure this matches the setting logic
     };
     //ADD THE COOKIE TO THE HEADER
     res.setHeader(
@@ -232,12 +234,14 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', (req, res) => {
   // Use the same options, but set maxAge to 0 or use expires for past date
+  // Use the same options, but set maxAge to 0 or use expires for a past date
   const cookieOptions = {
-    httpOnly: true, // Match the setting used when the cookie was set
-    secure: process.env.NODE_ENV === 'production', // Match the setting used when the cookie was set
+    path: '/', // Sets the cookie for the entire site
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Ensure this matches the setting logic
     maxAge: 0, // Immediately expire the cookie
-    // Or use expires with a past date
-    // expires: new Date(0)
+    // Adding 'sameSite' here as well to match the setting logic
+    sameSite: 'strict', // Ensure this matches the setting logic
   };
 
   // Clear the cookie named 'jwtToken'
