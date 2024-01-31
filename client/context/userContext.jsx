@@ -35,7 +35,7 @@ export function UserContextProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ userData, setuserData, setuserId, channel, setChannel }}
+      value={{ userData, setuserData, userId, setuserId, channel, setChannel }}
     >
       {children}
     </UserContext.Provider>
