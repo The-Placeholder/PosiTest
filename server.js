@@ -357,8 +357,10 @@ router.patch('/users/:id', multerConditionalUpload, async (req, res) => {
         .json({ error: 'Internal Server Error during update' });
     }
 
-    console.log(updatedUser);
-    res.status(200).json({ success: 'User updated successfully' });
+    console.log(updateData);
+    res
+      .status(200)
+      .json({ success: 'User updated successfully', updateData: updateData });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
