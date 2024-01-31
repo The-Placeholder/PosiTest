@@ -380,7 +380,8 @@ router.delete('/users/:id', async (req, res) => {
 
 // Socket.io Logic for real-time document editing
 let currentContent = {};
-let roomstatus = {}
+let roomstatus = {};
+let roomParticipants = {};
 io.on('connection', (socket) => {
   let room = null;
   let username = null;
@@ -394,28 +395,36 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('disconnect', () => {
+    roomParticipants[room].delete(username);
     console.log('🔥: A user disconnected');
   });
 
   // MESSENGER EVENTS
   socket.on('ComponentLoad', (userArr) => {
-    const clock = new Date()[Symbol.toPrimitive]('number');
     if (room) {
+      roomParticipants[room]?.delete(username);
+      io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
+
       socket.leave(room);
     }
     if (!chatRooms[userArr[1]]) {
       chatRooms[userArr[1]] = [];
     }
-    if (roomstatus[room]){
-      socket.emit('pauseplay',roomstatus[room])
+    if (!roomParticipants[userArr[1]]) {
+      roomParticipants[userArr[1]] = new Set();
+    }
+    if (roomstatus[userArr[1]]) {
+      socket.emit('pauseplay', roomstatus[userArr[1]]);
     }
 
     username = userArr[0];
     room = userArr[1];
+    roomParticipants[room].add(username);
     socket.join(userArr[1]);
 
     socket.emit('chatRecordTransfer', chatRooms[userArr[1]]);
     io.to(room).emit('doc-change', currentContent[room]);
+    io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
 
     console.log(
       `componentLoad received username: ${userArr[0]}, room ${userArr[1]}`
@@ -434,12 +443,12 @@ io.on('connection', (socket) => {
     console.log(`message request approved, sending to ${room}`);
   });
 
-  socket.on('pauseplay',(status)=>{
+  socket.on('pauseplay', (status) => {
     const clock = new Date()[Symbol.toPrimitive]('number');
-    roomstatus[room] = status
-    roomstatus[room].push(clock)
-    io.to(room).emit('pauseplay',status)
-  })
+    roomstatus[room] = status;
+    roomstatus[room].push(clock);
+    io.to(room).emit('pauseplay', status);
+  });
 });
 
 // Server Listening
