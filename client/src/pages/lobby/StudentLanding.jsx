@@ -43,7 +43,7 @@ const StudentLanding = () => {
           id="lobby-ctn"
           className="w-7/12  flex flex-wrap h-full mt-10 p-10 pb-32 text-center gap-20 overflow-auto no-scrollbar"
         >
-          <div id="title-ctn" className=" mt-10 mx-auto flex flex-col gap-5">
+          <div id="title-ctn" className=" mx-auto flex flex-col gap-5">
             <h1 className="w-full text-5xl font-bold text-center text-black self-center">
               Assessment Suite Instructions:
             </h1>

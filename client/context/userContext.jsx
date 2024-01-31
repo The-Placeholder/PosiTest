@@ -18,7 +18,6 @@ export function UserContextProvider({ children }) {
 
         const userResponse = await axios.get(`/users/${userId}`);
         setuserData(userResponse.data);
-        console.log('from axios', userResponse.data);
       } else {
         console.error('Authentication failed:', authResponse.status);
       }
