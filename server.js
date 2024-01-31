@@ -424,21 +424,22 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('disconnect', () => {
-    roomParticipants[room].delete(username);
+    roomParticipants[room]?.delete(username);
     console.log('🔥: A user disconnected');
-    if (roomParticipants[room].size === 0) {
+    if (roomParticipants[room]?.size === 0) {
       roomstatus[room] = [];
     }
   });
 
   // MESSENGER EVENTS
   socket.on('ComponentLoad', (userArr) => {
+    console.log(roomstatus[userArr[1]]);
     if (room) {
       roomParticipants[room]?.delete(username);
       io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
 
       socket.leave(room);
-      if (roomParticipants[room].size === 0) {
+      if (roomParticipants[room]?.size === 0) {
         roomstatus[room] = [];
       }
     }
