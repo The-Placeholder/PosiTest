@@ -10,6 +10,8 @@ const EditProfileModal = () => {
   const [imgPic, setImgPic] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
+  console.log('modal userContext:', userData);
+
   const handleImgUrlChange = (e) => {
     const { files, value } = e.target;
 
@@ -67,13 +69,16 @@ const EditProfileModal = () => {
       try {
         const response = await axios({
           method: 'patch',
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
           url: `/users/${userId}`,
-          data: { profile_pic: urlPic },
+          data: formData,
         });
 
         if (response.ok) {
           console.log('img update success:');
-          setuserData({ ...userData, uploaded_pic: imgPic });
+          setuserData({ ...userData, profile: imgPic });
         }
       } catch (err) {
         console.error(err);
