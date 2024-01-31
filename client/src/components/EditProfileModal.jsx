@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const EditProfileModal = () => {
   const [isImgFile, setIsImgFile] = useState(false);
-  const { userData, setuserData, userId } = useContext(UserContext);
+  const { userData, getUser, userId } = useContext(UserContext);
   const [urlPic, setUrlPic] = useState(userData.profile_pic || null);
   const [imgPic, setImgPic] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -52,7 +52,7 @@ const EditProfileModal = () => {
 
     // Add data based on whether it's an image file or URL
     if (isImgFile) {
-      formData.append('profile_pic', imgPic);
+      formData.append('uploaded_pic', imgPic);
     } else {
       formData.append('profile_pic', urlPic);
     }
@@ -78,7 +78,7 @@ const EditProfileModal = () => {
 
         if (response.ok) {
           console.log('img update success:');
-          setuserData({ ...userData, profile_pic: imgPic });
+          getUser();
         }
       } catch (err) {
         console.error(err);
@@ -95,7 +95,7 @@ const EditProfileModal = () => {
 
         if (response.ok) {
           console.log('img update success:');
-          setuserData({ ...userData, profile_pic: urlPic });
+          getUser();
         }
       } catch (err) {
         console.error(err);

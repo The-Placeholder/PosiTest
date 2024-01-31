@@ -8,26 +8,26 @@ export function UserContextProvider({ children }) {
   const [userData, setuserData] = useState(null);
   const [channel, setChannel] = useState(null);
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const authResponse = await axios.get('/auth');
+  const getUser = async () => {
+    try {
+      const authResponse = await axios.get('/auth');
 
-        if (authResponse.status === 200) {
-          const userId = authResponse.data.id;
-          setuserId(userId); // Set userId if auth is successful
+      if (authResponse.status === 200) {
+        const userId = authResponse.data.id;
+        setuserId(userId); // Set userId if auth is successful
 
-          const userResponse = await axios.get(`/users/${userId}`);
-          setuserData(userResponse.data);
-          console.log('from axios', userResponse.data);
-        } else {
-          console.error('Authentication failed:', authResponse.status);
-        }
-      } catch (err) {
-        console.error('Error checking authentication:', err);
+        const userResponse = await axios.get(`/users/${userId}`);
+        setuserData(userResponse.data);
+        console.log('from axios', userResponse.data);
+      } else {
+        console.error('Authentication failed:', authResponse.status);
       }
-    };
+    } catch (err) {
+      console.error('Error checking authentication:', err);
+    }
+  };
 
+  useEffect(() => {
     if (!userData && userId) {
       getUser();
     }
@@ -35,7 +35,15 @@ export function UserContextProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ userData, setuserData, userId, setuserId, channel, setChannel }}
+      value={{
+        userData,
+        setuserData,
+        getUser,
+        userId,
+        setuserId,
+        channel,
+        setChannel,
+      }}
     >
       {children}
     </UserContext.Provider>
