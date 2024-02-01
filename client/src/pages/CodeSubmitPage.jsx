@@ -27,6 +27,7 @@ const CodeSubmitPage = () => {
       >
         Return to Lobby
       </NavLink>
+
       <a
         href="https://youtu.be/O3Z_JyfeFYs"
         target="_blank"
