@@ -2,10 +2,11 @@ import { UserContext } from '../../context/UserContext';
 import { useContext, useState, useEffect } from 'react';
 import nopic from '/noprofilepic.png';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const EditProfileModal = () => {
   const [isImgFile, setIsImgFile] = useState(false);
-  const { userData, setuserData, userId } = useContext(UserContext);
+  const { userData, setUserData, getUser, userId } = useContext(UserContext);
   const [urlPic, setUrlPic] = useState(userData.profile_pic || null);
   const [imgPic, setImgPic] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -48,21 +49,28 @@ const EditProfileModal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
 
     // Add data based on whether it's an image file or URL
     if (isImgFile) {
-      formData.append('uploaded_pic', imgPic);
+      if (imgPic) {
+        formData.append('uploaded_pic', imgPic);
+      } else {
+        console.error('Image file is empty');
+        toast.error('Image file is empty');
+        return;
+      }
     } else {
-      formData.append('profile_pic', urlPic);
+      // Add validation for URL
+      if (urlPic && urlPic.trim() !== '') {
+        formData.append('profile_pic', urlPic.trim());
+      } else {
+        console.error('URL is empty');
+        toast.error('URL is empty');
+        return;
+      }
     }
-
-    // Log the form data
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-
-    console.log('formData', formData.getAll('profile_pic'));
 
     if (isImgFile) {
       // imgfile route
@@ -76,12 +84,14 @@ const EditProfileModal = () => {
           data: formData,
         });
 
-        if (response.ok) {
+        if (response.status === 200) {
           console.log('img update success:');
-          setuserData({ ...userData, profile: imgPic });
+          await getUser();
+          toast.success('profile pic updated');
         }
       } catch (err) {
         console.error(err);
+        toast.error(err);
       }
     }
     //url route
@@ -93,14 +103,18 @@ const EditProfileModal = () => {
           data: { profile_pic: urlPic },
         });
 
-        if (response.ok) {
+        if (response.status === 200) {
           console.log('img update success:');
-          setuserData({ ...userData, profile_pic: urlPic });
+          await getUser();
+          toast.success('profile pic updated');
         }
       } catch (err) {
         console.error(err);
+        toast.error(err);
       }
     }
+
+    document.getElementById('profileModal').close();
   };
 
   return (
@@ -163,18 +177,18 @@ const EditProfileModal = () => {
 
           <label className="label justify-center gap-10">
             <div className="mx-auto">
-              <span className="label-text cursor-pointer">New Pic</span>
+              <span className="label-text cursor-pointer">New Pic Below</span>
               {isImgFile ? (
                 <img
-                  src={imagePreview}
+                  src={imagePreview || nopic}
                   alt="user profile picture"
-                  className="w-20 rounded-full"
+                  className="w-20 h-20 rounded-full"
                 />
               ) : (
                 <img
-                  src={urlPic}
+                  src={urlPic || nopic}
                   alt="user profile picture"
-                  className="w-20 rounded-full"
+                  className="w-20 h-20 rounded-full"
                 />
               )}
             </div>
