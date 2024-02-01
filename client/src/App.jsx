@@ -24,6 +24,7 @@ import NotFound from './pages/NotFound';
 // layouts
 import AccountLayout from './layouts/AccountLayout';
 import LobbyLayout from './layouts/LobbyLayout';
+import CodeSubmitPage from './pages/CodeSubmitPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/suite" element={<SuiteLayout />}>
         <Route index element={<TestingSuite />} />
+        <Route path="codesubmit" element={<CodeSubmitPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </>,
