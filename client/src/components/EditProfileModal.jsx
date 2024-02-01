@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from 'react';
 import nopic from '/noprofilepic.png';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { ImArrowRight } from 'react-icons/im';
 
 const EditProfileModal = () => {
   const [isImgFile, setIsImgFile] = useState(false);
@@ -119,42 +120,78 @@ const EditProfileModal = () => {
 
   return (
     <dialog id="profileModal" className="modal">
-      <div className="modal-box w-11/12 max-w-3xl">
-        <div id="title-ctn" className="w-full flex flex-col gap-5">
-          <div className="mx-auto">
-            <img
-              src={userData.profile_pic || nopic}
-              alt="user profile picture"
-              className="w-20 rounded-full"
-            />
+      <div className="modal-box w-11/12 max-w-5xl p-10 ">
+        <div
+          id="mdl-header"
+          className="flex flex-row gap-10 pb-10 justify-between"
+        >
+          <div id="title-ctn" className="flex flex-col gap-5 w-5/12">
+            <div className="mx-auto">
+              <img
+                src={userData.profile_pic || nopic}
+                alt="user profile picture"
+                className="w-20 rounded-full"
+              />
+            </div>
+
+            <div className="mx-auto">
+              <h3 className="font-bold text-3xl w-full my-auto">
+                User: <span className="g-orange">{userData.username}</span>
+              </h3>
+            </div>
           </div>
 
-          <div className="mx-auto">
-            <h3 className="font-bold text-3xl w-full my-auto">
-              <span className="g-orange">{userData.username}</span>
-            </h3>
+          <div className=" flex flex-col justify-center">
+            <div className="text-3xl text-nowrap">Your New Pic:</div>
+            <div className="text-6xl mx-auto">
+              <ImArrowRight />
+            </div>
+          </div>
+
+          <div className="w-5/12 font text-3xl">
+            <div className="mx-auto w-full flex flex-col justify-center ">
+              <div id="new-prof-ctn" className="w-full">
+                {isImgFile ? (
+                  <img
+                    src={imagePreview || nopic}
+                    alt="user profile picture"
+                    className="w-20 h-20 rounded-full mx-auto"
+                  />
+                ) : (
+                  <img
+                    src={urlPic || nopic}
+                    alt="user profile picture "
+                    className="w-20 h-20 rounded-full mx-auto"
+                  />
+                )}
+              </div>
+
+              <div className="w-full mt-5 text-center"></div>
+            </div>
           </div>
         </div>
 
         <div className="form-control">
-          <label className="label justify-center gap-10">
-            <span className="label-text cursor-pointer">Image URL</span>
+          <label className="label justify-center  gap-10">
+            <span className="label-text cursor-pointer text-xl">Image URL</span>
             <input
               onChange={handleImgTypeToggle}
               type="checkbox"
               className="toggle"
               checked={isImgFile}
             />
-            <span className="label-text cursor-pointer">Upload Image</span>
+            <span className="label-text cursor-pointer text-xl">
+              Upload Image
+            </span>
           </label>
         </div>
 
-        <div className="mt-5 w-full">
+        <div className="mt-5 w-full flex flex-col gap-10">
           {isImgFile ? (
             <input
               type="file"
               name="uploaded_pic"
-              className="file-input file-input-bordered w-full max-w-xs"
+              className="file-input file-input-bordered w-full"
               onChange={(e) => handleImgFileChange(e)}
             />
           ) : (
@@ -175,40 +212,25 @@ const EditProfileModal = () => {
             </>
           )}
 
-          <label className="label justify-center gap-10">
-            <div className="mx-auto">
-              <span className="label-text cursor-pointer">New Pic Below</span>
-              {isImgFile ? (
-                <img
-                  src={imagePreview || nopic}
-                  alt="user profile picture"
-                  className="w-20 h-20 rounded-full"
-                />
-              ) : (
-                <img
-                  src={urlPic || nopic}
-                  alt="user profile picture"
-                  className="w-20 h-20 rounded-full"
-                />
-              )}
+          <div
+            id="mdl-btn-ctn"
+            className="w-full flex flex-row justify-between"
+          >
+            <div className="w-5/12">
+              <button
+                className="btn btn-ghost bg-gray-500 text-white w-full"
+                onClick={() => document.getElementById('profileModal').close()}
+              >
+                Back
+              </button>
             </div>
-          </label>
-
-          <div className="w-full ">
-            <input
-              type="submit"
-              className="btn btn-primary"
-              onClick={(e) => handleSubmit(e)}
-            />
-          </div>
-
-          <div className="w-full mt-10">
-            <button
-              className="btn"
-              onClick={() => document.getElementById('profileModal').close()}
-            >
-              Back
-            </button>
+            <div className="w-5/12 ">
+              <input
+                type="submit"
+                className="btn btn-primary w-full"
+                onClick={(e) => handleSubmit(e)}
+              />
+            </div>
           </div>
         </div>
       </div>

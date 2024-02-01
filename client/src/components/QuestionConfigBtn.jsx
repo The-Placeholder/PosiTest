@@ -1,6 +1,7 @@
 import { QuestionContext } from '../../context/QuestionContext';
 import { useContext, useEffect } from 'react';
 import { GrTest } from 'react-icons/gr';
+import { toast } from 'react-hot-toast';
 import socket from '../../utils/socket.js';
 
 const QuestionConfigBtn = () => {
@@ -8,6 +9,11 @@ const QuestionConfigBtn = () => {
   useEffect(() => {
     console.log('Updated questionData:', questionData);
   }, [questionData]);
+
+  const changeQuestionHandler = (id) => {
+    setquestionId(id);
+    toast.success(`question successfully changed to QID: ${id}`);
+  };
 
   return (
     <div className="dropdown dropdown-end">
@@ -31,8 +37,8 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              changeQuestionHandler(1);
               socket.emit('setquestionid', 1);
-              setquestionId(1);
             }}
             className="justify-between"
           >
@@ -43,8 +49,8 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              changeQuestionHandler(2);
               socket.emit('setquestionid', 2);
-              setquestionId(2);
             }}
             className="justify-between"
           >
@@ -54,8 +60,8 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              changeQuestionHandler(3);
               socket.emit('setquestionid', 3);
-              setquestionId(3);
             }}
             className="justify-between"
           >
@@ -65,8 +71,8 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              changeQuestionHandler(4);
               socket.emit('setquestionid', 4);
-              setquestionId(4);
             }}
             className="justify-between"
           >

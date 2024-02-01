@@ -184,7 +184,7 @@ router.post('/login', async (req, res) => {
 
     if (fetchError) {
       console.error(fetchError);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(403).json({ error: 'Username does not exist' });
     }
 
     if (!user) {
