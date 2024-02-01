@@ -62,6 +62,8 @@ const TestingSuite = () => {
   }
 
   // function to handle submitting answer
+
+  //TODO change the submit answer handler with axios and renavgiate to submission page
   const submitAnswer = async (problemId, userId, code) => {
     try {
       const res = await fetch('http://localhost:3001/api/answers', {

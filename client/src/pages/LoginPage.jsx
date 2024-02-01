@@ -60,12 +60,12 @@ const LoginPage = () => {
             placeholder="Password"
             className="input input-bordered w-full max-w-xs mb-2 bg-g-greyblue"
           />
-          <div className="flex my-2 ml-48">
+          {/* <div className="flex my-2 ml-48">
             <label htmlFor="rememberMe" className="mr-2">
               Remember me
             </label>
             <input type="checkbox" id="rememberMe" className="mr-2" />
-          </div>
+          </div> */}
         </div>
         <div id="login-btns" className="flex justify-between m-5 pb-3 ">
           <Link to="/register">
