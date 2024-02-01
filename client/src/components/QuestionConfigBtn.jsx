@@ -1,6 +1,7 @@
 import { QuestionContext } from '../../context/QuestionContext';
 import { useContext, useEffect } from 'react';
 import { GrTest } from 'react-icons/gr';
+import socket from '../../utils/socket.js';
 
 const QuestionConfigBtn = () => {
   const { questionData, setquestionId } = useContext(QuestionContext);
@@ -30,6 +31,7 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              socket.emit('setquestionid', 1);
               setquestionId(1);
             }}
             className="justify-between"
@@ -41,6 +43,7 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              socket.emit('setquestionid', 2);
               setquestionId(2);
             }}
             className="justify-between"
@@ -51,6 +54,7 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              socket.emit('setquestionid', 3);
               setquestionId(3);
             }}
             className="justify-between"
@@ -61,11 +65,12 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
+              socket.emit('setquestionid', 4);
               setquestionId(4);
             }}
             className="justify-between"
           >
-            Count Elemtns
+            Count Elements
           </a>
         </li>
       </ul>
