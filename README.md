@@ -33,13 +33,13 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 - axios: XMLHTTPrequest from browser
 
 
-### Services
+### Services - EDIT
 - Heroku: deployment
 - AWS S3: bucket hosting
 - Supabase: postgres
 
 
-## Deployment Notes
+## Deployment Notes -EDIT
 - Heroku
 
 
