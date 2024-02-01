@@ -2,7 +2,7 @@ import { UserContext } from '../../context/UserContext';
 import { useContext, useState, useEffect } from 'react';
 import nopic from '/noprofilepic.png';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import { ImArrowRight } from 'react-icons/im';
 
 const EditProfileModal = () => {
@@ -51,67 +51,82 @@ const EditProfileModal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
+    const allowedFileTypes = [
+      'image/gif',
+      'image/png',
+      'image/jpeg',
+      'image/jpg',
+    ];
+    const maxFileSizeMB = 25;
 
-    // Add data based on whether it's an image file or URL
     if (isImgFile) {
       if (imgPic) {
+        // Check if the file type is allowed
+        if (!allowedFileTypes.includes(imgPic.type)) {
+          console.error(
+            'Invalid file type. Allowed types are: gif, png, jpeg, jpg',
+          );
+          toast.error(
+            'Invalid file type. Allowed types are: gif, png, jpeg, jpg',
+          );
+          return;
+        }
+
+        // Check if the file size is within the limit
+        if (imgPic.size > maxFileSizeMB * 1024 * 1024) {
+          console.error(`File size exceeds the limit of ${maxFileSizeMB} MB`);
+          toast.error(`File size exceeds the limit of ${maxFileSizeMB} MB`);
+          return;
+        }
+
+        const formData = new FormData();
         formData.append('uploaded_pic', imgPic);
+
+        try {
+          const response = await axios({
+            method: 'patch',
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+            url: `/users/${userId}`,
+            data: formData,
+          });
+
+          if (response.status === 200) {
+            console.log('img update success:');
+            await getUser();
+            toast.success('Profile pic updated');
+          }
+        } catch (err) {
+          console.error(err);
+          toast.error('Error updating profile pic');
+        }
       } else {
         console.error('Image file is empty');
         toast.error('Image file is empty');
-        return;
       }
     } else {
-      // Add validation for URL
+      // URL route
       if (urlPic && urlPic.trim() !== '') {
-        formData.append('profile_pic', urlPic.trim());
+        try {
+          const response = await axios({
+            method: 'patch',
+            url: `/users/${userId}`,
+            data: { profile_pic: urlPic.trim() },
+          });
+
+          if (response.status === 200) {
+            console.log('img update success:');
+            await getUser();
+            toast.success('Profile pic updated');
+          }
+        } catch (err) {
+          console.error(err);
+          toast.error('Error updating profile pic');
+        }
       } else {
         console.error('URL is empty');
         toast.error('URL is empty');
-        return;
-      }
-    }
-
-    if (isImgFile) {
-      // imgfile route
-      try {
-        const response = await axios({
-          method: 'patch',
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          url: `/users/${userId}`,
-          data: formData,
-        });
-
-        if (response.status === 200) {
-          console.log('img update success:');
-          await getUser();
-          toast.success('profile pic updated');
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error(err);
-      }
-    }
-    //url route
-    else {
-      try {
-        const response = await axios({
-          method: 'patch',
-          url: `/users/${userId}`,
-          data: { profile_pic: urlPic },
-        });
-
-        if (response.status === 200) {
-          console.log('img update success:');
-          await getUser();
-          toast.success('profile pic updated');
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error(err);
       }
     }
 
@@ -119,7 +134,8 @@ const EditProfileModal = () => {
   };
 
   return (
-    <dialog id="profileModal" className="modal">
+    <dialog id="profileModal" className="modal z-40">
+      <Toaster position="bottom-right" toastOptions={{ duration: 8000 }} />
       <div className="modal-box w-11/12 max-w-5xl p-10 ">
         <div
           id="mdl-header"

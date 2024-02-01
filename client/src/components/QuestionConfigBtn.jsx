@@ -22,7 +22,7 @@ const QuestionConfigBtn = () => {
         role="button"
         className="btn btn-ghost btn-circle avatar mb-4 mr-4 relative"
       >
-        <div className="w-10 h-10 rounded-full flex content-center bg-stone-500/50">
+        <div className="w-10 h-10 rounded-full flex content-center border-solid border-2 border-gray-500">
           <GrTest className="text-xl mx-auto my-2 g-orange hover:text-white" />
           {/* <img alt="user profile picture" src={userData.profile_pic || nopic} /> */}
         </div>
