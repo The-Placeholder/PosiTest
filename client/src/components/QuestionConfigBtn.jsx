@@ -1,12 +1,18 @@
 import { QuestionContext } from '../../context/QuestionContext';
 import { useContext, useEffect } from 'react';
 import { GrTest } from 'react-icons/gr';
+import { toast } from 'react-hot-toast';
 
 const QuestionConfigBtn = () => {
   const { questionData, setquestionId } = useContext(QuestionContext);
   useEffect(() => {
     console.log('Updated questionData:', questionData);
   }, [questionData]);
+
+  const changeQuestionHandler = (id) => {
+    setquestionId(id);
+    toast.success(`question successfully changed to QID: ${id}`);
+  };
 
   return (
     <div className="dropdown dropdown-end">
@@ -30,7 +36,7 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
-              setquestionId(1);
+              changeQuestionHandler(1);
             }}
             className="justify-between"
           >
@@ -41,7 +47,7 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
-              setquestionId(2);
+              changeQuestionHandler(2);
             }}
             className="justify-between"
           >
@@ -51,7 +57,7 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
-              setquestionId(3);
+              changeQuestionHandler(3);
             }}
             className="justify-between"
           >
@@ -61,7 +67,7 @@ const QuestionConfigBtn = () => {
         <li>
           <a
             onClick={() => {
-              setquestionId(4);
+              changeQuestionHandler(4);
             }}
             className="justify-between"
           >

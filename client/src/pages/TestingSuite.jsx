@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import socket from '../../utils/socket.js';
 import ProblemExplanation from '../components/ProblemExplanation.jsx';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 const TestingSuite = () => {
   const [code, setCode] = useState('');
