@@ -27,6 +27,14 @@ const CodeSubmitPage = () => {
       >
         Return to Lobby
       </NavLink>
+      <a
+        href="https://youtu.be/O3Z_JyfeFYs"
+        target="_blank"
+        rel="noopener noreferrer" // Adding rel attribute for security best practices
+        className="text-3xl btn btn-primary text-white p-10 flex content-center"
+      >
+        Instructor Support
+      </a>
     </div>
   );
 };
