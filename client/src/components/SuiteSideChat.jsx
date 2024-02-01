@@ -11,8 +11,8 @@ const SuiteSideChat = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 bg-base-200 text-base-content mt-24 max-h-[850px] h-full pb-48 overflow-y-scroll">
-          <Messenger isglobal={false} />
+        <ul className="menu p-4 w-3/12 bg-base-200 opacity-90 text-base-content mt-24 max-h-[850px] h-full overflow-y-scroll">
+          <Messenger isglobal={false} suite={true} />
         </ul>
       </div>
     </div>

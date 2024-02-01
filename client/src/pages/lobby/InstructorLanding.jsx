@@ -66,8 +66,8 @@ const InstructorLanding = () => {
         </div>
         <div className="divider lg:divider-horizontal"></div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-full min-h-0 pb-32 ">
-          <Messenger isglobal={true} />
+        <div id="chatroom-ctn" className="ctn w-4/12 h-full min-h-0 mt-14">
+          <Messenger isglobal={true} suite={false} />
         </div>
       </div>
       {/* End of content-ctn */}
