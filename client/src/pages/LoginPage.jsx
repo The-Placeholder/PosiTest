@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 const LoginPage = () => {
   const [userCreds, setuserCreds] = useState({
     username: null,
@@ -22,6 +23,7 @@ const LoginPage = () => {
         console.log(auth.data.id);
         setuserId(auth.data.id);
         navigate('/lobby');
+        toast.success('Login success');
       } else {
         console.error('Login failed:', response.data.error);
       }
@@ -31,6 +33,17 @@ const LoginPage = () => {
         'An error occurred during login:',
         error.response ? error.response.data : error.message,
       );
+
+      //different error codes
+      if (error.response && error.response.status === 401) {
+        toast.error('Unauthorized: Invalid credentials');
+      } else if (error.response && error.response.status === 403) {
+        toast.error('Unauthorized: Inavlid Username');
+      } else if (error.response && error.response.status === 404) {
+        toast.error('No account found');
+      } else {
+        toast.error('Error occurred during login:', error.message);
+      }
     }
   };
 
