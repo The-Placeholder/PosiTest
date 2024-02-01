@@ -8,9 +8,12 @@ import NavBar from '../components/NavBar';
 import { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
 import toast from 'react-hot-toast';
+import { QuestionContext } from '../../context/QuestionContext';
+import socket from '../../utils/socket.js';
 
 export default function LobbyLayout() {
   const { userData } = useContext(UserContext);
+  const { questionData, setquestionId } = useContext(QuestionContext);
   const navigate = useNavigate('');
 
   useEffect(() => {
@@ -31,6 +34,13 @@ export default function LobbyLayout() {
       loadRolePage();
     }
   }, [userData]);
+
+  useEffect(() => {
+    socket.on('setquestionid', (id) => {
+      console.log(`setting question id to: ${id}`);
+      setquestionId(id);
+    });
+  }, []);
 
   if (!userData) {
     return (

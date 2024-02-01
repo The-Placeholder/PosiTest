@@ -414,6 +414,7 @@ router.delete('/users/:id', async (req, res) => {
 let currentContent = {};
 let roomstatus = {};
 let roomParticipants = {};
+let questionid = null;
 io.on('connection', (socket) => {
   let room = null;
   let username = null;
@@ -436,7 +437,6 @@ io.on('connection', (socket) => {
 
   // MESSENGER EVENTS
   socket.on('ComponentLoad', (userArr) => {
-    console.log(roomstatus[userArr[1]]);
     if (room) {
       roomParticipants[room]?.delete(username);
       io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
@@ -454,6 +454,9 @@ io.on('connection', (socket) => {
     }
     if (roomstatus[userArr[1]]?.length > 0) {
       socket.emit('pauseplay', roomstatus[userArr[1]]);
+    }
+    if (questionid) {
+      socket.emit('setquestionid', questionid);
     }
 
     username = userArr[0];
@@ -487,6 +490,12 @@ io.on('connection', (socket) => {
     roomstatus[room] = status;
     roomstatus[room].push(clock);
     io.to(room).emit('pauseplay', status);
+  });
+
+  socket.on('setquestionid', (id) => {
+    console.log(`setting question id to ${id}`);
+    questionid = id;
+    io.to(room).emit('setquestionid', id);
   });
 });
 
