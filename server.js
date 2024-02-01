@@ -412,6 +412,7 @@ router.delete('/users/:id', async (req, res) => {
 
 // Socket.io Logic for real-time document editing
 let currentContent = {};
+let currentOutput = {};
 let roomstatus = {};
 let roomParticipants = {};
 let questionid = null;
@@ -420,11 +421,17 @@ io.on('connection', (socket) => {
   let username = null;
 
   console.log(`⚡: ${socket.id} user just connected`);
-  // socket.emit('doc-change', currentContent);
+
   socket.on('doc-change', (newCode) => {
     if (currentContent[room] !== newCode) {
       currentContent[room] = newCode;
       io.to(room).emit('doc-change', currentContent[room]);
+    }
+  });
+  socket.on('output-change', (output) => {
+    if (currentOutput[room] !== output) {
+      currentOutput[room] = output;
+      io.to(room).emit('output-change', currentOutput[room]);
     }
   });
   socket.on('disconnect', () => {
@@ -466,6 +473,7 @@ io.on('connection', (socket) => {
 
     socket.emit('chatRecordTransfer', chatRooms[userArr[1]]);
     io.to(room).emit('doc-change', currentContent[room]);
+    io.to(room).emit('output-change', currentOutput[room]);
     io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
 
     console.log(
