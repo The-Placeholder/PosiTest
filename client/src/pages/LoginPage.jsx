@@ -38,7 +38,7 @@ const LoginPage = () => {
       if (error.response && error.response.status === 401) {
         toast.error('Unauthorized: Invalid credentials');
       } else if (error.response && error.response.status === 403) {
-        toast.error('Unauthorized: Inavlid Username');
+        toast.error('Unauthorized: Invalid Username');
       } else if (error.response && error.response.status === 404) {
         toast.error('No account found');
       } else {
