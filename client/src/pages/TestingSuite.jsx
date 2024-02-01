@@ -69,7 +69,6 @@ const TestingSuite = () => {
   }
 
   // function to handle submitting answer
-
   const submitAnswer = async (userId, problemId, userInput) => {
     try {
       const res = await axios.post('/answers', {
