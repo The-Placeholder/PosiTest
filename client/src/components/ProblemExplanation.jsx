@@ -16,7 +16,7 @@ const ProblemExplanation = ({ executeCode, submitAnswer, code }) => {
       console.log(problemId);
       console.log(answer);
 
-      await submitAnswer(userId, problemId, answer);
+      submitAnswer(userId, problemId, answer);
       console.log('success');
     } catch (error) {
       console.error('error', error.message);

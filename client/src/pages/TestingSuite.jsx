@@ -61,17 +61,17 @@ const TestingSuite = () => {
     `);
     iframeDocument.close();
     window.addEventListener('message', handleMessage);
-    toast.info('Code Executed');
+    toast.success('Code Executed');
   }
 
   // function to handle submitting answer
 
-  const submitAnswer = async (problemId, userId, code) => {
+  const submitAnswer = async (userId, problemId, userInput) => {
     try {
       const res = await axios.post('/answers', {
         user_id: userId,
         problem_id: problemId,
-        answer: code,
+        answer: userInput,
       });
 
       if (res.status !== 200) {
@@ -80,7 +80,7 @@ const TestingSuite = () => {
       const data = res.data;
       console.log(data);
       toast.success('Answer submitted');
-      navigate('/codesubmit');
+      navigate('/suite/codesubmit');
     } catch (err) {
       console.error(err);
       toast.error('Failed to submit');
