@@ -3,11 +3,12 @@ import nopic from '/noprofilepic.png';
 import { toast } from 'react-hot-toast';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../context/userContext';
 import NavChatBtn from './NavChatBtn';
 import NavBackBtn from './NavBackBtn';
+import QuestionConfigBtn from './QuestionConfigBtn';
+import EditProfileModal from './EditProfileModal';
 import axios from 'axios';
-
 const NavBar = () => {
   const location = useLocation();
   const { userData, setuserData, setuserId } = useContext(UserContext);
@@ -20,14 +21,12 @@ const NavBar = () => {
   }
 
   const showChat = location.pathname === '/suite'; //&& userData?.role === 'instructor';
-
   const showBackBtn = location.pathname === '/suite';
+  const showQuestionConfig = location.pathname === '/lobby/instructor';
 
   const logOut = async () => {
-    // const response = await axios.get('/logout');
-    // console.log(response.data);
-    document.cookie =
-      'jwtToken=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+    const response = await axios.get('/logout');
+    console.log(response.data);
 
     setuserData(null);
     setuserId(null);
@@ -52,9 +51,11 @@ const NavBar = () => {
         </div>
 
         <div className="no-flex">
-          <div id="right-nav" className="flex flex-nowrap flex-row gap-8">
+          <div id="right-nav" className="flex flex-nowrap flex-row gap-5">
             {showBackBtn ? <NavBackBtn /> : ''}
             {showChat ? <NavChatBtn /> : ''}
+            {showQuestionConfig ? <QuestionConfigBtn /> : ''}
+
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -68,16 +69,23 @@ const NavBar = () => {
                   />
                 </div>
                 <span className="role-title g-orange text-md absolute top-12 text-xs first-letter:capitalize">
-                  {userData?.role}
+                  {userData?.username}
                 </span>
               </div>
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
-                {/* <li>
-                <a className="justify-between">Profile</a>
-              </li> */}
+                <li>
+                  <a
+                    className=""
+                    onClick={() =>
+                      document.getElementById('profileModal').showModal()
+                    }
+                  >
+                    Update Profile Pic
+                  </a>
+                </li>
 
                 <li className="z-20">
                   <a
@@ -94,6 +102,7 @@ const NavBar = () => {
           {/* end dropdown */}
         </div>
       </div>
+      <EditProfileModal />
     </>
   );
 };

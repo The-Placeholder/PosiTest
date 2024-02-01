@@ -1,4 +1,5 @@
 import Messenger from './Messenger';
+import '../App.css';
 
 const SuiteSideChat = () => {
   return (
@@ -11,8 +12,8 @@ const SuiteSideChat = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content mt-24">
-          <Messenger isglobal={false} />
+        <ul className="menu p-4 w-3/12 bg-base-200 text-base-content mt-24 max-h-[850px] overflow-y-scroll sidechat">
+          <Messenger isglobal={false} suite={true} />
         </ul>
       </div>
     </div>

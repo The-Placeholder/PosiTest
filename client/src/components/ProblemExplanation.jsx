@@ -16,7 +16,7 @@ const ProblemExplanation = ({ executeCode, submitAnswer, code }) => {
       console.log(problemId);
       console.log(answer);
 
-      await submitAnswer(userId, problemId, answer);
+      submitAnswer(userId, problemId, answer);
       console.log('success');
     } catch (error) {
       console.error('error', error.message);
@@ -81,10 +81,7 @@ const ProblemExplanation = ({ executeCode, submitAnswer, code }) => {
             <div className="collapse-title text-sm font-medium p-3">
               Hint {index + 1}:
             </div>
-            <div className="collapse-content text-xs">
-              {hint}
-              <div>hello</div>
-            </div>
+            <div className="collapse-content text-xs">{hint}</div>
           </div>
         </div>
       ))}

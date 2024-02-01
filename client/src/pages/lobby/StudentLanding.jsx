@@ -1,11 +1,13 @@
 import { useContext, useRef } from 'react';
 import { UserContext } from '../../../context/UserContext';
+import { QuestionContext } from '../../../context/QuestionContext';
 import Messenger from '../../components/Messenger';
 import { AiFillCaretRight } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const StudentLanding = () => {
+  const { questionData } = useContext(QuestionContext);
   const { userData, setChannel } = useContext(UserContext);
   const roomRef = useRef(null);
 
@@ -39,11 +41,17 @@ const StudentLanding = () => {
       >
         <div
           id="lobby-ctn"
-          className="w-7/12  flex flex-wrap h-full mt-10 p-10 pb-32 text-center gap-20 overflow-auto no-scrollbar"
+          className="w-7/12 flex flex-wrap h-full mt-10 p-10 pb-32 text-center overflow-auto no-scrollbar"
         >
-          <h1 className="w-full text-5xl font-bold text-black self-center">
-            Assesment Suite Instructions:
-          </h1>
+          <div id="title-ctn" className=" mx-auto flex flex-col gap-5">
+            <h1 className="w-full text-5xl font-bold text-center text-black self-center">
+              Assessment Suite Instructions:
+            </h1>
+            <h2 className="w-full text-2xl text-center self-center">
+              Coding Test: {questionData.title}
+            </h2>
+          </div>
+
           <ul className="text-left mx-auto content-center ">
             {instructions.map((instruction, index) => (
               <li
@@ -92,8 +100,8 @@ const StudentLanding = () => {
         </div>
         <div className="divider lg:divider-horizontal"></div>
         {/* End of lobby-ctn */}
-        <div id="chatroom-ctn" className="ctn w-4/12 h-full min-h-0 pb-32">
-          <Messenger isglobal={true} />
+        <div id="chatroom-ctn" className="ctn w-4/12 h-5/6 min-h-0 mt-20">
+          <Messenger isglobal={true} suite={false} />
         </div>
       </div>
       {/* End of content-ctn */}

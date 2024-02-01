@@ -5,28 +5,40 @@
 
 .msgr_overflow {
   overflow-y: scroll;
-  height:90%;
+  height: 90%;
 }
 
-.msgr_overflow::-webkit-scrollbar{
-  width:5px;
+.msgr_overflow::-webkit-scrollbar {
+  width: 5px;
 }
 
-.msgr_overflow::-webkit-scrollbar-track{
+.msgr_overflow::-webkit-scrollbar-track {
   background: none;
 }
 
-.msgr_overflow::-webkit-scrollbar-thumb{
-  background-color: #0B0F4A;
+.msgr_overflow::-webkit-scrollbar-thumb {
+  background-color: #e0eaf9;
   border-radius: 3px;
 }
 
-.msgr_head{
+.msgr_head {
   position: absolute;
   z-index: 1000;
-  background-image: linear-gradient(to top, rgba(255,255,255,0.95),rgba(255,255,255,1))
+  background-image: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 1)
+  );
 }
 
-/* .msgr_input{
-  height: 10%;
-} */
+.chatbox {
+  padding-bottom: 16%;
+}
+
+.chatbox_suite {
+  padding-bottom: 24%;
+}
+
+.sidechat {
+  height: 80vh;
+}

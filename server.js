@@ -9,6 +9,8 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import cookieParser from 'cookie-parser';
 import authorization from './auth/jwt.js';
+import { getContentTypeByFile, uploadImage } from './aws.js';
+import multer from 'multer';
 
 // Load environment variables
 dotenv.config();
@@ -40,6 +42,16 @@ app.use(
 app.use(express.json());
 app.use(express.static('./public'));
 app.use(cookieParser());
+// Sets up Multer for Memory Storage
+
+function multerConditionalUpload(req, res, next) {
+  if (req.headers['content-type'].startsWith('multipart/form-data')) {
+    return upload.single('uploaded_pic')(req, res, next);
+  }
+  next();
+}
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 //  ------------------------------------------------------------ DB API ROUTES
 app.get('/api/auth', authorization, async (req, res) => {
@@ -116,6 +128,50 @@ app.get('/api/questions/:id', async (req, res) => {
   }
 });
 
+// GET all answers route
+app.get('/api/answers', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('answer').select('*');
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error fetching answers');
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching answers');
+  }
+});
+
+// GET single answer route
+app.get('/api/answers/:id', async (req, res) => {
+  try {
+    const answerId = req.params.id;
+
+    const { data, error } = await supabase
+      .from('answer')
+      .select('*')
+      .eq('id', answerId)
+      .single();
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error fetching answer');
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Answer not found' });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching answer');
+  }
+});
+
 app.use('/api', router);
 // POST ROUTE
 router.post('/register', async (req, res) => {
@@ -172,7 +228,7 @@ router.post('/login', async (req, res) => {
 
     if (fetchError) {
       console.error(fetchError);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      return res.status(403).json({ error: 'Username does not exist' });
     }
 
     if (!user) {
@@ -200,9 +256,11 @@ router.post('/login', async (req, res) => {
     );
     //COOKIE OPTIONS
     const cookieOptions = {
+      path: '/', // Sets the cookie for the entire site
       maxAge: 3600000,
       httpOnly: true,
       secure: process.env.NODE_ENV == 'production',
+      sameSite: 'strict', // Ensure this matches the setting logic
     };
     //ADD THE COOKIE TO THE HEADER
     res.setHeader(
@@ -220,12 +278,14 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', (req, res) => {
   // Use the same options, but set maxAge to 0 or use expires for past date
+  // Use the same options, but set maxAge to 0 or use expires for a past date
   const cookieOptions = {
-    httpOnly: true, // Match the setting used when the cookie was set
-    secure: process.env.NODE_ENV === 'production', // Match the setting used when the cookie was set
+    path: '/', // Sets the cookie for the entire site
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Ensure this matches the setting logic
     maxAge: 0, // Immediately expire the cookie
-    // Or use expires with a past date
-    // expires: new Date(0)
+    // Adding 'sameSite' here as well to match the setting logic
+    sameSite: 'strict', // Ensure this matches the setting logic
   };
 
   // Clear the cookie named 'jwtToken'
@@ -281,10 +341,10 @@ router.post('/answers', async (req, res) => {
 });
 
 // Patch Route
-router.patch('/users/:id', async (req, res) => {
+router.patch('/users/:id', multerConditionalUpload, async (req, res) => {
   try {
     const userId = req.params.id;
-    const { email, hashed_pw, role, username } = req.body;
+    const { email, hashed_pw, role, username, profile_pic } = req.body;
 
     const { data: existingUser, error: fetchError } = await supabase
       .from('user')
@@ -301,10 +361,41 @@ router.patch('/users/:id', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Update the user with the new data
+    const updateData = {};
+    if (req.file) {
+      const contentType = getContentTypeByFile(req.file.originalname);
+      try {
+        // If a file is uploaded, use this URL instead
+        const pictureUrl = await uploadImage(
+          req.file.originalname,
+          req.file.buffer,
+          contentType
+        );
+        updateData.profile_pic = pictureUrl;
+      } catch (err) {
+        return res.status(500).send('Failed to upload image.', err);
+      }
+    }
+
+    if (profile_pic) {
+      updateData.profile_pic = profile_pic;
+    }
+    if (email) {
+      updateData.email = email;
+    }
+    if (hashed_pw) {
+      updateData.hashed_pw = hashed_pw;
+    }
+    if (role) {
+      updateData.role = role;
+    }
+    if (username) {
+      updateData.username = username;
+    }
+
     const { data: updatedUser, error: updateError } = await supabase
       .from('user')
-      .update({ email, hashed_pw, role, username })
+      .update(updateData)
       .eq('id', userId);
 
     if (updateError) {
@@ -314,13 +405,15 @@ router.patch('/users/:id', async (req, res) => {
         .json({ error: 'Internal Server Error during update' });
     }
 
-    console.log(updatedUser);
-    res.status(200).json({ success: 'User updated successfully' });
+    res
+      .status(200)
+      .json({ success: 'User updated successfully', updateData: updateData });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 // Delete route
 router.delete('/users/:id', async (req, res) => {
   try {
@@ -363,37 +456,69 @@ router.delete('/users/:id', async (req, res) => {
 
 // Socket.io Logic for real-time document editing
 let currentContent = {};
+let currentOutput = {};
+let roomstatus = {};
+let roomParticipants = {};
+let questionid = null;
 io.on('connection', (socket) => {
   let room = null;
   let username = null;
 
   console.log(`⚡: ${socket.id} user just connected`);
-  // socket.emit('doc-change', currentContent);
+
   socket.on('doc-change', (newCode) => {
     if (currentContent[room] !== newCode) {
       currentContent[room] = newCode;
       io.to(room).emit('doc-change', currentContent[room]);
     }
   });
+  socket.on('output-change', (output) => {
+    if (currentOutput[room] !== output) {
+      currentOutput[room] = output;
+      io.to(room).emit('output-change', currentOutput[room]);
+    }
+  });
   socket.on('disconnect', () => {
+    roomParticipants[room]?.delete(username);
     console.log('🔥: A user disconnected');
+    if (roomParticipants[room]?.size === 0) {
+      roomstatus[room] = [];
+    }
   });
 
   // MESSENGER EVENTS
   socket.on('ComponentLoad', (userArr) => {
     if (room) {
+      roomParticipants[room]?.delete(username);
+      io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
+
       socket.leave(room);
+      if (roomParticipants[room]?.size === 0) {
+        roomstatus[room] = [];
+      }
     }
     if (!chatRooms[userArr[1]]) {
       chatRooms[userArr[1]] = [];
     }
+    if (!roomParticipants[userArr[1]]) {
+      roomParticipants[userArr[1]] = new Set();
+    }
+    if (roomstatus[userArr[1]]?.length > 0) {
+      socket.emit('pauseplay', roomstatus[userArr[1]]);
+    }
+    if (questionid) {
+      socket.emit('setquestionid', questionid);
+    }
 
     username = userArr[0];
     room = userArr[1];
+    roomParticipants[room].add(username);
     socket.join(userArr[1]);
 
     socket.emit('chatRecordTransfer', chatRooms[userArr[1]]);
     io.to(room).emit('doc-change', currentContent[room]);
+    io.to(room).emit('output-change', currentOutput[room]);
+    io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
 
     console.log(
       `componentLoad received username: ${userArr[0]}, room ${userArr[1]}`
@@ -410,6 +535,19 @@ io.on('connection', (socket) => {
     });
     io.to(room).emit('chatRecordTransfer', chatRooms[room]);
     console.log(`message request approved, sending to ${room}`);
+  });
+
+  socket.on('pauseplay', (status) => {
+    const clock = new Date()[Symbol.toPrimitive]('number');
+    roomstatus[room] = status;
+    roomstatus[room].push(clock);
+    io.to(room).emit('pauseplay', status);
+  });
+
+  socket.on('setquestionid', (id) => {
+    console.log(`setting question id to ${id}`);
+    questionid = id;
+    io.to(room).emit('setquestionid', id);
   });
 });
 
