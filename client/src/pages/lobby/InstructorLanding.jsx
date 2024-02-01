@@ -2,9 +2,11 @@ import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Messenger from '../../components/Messenger';
 import { UserContext } from '../../../context/UserContext';
+import { QuestionContext } from '../../../context/QuestionContext';
 import toast from 'react-hot-toast';
 
 const InstructorLanding = () => {
+  const { questionData } = useContext(QuestionContext);
   const { setChannel } = useContext(UserContext);
   const [roomCount, setRoomCount] = useState([1, 2, 3, 4]); //this is placeholder for rooms
 
@@ -26,9 +28,14 @@ const InstructorLanding = () => {
           id="lobby-ctn"
           className="w-7/12 flex flex-wrap h-full justify-center overflow-y-auto"
         >
-          <h1 className="w-full text-center text-5xl font-bold text-black mt-3 self-center">
-            Coding Rooms
-          </h1>
+          <div id="title-ctn" className=" mt-10 flex flex-col gap-5">
+            <h1 className="w-full text-5xl font-bold text-center text-black self-center">
+              Student Lobbies
+            </h1>
+            <h2 className="w-full text-2xl text-center self-center">
+              Coding Test: {questionData.title}
+            </h2>
+          </div>
           <div
             id="usercard-ctn"
             className="ctn flex flex-wrap gap-5 justify-evenly p-9 mb-16"
