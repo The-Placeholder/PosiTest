@@ -2,6 +2,7 @@ import { QuestionContext } from '../../context/QuestionContext';
 import { useContext, useEffect } from 'react';
 import { GrTest } from 'react-icons/gr';
 import { toast } from 'react-hot-toast';
+import socket from '../../utils/socket.js';
 
 const QuestionConfigBtn = () => {
   const { questionData, setquestionId } = useContext(QuestionContext);
@@ -37,6 +38,7 @@ const QuestionConfigBtn = () => {
           <a
             onClick={() => {
               changeQuestionHandler(1);
+              socket.emit('setquestionid', 1);
             }}
             className="justify-between"
           >
@@ -48,6 +50,7 @@ const QuestionConfigBtn = () => {
           <a
             onClick={() => {
               changeQuestionHandler(2);
+              socket.emit('setquestionid', 2);
             }}
             className="justify-between"
           >
@@ -58,6 +61,7 @@ const QuestionConfigBtn = () => {
           <a
             onClick={() => {
               changeQuestionHandler(3);
+              socket.emit('setquestionid', 3);
             }}
             className="justify-between"
           >
@@ -68,10 +72,11 @@ const QuestionConfigBtn = () => {
           <a
             onClick={() => {
               changeQuestionHandler(4);
+              socket.emit('setquestionid', 4);
             }}
             className="justify-between"
           >
-            Count Elemtns
+            Count Elements
           </a>
         </li>
       </ul>

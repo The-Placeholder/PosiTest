@@ -17,13 +17,17 @@ const TestingSuite = () => {
       setCode(newCode);
     });
 
+    socket.on('output-change', (newOutput) => {
+      setOutput(newOutput);
+    });
+
     setInterval(console.log(code));
     return () => {
       socket.off('doc-change');
     };
   }, []);
 
-  async function handleEditorChange(value, event) {
+  async function handleEditorChange(value) {
     socket.emit('doc-change', value);
     setCode(value);
   }
@@ -89,9 +93,12 @@ const TestingSuite = () => {
 
   function handleMessage(event) {
     const { data } = event;
+
     if (data.output !== undefined) {
+      socket.emit('output-change', data.output);
       setOutput(data.output);
     } else if (data.error !== undefined) {
+      socket.emit('output-change', `Error: ${data.error}`);
       setOutput(`Error: ${data.error}`);
       toast.error('Code Execution Error');
     }

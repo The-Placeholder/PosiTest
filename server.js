@@ -412,18 +412,26 @@ router.delete('/users/:id', async (req, res) => {
 
 // Socket.io Logic for real-time document editing
 let currentContent = {};
+let currentOutput = {};
 let roomstatus = {};
 let roomParticipants = {};
+let questionid = null;
 io.on('connection', (socket) => {
   let room = null;
   let username = null;
 
   console.log(`⚡: ${socket.id} user just connected`);
-  // socket.emit('doc-change', currentContent);
+
   socket.on('doc-change', (newCode) => {
     if (currentContent[room] !== newCode) {
       currentContent[room] = newCode;
       io.to(room).emit('doc-change', currentContent[room]);
+    }
+  });
+  socket.on('output-change', (output) => {
+    if (currentOutput[room] !== output) {
+      currentOutput[room] = output;
+      io.to(room).emit('output-change', currentOutput[room]);
     }
   });
   socket.on('disconnect', () => {
@@ -436,7 +444,6 @@ io.on('connection', (socket) => {
 
   // MESSENGER EVENTS
   socket.on('ComponentLoad', (userArr) => {
-    console.log(roomstatus[userArr[1]]);
     if (room) {
       roomParticipants[room]?.delete(username);
       io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
@@ -455,6 +462,9 @@ io.on('connection', (socket) => {
     if (roomstatus[userArr[1]]?.length > 0) {
       socket.emit('pauseplay', roomstatus[userArr[1]]);
     }
+    if (questionid) {
+      socket.emit('setquestionid', questionid);
+    }
 
     username = userArr[0];
     room = userArr[1];
@@ -463,6 +473,7 @@ io.on('connection', (socket) => {
 
     socket.emit('chatRecordTransfer', chatRooms[userArr[1]]);
     io.to(room).emit('doc-change', currentContent[room]);
+    io.to(room).emit('output-change', currentOutput[room]);
     io.to(room).emit('participantUpdate', [...roomParticipants[room]]);
 
     console.log(
@@ -487,6 +498,12 @@ io.on('connection', (socket) => {
     roomstatus[room] = status;
     roomstatus[room].push(clock);
     io.to(room).emit('pauseplay', status);
+  });
+
+  socket.on('setquestionid', (id) => {
+    console.log(`setting question id to ${id}`);
+    questionid = id;
+    io.to(room).emit('setquestionid', id);
   });
 });
 
