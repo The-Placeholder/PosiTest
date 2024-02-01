@@ -15,7 +15,7 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 - Instructor-specific controls
 - Waiting lobby with routes to testing rooms and live chat
 - Secure login and user registration
-- 
+
 
 ### Libraries & Tech:
 - Vite: a Frontend build tool for React that allows for fast "bundless" development. TLDR: It's for mainly for better CRA (create-react-app) via `npm create vite@latest`
