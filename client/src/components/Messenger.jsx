@@ -10,7 +10,6 @@ const Messenger = ({ isglobal, suite }) => {
   const scrollingDivRef = useRef(null);
   const [username, setUsername] = useState(userData.username);
   const [participants, setParticipants] = useState([]);
-  const [participants, setParticipants] = useState([]);
 
   let suiteroom;
   isglobal ? (suiteroom = 'global') : (suiteroom = channel);
