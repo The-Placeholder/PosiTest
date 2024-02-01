@@ -20,6 +20,7 @@ export function getContentTypeByFile(fileName) {
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
     '.png': 'image/png',
+    gif: 'image/gif',
     // Add other file types as needed
   };
 

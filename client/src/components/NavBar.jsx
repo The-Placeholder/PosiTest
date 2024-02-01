@@ -21,8 +21,8 @@ const NavBar = () => {
   }
 
   const showChat = location.pathname === '/suite'; //&& userData?.role === 'instructor';
-
   const showBackBtn = location.pathname === '/suite';
+  const showQuestionConfig = location.pathname === '/lobby/instructor';
 
   const logOut = async () => {
     const response = await axios.get('/logout');
@@ -51,10 +51,10 @@ const NavBar = () => {
         </div>
 
         <div className="no-flex">
-          <div id="right-nav" className="flex flex-nowrap flex-row gap-8">
+          <div id="right-nav" className="flex flex-nowrap flex-row gap-5">
             {showBackBtn ? <NavBackBtn /> : ''}
             {showChat ? <NavChatBtn /> : ''}
-            <QuestionConfigBtn />
+            {showQuestionConfig ? <QuestionConfigBtn /> : ''}
 
             <div className="dropdown dropdown-end">
               <div
