@@ -32,9 +32,13 @@
 }
 
 .chatbox {
-  padding-bottom: 8%;
+  padding-bottom: 16%;
 }
 
 .chatbox_suite {
-  padding-bottom: 11%;
+  padding-bottom: 24%;
+}
+
+.sidechat {
+  height: 80vh;
 }
