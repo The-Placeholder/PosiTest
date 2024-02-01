@@ -128,6 +128,50 @@ app.get('/api/questions/:id', async (req, res) => {
   }
 });
 
+// GET all answers route
+app.get('/api/answers', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('answer').select('*');
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error fetching answers');
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching answers');
+  }
+});
+
+// GET single answer route
+app.get('/api/answers/:id', async (req, res) => {
+  try {
+    const answerId = req.params.id;
+
+    const { data, error } = await supabase
+      .from('answer')
+      .select('*')
+      .eq('id', answerId)
+      .single();
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error fetching answer');
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Answer not found' });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching answer');
+  }
+});
+
 app.use('/api', router);
 // POST ROUTE
 router.post('/register', async (req, res) => {
