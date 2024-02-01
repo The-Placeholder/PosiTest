@@ -33,7 +33,9 @@ const Messagelog = ({ chatlog, username }) => {
         </div>
         <div className="chat-header">{x.sender}</div>
         <div className={tagObj.msgBody}>{x.message}</div>
-        <div className="chat-footer opacity-50">{relativeTime(x.time)}</div>
+        <div className="chat-footer opacity-50 text-xs">
+          {relativeTime(x.time)}
+        </div>
       </div>
     );
   };
