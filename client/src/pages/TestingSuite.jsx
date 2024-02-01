@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
 import socket from '../../utils/socket.js';
 import ProblemExplanation from '../components/ProblemExplanation.jsx';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 const TestingSuite = () => {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const iframeRef = useRef(null);
+  const navigate = useNavigate(null);
 
   useEffect(() => {
     socket.on('doc-change', (newCode) => {
@@ -63,30 +66,23 @@ const TestingSuite = () => {
 
   // function to handle submitting answer
 
-  //TODO change the submit answer handler with axios and renavgiate to submission page
   const submitAnswer = async (problemId, userId, code) => {
     try {
-      const res = await fetch('http://localhost:3001/api/answers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          problem_id: problemId,
-          answer: code,
-        }),
+      const res = await axios.post('/answers', {
+        user_id: userId,
+        problem_id: problemId,
+        answer: code,
       });
 
-      if (!res.ok) {
-        throw new Error('Failed to submit');
+      if (res.status !== 200) {
+        throw new Error('failed to submit');
       }
-
-      const data = await res.json();
+      const data = res.data;
       console.log(data);
       toast.success('Answer submitted');
-    } catch (error) {
-      console.error(error);
+      navigate('/codesubmit');
+    } catch (err) {
+      console.error(err);
       toast.error('Failed to submit');
     }
   };
