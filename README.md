@@ -21,7 +21,7 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 ## Features
 - Full testing suite with live chat, shared code editor, and timer
-- shared code editor that compiles and executes in real time 
+- Shared code editor that compiles and executes in real time 
 - Instructor-specific controls
 - Waiting lobby with routes to testing rooms and live chat
 - Secure login and user registration
@@ -119,8 +119,18 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 <img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/MobileNet-basicCNN.jpg" alt="MobileNet CNN Diagram" width="400" height="300">
 
 # Authors
-- Aaron Roberts https://www.linkedin.com/in/aaron-roberts-542915239/
-- Luke Park https://www.linkedin.com/in/luke-park-2a4a7928a/
-- Michael Heater https://www.linkedin.com/in/michael-heeter/
-- Thiem Huynh https://www.linkedin.com/in/thiem-dev/
-- Zoilan Bondoc https://www.linkedin.com/in/zoilanbondoc/
+- Aaron Roberts
+    - LinkedIn https://www.linkedin.com/in/aaron-roberts-542915239/
+    - Github: https://github.com/guy-jerome 
+- Luke Park 
+    - LinkedIn https://www.linkedin.com/in/luke-park-2a4a7928a/
+    - Github: https://github.com/lukep258 
+- Michael Heater 
+    - LinkedIn https://www.linkedin.com/in/michael-heeter/ 
+    - Github: https://github.com/Michael-Heeter 
+- Thiem Huynh 
+    - LinkedIn: https://www.linkedin.com/in/thiem-dev/
+    - Github: https://github.com/thiem-dev
+- Zoilan Bondoc 
+    - LinkedIn https://www.linkedin.com/in/zoilanbondoc/ 
+    - Github: https://github.com/ZenBond 
