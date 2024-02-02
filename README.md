@@ -9,6 +9,16 @@
 Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 
+### Sample Logins for live environments
+```
+//Instructors
+1) user: Bossman pw: abc123
+
+//Students
+1) user: tim pw: abc123
+```
+
+
 ## Features
 - Full testing suite with live chat, shared code editor, and timer
 - shared code editor that compiles and executes in real time 
