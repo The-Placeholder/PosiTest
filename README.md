@@ -121,8 +121,20 @@ Youtube Iframe here
 
 ## Technical Challenges and research
 
-### Other challenges that we did't anticipate
--  
+
+#### live coding, chat, authentication/authorization
+
+- Why, What was the plan to overcome those challenges?
+  - The solution we found to implementing individual assessment rooms and chat feature was websockets. The websockets allowed us to create fast and responsive communication between the client and the server instead of fetch response cycles.
+  - For the live coding, we used monaco code editor with iframe for a clean, responsive code editor connected with websockets
+  - Authentication and authorization was implemented with bcrypt and json web tokens (jwt) which provided high-levels of security and safe login.
+
+  - Lesson Learned:
+    - Implementation of these technologies and libraries in tandem created more logistical challenges requiring more research and deeper understanding of the technologies involved. For example, websockets, implemented with react can cause issues if implemented at the component level - it's more efficient to implement websockets connections and event listeners at the highest level of the react dom as possible.
+
+
+### Other challenges that we didn't anticipate
+- 
 
 
 ## Stretch Features
