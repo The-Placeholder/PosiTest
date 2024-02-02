@@ -1,5 +1,5 @@
 # Project: PosiTest [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-mainv1.jpg)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-testingsuite.jpg?raw=true)
 
 
 ## Overview 
@@ -84,32 +84,42 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 ## App States Screenshots
 
+
 #### Welcome Page
-
-#### Login 
-
-#### Register
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
 
 #### Student/Instructor Lobby + Global Chat
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructorlobby.jpg?raw=true)
 
 #### Testing Suite 
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-testingsuite.jpg?raw=true)
+
+## More Screenshots
+<details>
+  <summary>More Screenshots</summary>
+
+#### Login 
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
+
+#### Register
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
 
 #### Testing Suite + Side Chat
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
 
-#### Misc Mini Pages - Edit Profile Pic modal, Error Pages, Submit Code, 
+#### Misc Mini Pages - Edit Profile Pic modal, Error Pages, Submit Code
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-codesubmit.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-profChange.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-studentlobby.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-404page.jpg?raw=true)
 
-
-
-
-![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-herov1.jpg)
-![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-mainBv1.jpg)
+</details>
 
 
 ## Development Notes
 
 <h3>Wireframe</h3>
 <img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-wireframev1.jpg" alt="Wireframe" width="400" height="300">
-
 
 <h3>Entity Relationship Diagram (ERD)</h3>
 <img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-ERDv2.jpg" alt="ERD" width="400" height="300">
