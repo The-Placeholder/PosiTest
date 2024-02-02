@@ -121,6 +121,9 @@ Youtube Iframe here
 
 ## Technical Challenges and research
 
+#### Code Editor
+The main feature of our project is the code editor. One of the things that we initially did not anticipate was the possible effect of running live JavaScript code directly inside the website. Therefore, to prevent code leakage and the possibility of the code testers breaking the website, we had to embed the code editor inside of an iframe with its context. This fixed the problem.
+
 
 #### live coding, chat, authentication/authorization
 
@@ -133,10 +136,6 @@ Youtube Iframe here
     - Implementation of these technologies and libraries in tandem created more logistical challenges requiring more research and deeper understanding of the technologies involved. For example, websockets, implemented with react can cause issues if implemented at the component level - it's more efficient to implement websockets connections and event listeners at the highest level of the react dom as possible.
 
 
-### Other challenges that we didn't anticipate
-- 
-
-
 ## Stretch Features
 - Instructor grading dashboard
 - Ai test grading - with ChatGPT functions
@@ -144,15 +143,12 @@ Youtube Iframe here
 
 ## Development Notes - WIP - add miro board screenshots
 
-<h3>Instructor Planning</h3>
-<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning.jpg?raw=true" width="400" height="300">
-<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning2.jpg?raw=true"  width="400" height="300">
+### Instructor Page Wireframe
+<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning.jpg?raw=true" width="350" height="225"> <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning2.jpg?raw=true" width="350" height="225">
 
-<h3>Entity Relationship Diagram (ERD)</h3>
-<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning2.jpg?raw=true"  width="400" height="300">
+### Entity Relationship Diagram (ERD) & <h3> Style Guide 
+<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-ERD.jpg?raw=true" width="350" height="225"> <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-styleguide.jpg?raw=true" width="350" height="225">
 
-<h3>MobileNet Convolutional Neural Network Diagram</h3>
-<img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/MobileNet-basicCNN.jpg" width="400" height="300">
 
 # Authors
 - Aaron Roberts
