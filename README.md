@@ -37,10 +37,10 @@ Youtube Iframe here
   - react-hot-toast: lightweight react toasting notification library. See: https://react-hot-toast.com/
   -  axios: XMLHTTPrequest from browser. https://axios-http.com/docs/intro
   -  monaco: lightweight, fast code editor that features Syntax Highlighting, Autocompletion, Code Folding, Intellisense, and Error Checking. https://github.com/microsoft/monaco-editor 
--  Backend
+- Backend
   - multer: middleware for handling multiple form data. https://www.npmjs.com/package/multer
   - CORS: middleware for removing COR restrictions. See: https://www.npmjs.com/package/cors
--  DB
+- DB
   - Supabase: real-time postgresql database with live updates, authentication, and instant syncing across clients. https://supabase.com/
 - Auth
   - JWT: Compact, URL-safe claims for authentication and authorization
@@ -118,6 +118,16 @@ Youtube Iframe here
 ![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-404page.jpg?raw=true)
 
 </details>
+
+## Technical Challenges and research
+
+### Other challenges that we did't anticipate
+-  
+
+
+## Stretch Features
+- Instructor grading dashboard
+- Ai test grading - with ChatGPT functions
 
 
 ## Development Notes - WIP - add miro board screenshots
