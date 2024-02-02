@@ -9,28 +9,38 @@
 Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 
+### Sample Logins for live environments
+```
+//Instructors
+1) user: Bossman pw: abc123
+
+//Students
+1) user: tim pw: abc123
+```
+
+
 ## Features
 - Full testing suite with live chat, shared code editor, and timer
-- shared code editor that compiles and executes in real time 
+- Shared code editor that compiles and executes in real time 
 - Instructor-specific controls
 - Waiting lobby with routes to testing rooms and live chat
 - Secure login and user registration
 
 
 ### Libraries & Tech:
-- Vite: a Frontend build tool for React that allows for fast "bundless" development. TLDR: It's for mainly for better CRA (create-react-app) via `npm create vite@latest`
-- DaisyUi + TailwindCSS:  Lightweight CSS component based framework. (Daisy elements are easier to modify than vanilla Tailwind)
-- Toastify: A lightweight JS notification library. See: https://apvarun.github.io/toastify-js/
+- Vite: a Frontend build tool for React that allows for fast "bundless" development. via `npm create vite@latest`
+- DaisyUi + TailwindCSS:  Lightweight CSS component based framework. (Daisy elements are easier to modify than vanilla Tailwind). https://daisyui.com/
+- react-hot-toast: lightweight react toasting notification library. See: https://react-hot-toast.com/ 
 - CORS: middleware for removing COR restrictions. See: https://www.npmjs.com/package/cors
-- Supabase: real-time postgresql database with live updates, authentication, and instant syncing across clients 
-- Amazon Web Services SDK: remote storage service
-- bcrypt: KDF password hashing incorporating salt for authentication and security
+- Supabase: real-time postgresql database with live updates, authentication, and instant syncing across clients. https://supabase.com/ 
+- AWS S3 Bucket: remote storage service. https://aws.amazon.com/s3/ 
+- bcrypt: KDF password hashing incorporating salt for authentication and security. https://www.npmjs.com/package/bcrypt 
 - cookie: stores and retrieves data on client's browser for across multiple consecutive sessions
 - JWT: Compact, URL-safe claims for authentication and authorization
-- multer: middleware for handling multiple form data
-- socket.io: websocket connection tool with easy-to-use connection and socket event handling
-- monaco: lightweight, fast code editor that features Syntax Highlighting, Autocompletion, Code Folding, Intellisense, and Error Checking
-- axios: XMLHTTPrequest from browser
+- multer: middleware for handling multiple form data. https://www.npmjs.com/package/multer 
+- Socket.io: websocket connection tool with easy-to-use connection and socket event handling. https://socket.io/ 
+- monaco: lightweight, fast code editor that features Syntax Highlighting, Autocompletion, Code Folding, Intellisense, and Error Checking. https://github.com/microsoft/monaco-editor 
+- axios: XMLHTTPrequest from browser. https://axios-http.com/docs/intro 
 
 
 ### Services - EDIT
@@ -73,6 +83,24 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 
 ## App States Screenshots
+
+#### Welcome Page
+
+#### Login 
+
+#### Register
+
+#### Student/Instructor Lobby + Global Chat
+
+#### Testing Suite 
+
+#### Testing Suite + Side Chat
+
+#### Misc Mini Pages - Edit Profile Pic modal, Error Pages, Submit Code, 
+
+
+
+
 ![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-herov1.jpg)
 ![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-mainBv1.jpg)
 
@@ -91,8 +119,18 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 <img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/MobileNet-basicCNN.jpg" alt="MobileNet CNN Diagram" width="400" height="300">
 
 # Authors
-- Aaron Roberts https://www.linkedin.com/in/aaron-roberts-542915239/
-- Luke Park https://www.linkedin.com/in/luke-park-2a4a7928a/
-- Michael Heater https://www.linkedin.com/in/michael-heeter/
-- Thiem Huynh https://www.linkedin.com/in/thiem-dev/
-- Zoilan Bondoc https://www.linkedin.com/in/zoilanbondoc/
+- Aaron Roberts
+    - LinkedIn https://www.linkedin.com/in/aaron-roberts-542915239/
+    - Github: https://github.com/guy-jerome 
+- Luke Park 
+    - LinkedIn https://www.linkedin.com/in/luke-park-2a4a7928a/
+    - Github: https://github.com/lukep258 
+- Michael Heater 
+    - LinkedIn https://www.linkedin.com/in/michael-heeter/ 
+    - Github: https://github.com/Michael-Heeter 
+- Thiem Huynh 
+    - LinkedIn: https://www.linkedin.com/in/thiem-dev/
+    - Github: https://github.com/thiem-dev
+- Zoilan Bondoc 
+    - LinkedIn https://www.linkedin.com/in/zoilanbondoc/ 
+    - Github: https://github.com/ZenBond 
