@@ -99,13 +99,10 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
   <summary>More Screenshots</summary>
 
 #### Login 
-![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
-
-#### Register
-![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-loginpage.jpg?raw=true)
 
 #### Testing Suite + Side Chat
-![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-sidechat.jpg?raw=true)
 
 #### Misc Mini Pages - Edit Profile Pic modal, Error Pages, Submit Code
 ![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-codesubmit.jpg?raw=true)
