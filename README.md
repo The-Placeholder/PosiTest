@@ -144,15 +144,15 @@ Youtube Iframe here
 
 ## Development Notes - WIP - add miro board screenshots
 
-<h3>Wireframe</h3>
-<img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-wireframev1.jpg" alt="Wireframe" width="400" height="300">
+<h3>Instructor Planning</h3>
+<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning.jpg?raw=true" width="400" height="300">
+<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning2.jpg?raw=true"  width="400" height="300">
 
 <h3>Entity Relationship Diagram (ERD)</h3>
-<img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-ERDv2.jpg" alt="ERD" width="400" height="300">
-
+<img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning2.jpg?raw=true"  width="400" height="300">
 
 <h3>MobileNet Convolutional Neural Network Diagram</h3>
-<img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/MobileNet-basicCNN.jpg" alt="MobileNet CNN Diagram" width="400" height="300">
+<img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/MobileNet-basicCNN.jpg" width="400" height="300">
 
 # Authors
 - Aaron Roberts
