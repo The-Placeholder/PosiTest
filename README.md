@@ -46,7 +46,7 @@ Youtube Iframe here
   - JWT: Compact, URL-safe claims for authentication and authorization
   - cookie: stores and retrieves data on client's browser for across multiple consecutive sessions
   - bcrypt: KDF password hashing incorporating salt for authentication and security. https://www.npmjs.com/package/bcrypt
--  Misc
+- Misc
   - Socket.io: websocket connection tool with easy-to-use connection and socket event handling. https://socket.io/
   - AWS S3 Bucket: remote storage service. https://aws.amazon.com/s3/
 
