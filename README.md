@@ -32,23 +32,28 @@ Youtube Iframe here
 
 ### Libraries & Tech:
 - Vite: a Frontend build tool for React that allows for fast "bundless" development. via `npm create vite@latest`
-- DaisyUi + TailwindCSS:  Lightweight CSS component based framework. (Daisy elements are easier to modify than vanilla Tailwind). https://daisyui.com/
-- react-hot-toast: lightweight react toasting notification library. See: https://react-hot-toast.com/ 
-- CORS: middleware for removing COR restrictions. See: https://www.npmjs.com/package/cors
-- Supabase: real-time postgresql database with live updates, authentication, and instant syncing across clients. https://supabase.com/ 
-- AWS S3 Bucket: remote storage service. https://aws.amazon.com/s3/ 
-- bcrypt: KDF password hashing incorporating salt for authentication and security. https://www.npmjs.com/package/bcrypt 
-- cookie: stores and retrieves data on client's browser for across multiple consecutive sessions
-- JWT: Compact, URL-safe claims for authentication and authorization
-- multer: middleware for handling multiple form data. https://www.npmjs.com/package/multer 
-- Socket.io: websocket connection tool with easy-to-use connection and socket event handling. https://socket.io/ 
-- monaco: lightweight, fast code editor that features Syntax Highlighting, Autocompletion, Code Folding, Intellisense, and Error Checking. https://github.com/microsoft/monaco-editor 
-- axios: XMLHTTPrequest from browser. https://axios-http.com/docs/intro 
+- FrontEnd
+  - DaisyUi + TailwindCSS:  Lightweight CSS component based framework. (Daisy elements are easier to modify than vanilla Tailwind). https://daisyui.com/
+  - react-hot-toast: lightweight react toasting notification library. See: https://react-hot-toast.com/
+  -  axios: XMLHTTPrequest from browser. https://axios-http.com/docs/intro
+  -  monaco: lightweight, fast code editor that features Syntax Highlighting, Autocompletion, Code Folding, Intellisense, and Error Checking. https://github.com/microsoft/monaco-editor 
+-  Backend
+  - multer: middleware for handling multiple form data. https://www.npmjs.com/package/multer
+  - CORS: middleware for removing COR restrictions. See: https://www.npmjs.com/package/cors
+-  DB
+  - Supabase: real-time postgresql database with live updates, authentication, and instant syncing across clients. https://supabase.com/
+- Auth
+  - JWT: Compact, URL-safe claims for authentication and authorization
+  - cookie: stores and retrieves data on client's browser for across multiple consecutive sessions
+  - bcrypt: KDF password hashing incorporating salt for authentication and security. https://www.npmjs.com/package/bcrypt
+-  Misc
+  - Socket.io: websocket connection tool with easy-to-use connection and socket event handling. https://socket.io/
+  - AWS S3 Bucket: remote storage service. https://aws.amazon.com/s3/
 
 
 ### Services - EDIT
 - Heroku: deployment
-- AWS S3: bucket hosting
+- AWS S3 bucket: image hosting
 - Supabase: postgres
 
 
@@ -74,7 +79,6 @@ Youtube Iframe here
 ### Server Side
 - `npm install`
 - `npm run dev-server`
-
 
 
 ### Client Side
