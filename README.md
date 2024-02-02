@@ -8,6 +8,9 @@
 
 Link to App: https://positest-e418ed52897e.herokuapp.com/
 
+### Video App Presentation - WIP
+Youtube Iframe here
+
 
 ### Sample Logins for live environments
 ```
@@ -113,7 +116,7 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 </details>
 
 
-## Development Notes
+## Development Notes - WIP - add miro board screenshots
 
 <h3>Wireframe</h3>
 <img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-wireframev1.jpg" alt="Wireframe" width="400" height="300">
