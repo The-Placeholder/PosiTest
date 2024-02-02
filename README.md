@@ -51,14 +51,10 @@ Youtube Iframe here
   - AWS S3 Bucket: remote storage service. https://aws.amazon.com/s3/
 
 
-### Services - EDIT
-- Heroku: deployment
-- AWS S3 bucket: image hosting
-- Supabase: postgres
-
-
-## Deployment Notes -EDIT
-- Heroku
+### Services 
+- Heroku: Deployment
+- AWS S3 bucket: Image Hosting
+- Supabase: PostgresDB
 
 
 ## Local Test
