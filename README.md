@@ -1,5 +1,5 @@
 # Project: PosiTest [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-mainv1.jpg)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-testingsuite.jpg?raw=true)
 
 
 ## Overview 
@@ -7,6 +7,9 @@
 - Built on PERN - Postgres, Express, React, Node 
 
 Link to App: https://positest-e418ed52897e.herokuapp.com/
+
+### Video App Presentation - WIP
+Youtube Iframe here
 
 
 ### Sample Logins for live environments
@@ -29,23 +32,28 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 ### Libraries & Tech:
 - Vite: a Frontend build tool for React that allows for fast "bundless" development. via `npm create vite@latest`
-- DaisyUi + TailwindCSS:  Lightweight CSS component based framework. (Daisy elements are easier to modify than vanilla Tailwind). https://daisyui.com/
-- react-hot-toast: lightweight react toasting notification library. See: https://react-hot-toast.com/ 
-- CORS: middleware for removing COR restrictions. See: https://www.npmjs.com/package/cors
-- Supabase: real-time postgresql database with live updates, authentication, and instant syncing across clients. https://supabase.com/ 
-- AWS S3 Bucket: remote storage service. https://aws.amazon.com/s3/ 
-- bcrypt: KDF password hashing incorporating salt for authentication and security. https://www.npmjs.com/package/bcrypt 
-- cookie: stores and retrieves data on client's browser for across multiple consecutive sessions
-- JWT: Compact, URL-safe claims for authentication and authorization
-- multer: middleware for handling multiple form data. https://www.npmjs.com/package/multer 
-- Socket.io: websocket connection tool with easy-to-use connection and socket event handling. https://socket.io/ 
-- monaco: lightweight, fast code editor that features Syntax Highlighting, Autocompletion, Code Folding, Intellisense, and Error Checking. https://github.com/microsoft/monaco-editor 
-- axios: XMLHTTPrequest from browser. https://axios-http.com/docs/intro 
+- FrontEnd
+  - DaisyUi + TailwindCSS:  Lightweight CSS component based framework. (Daisy elements are easier to modify than vanilla Tailwind). https://daisyui.com/
+  - react-hot-toast: lightweight react toasting notification library. See: https://react-hot-toast.com/
+  -  axios: XMLHTTPrequest from browser. https://axios-http.com/docs/intro
+  -  monaco: lightweight, fast code editor that features Syntax Highlighting, Autocompletion, Code Folding, Intellisense, and Error Checking. https://github.com/microsoft/monaco-editor 
+- Backend
+  - multer: middleware for handling multiple form data. https://www.npmjs.com/package/multer
+  - CORS: middleware for removing COR restrictions. See: https://www.npmjs.com/package/cors
+- DB
+  - Supabase: real-time postgresql database with live updates, authentication, and instant syncing across clients. https://supabase.com/
+- Auth
+  - JWT: Compact, URL-safe claims for authentication and authorization
+  - cookie: stores and retrieves data on client's browser for across multiple consecutive sessions
+  - bcrypt: KDF password hashing incorporating salt for authentication and security. https://www.npmjs.com/package/bcrypt
+-  Misc
+  - Socket.io: websocket connection tool with easy-to-use connection and socket event handling. https://socket.io/
+  - AWS S3 Bucket: remote storage service. https://aws.amazon.com/s3/
 
 
 ### Services - EDIT
 - Heroku: deployment
-- AWS S3: bucket hosting
+- AWS S3 bucket: image hosting
 - Supabase: postgres
 
 
@@ -73,7 +81,6 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 - `npm run dev-server`
 
 
-
 ### Client Side
 - `cd client`
 - `npm install`
@@ -84,32 +91,49 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 ## App States Screenshots
 
+
 #### Welcome Page
-
-#### Login 
-
-#### Register
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-welcomepage.jpg?raw=true)
 
 #### Student/Instructor Lobby + Global Chat
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructorlobby.jpg?raw=true)
 
 #### Testing Suite 
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-testingsuite.jpg?raw=true)
+
+## More Screenshots
+<details>
+  <summary>More Screenshots</summary>
+
+#### Login 
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-loginpage.jpg?raw=true)
 
 #### Testing Suite + Side Chat
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-sidechat.jpg?raw=true)
 
-#### Misc Mini Pages - Edit Profile Pic modal, Error Pages, Submit Code, 
+#### Misc Mini Pages - Edit Profile Pic modal, Error Pages, Submit Code
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-codesubmit.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-profChange.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-studentlobby.jpg?raw=true)
+![App Screenshot](https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-404page.jpg?raw=true)
+
+</details>
+
+## Technical Challenges and research
+
+### Other challenges that we did't anticipate
+-  
 
 
+## Stretch Features
+- Instructor grading dashboard
+- Ai test grading - with ChatGPT functions
 
 
-![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-herov1.jpg)
-![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-mainBv1.jpg)
-
-
-## Development Notes
+## Development Notes - WIP - add miro board screenshots
 
 <h3>Wireframe</h3>
 <img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-wireframev1.jpg" alt="Wireframe" width="400" height="300">
-
 
 <h3>Entity Relationship Diagram (ERD)</h3>
 <img src="https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-ERDv2.jpg" alt="ERD" width="400" height="300">
