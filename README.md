@@ -11,10 +11,11 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 ## Features
 - Full testing suite with live chat, shared code editor, and timer
-- shared code editor that compiles and executes in real time 
+- Shared code editor that compiles and executes in real time 
 - Instructor-specific controls
 - Waiting lobby with routes to testing rooms and live chat
 - Secure login and user registration
+- Profile Picture Change (via url or image file upload with AWS S3 Bucket)
 
 
 ### Libraries & Tech:
@@ -73,6 +74,24 @@ Link to App: https://positest-e418ed52897e.herokuapp.com/
 
 
 ## App States Screenshots
+
+#### Welcome Page
+
+#### Login 
+
+#### Register
+
+#### Student/Instructor Lobby + Global Chat
+
+#### Testing Suite 
+
+#### Testing Suite + Side Chat
+
+#### Misc Mini Pages - Edit Profile Pic modal, Error Pages, Submit Code, 
+
+
+
+
 ![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-herov1.jpg)
 ![App Screenshot](https://github.com/thiem-dev/inspectify-image/blob/dev/readMeAssets/inspectify-mainBv1.jpg)
 
