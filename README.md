@@ -8,9 +8,6 @@
 
 Link to App: https://positest-e418ed52897e.herokuapp.com/
 
-### Video App Presentation - WIP
-Youtube Iframe here
-
 
 ### Sample Logins for live environments
 ```
@@ -137,12 +134,12 @@ The main feature of our project is the code editor. One of the things that we in
 - Ai test grading - with ChatGPT functions
 
 
-## Development Notes - WIP - add miro board screenshots
+## Development Notes
 
 ### Instructor Page Wireframe
 <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning.jpg?raw=true" width="350" height="225"> <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-instructor-storyplanning2.jpg?raw=true" width="350" height="225">
 
-### Entity Relationship Diagram (ERD) & <h3> Style Guide 
+### Entity Relationship Diagram (ERD) & Style Guide 
 <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-ERD.jpg?raw=true" width="350" height="225"> <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-styleguide.jpg?raw=true" width="350" height="225">
 
 
