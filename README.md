@@ -143,6 +143,9 @@ The main feature of our project is the code editor. One of the things that we in
 <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-ERD.jpg?raw=true" width="350" height="225"> <img src="https://github.com/The-Placeholder/PosiTest/blob/dev/appPics/bo-styleguide.jpg?raw=true" width="350" height="225">
 
 
+# Introduction
+- This project was a 3 week sprint where our team completed a MVP product for an external client David Garcia from Galvanize inc an online coding bootcamp platform. Client requested our team to build a integrated live coding testing suite for entrance into their coding immersive program.
+
 # Authors
 - Aaron Roberts
     - LinkedIn https://www.linkedin.com/in/aaron-roberts-542915239/
