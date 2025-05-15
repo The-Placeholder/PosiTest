@@ -6,7 +6,7 @@
 - PosiTest is a code assessment administration tool designed to test Galvanize's prospective students.
 - Built on PERN - Postgres, Express, React, Node 
 
-Link to App: https://positest-e418ed52897e.herokuapp.com/
+Link to App: Ask the code monkeys to rehost
 
 
 ### Sample Logins for live environments
